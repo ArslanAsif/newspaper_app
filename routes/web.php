@@ -1,0 +1,91 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| This file is where you may define all of the routes that are handled
+| by your application. Just tell Laravel the URIs it should respond
+| to using a Closure or controller method. Build something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+
+Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['admin']], function() {
+
+    Route::get('/settings', 'SettingsController@index');
+    Route::post('/settings/changepassword', 'SettingsController@postChangePassword');
+
+    Route::group(['prefix' => 'dashboard'], function() {
+        Route::get('/', 'DashboardController@index');
+    });
+
+
+    Route::group(['prefix' => 'news'], function() {
+        Route::get('/', 'NewsController@index');
+        Route::get('/usersubmission', 'NewsController@getUserSubmission');
+        Route::post('/usersubmission', 'NewsController@postUserSubmission');
+        Route::get('/add', 'NewsController@getAddNews');
+        Route::post('/add', 'NewsController@postAddNews');
+        Route::get('/edit/{id}', 'NewsController@getEditNews');
+        Route::post('/edit/{id}', 'NewsController@postEditNews');
+        Route::get('/delete/{id}', 'NewsController@getDeleteNews');
+
+        Route::group(['prefix' => 'category'], function() {
+            Route::get('/', 'CategoryController@index');
+            Route::get('/add', 'CategoryController@getAddCategory');
+            Route::post('/add', 'CategoryController@postAddCategory');
+            Route::get('/edit/{id}', 'CategoryController@getEditCategory');
+            Route::post('/edit/{id}', 'CategoryController@postEditCategory');
+            Route::get('/delete/{id}', 'CategoryController@getDeleteCategory');
+        });
+    });
+
+    Route::group(['prefix' => 'advertisement'], function() {
+        Route::get('/', 'AdvertisementController@index');
+        Route::get('/add', 'AdvertisementController@getAddAdvertisement');
+        Route::post('/add', 'AdvertisementController@postAddAdvertisement');
+        Route::get('/edit/{id}', 'AdvertisementController@getEditAdvertisement');
+        Route::get('/edit/{id}', 'AdvertisementController@postEditAdvertisement');
+        Route::get('/delete/{id}', 'AdvertisementController@getDeleteAdvertisement');
+    });
+
+    Route::group(['prefix' => 'user'], function() {
+        Route::get('/', 'UserController@index');
+        Route::get('/edit/{id}', 'UserController@postEditUser');
+        Route::get('/delete/{id}', 'UserController@getDeleteUser');
+    });
+
+    Route::get('/subscriber', 'SubscriberController@index');
+
+    Route::group(['prefix' => 'about'], function () {
+        Route::get('/aboutus', 'AboutController@getAboutUs');
+        Route::post('/aboutus', 'AboutController@postAboutUs');
+        Route::get('/contact', 'AboutController@getContactUs');
+        Route::post('/contact', 'AboutController@postContactUs');
+        Route::get('/terms', 'AboutController@getTerms');
+        Route::post ('/terms', 'AboutController@postTerms');
+    });
+});
+
+
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function() {
+    Route::get('/{facebook}', 'SocialController@redirectToProvider');
+    Route::get('/{facebook}/callback', 'SocialController@handleProviderCallback');
+
+    Route::get('/{google}', 'AuthController@redirectToProvider');
+    Route::get('/{google}/callback', 'SocialController@handleProviderCallback');
+
+    Route::get('/{twitter}', 'SocialController@redirectToProvider');
+    Route::get('/{twitter}/callback', 'SocialController@handleProviderCallback');
+});
+    
