@@ -10,8 +10,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="{{url('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="{{url('vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
