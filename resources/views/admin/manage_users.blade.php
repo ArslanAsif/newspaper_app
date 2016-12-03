@@ -26,23 +26,24 @@
                                     <th>Age</th>
                                     <th>Submissions</th>
                                     <th>Member Since</th>
-                                    <th></th>
+                                    {{--<th></th>--}}
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
-
+                                @foreach($user as $user)
                                 <tr>
-                                    <td>Tatyana Fitzpatrick</td>
-                                    <td>Regional Director</td>
+                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->email}}</td>
                                     <td>London</td>
                                     <td>19</td>
-                                    <td>2010/03/17</td>
-                                    <td>
-                                        <a class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
-                                    </td>
+                                    <td>{{$user->created_at}}</td>
+                                    {{--<td>--}}
+                                        {{--<a class="btn btn-danger"><span class="fa fa-trash-o"></span></a>--}}
+                                    {{--</td>--}}
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

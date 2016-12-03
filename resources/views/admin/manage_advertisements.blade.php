@@ -28,27 +28,31 @@
                                     <th>Added On</th>
                                     <th>Status</th>
                                     <th>Activated On</th>
-                                    <th>Validity</th>
                                     <th></th>
                                 </tr>
+
                                 </thead>
 
 
                                 <tbody>
-
+                                @foreach($advertisment as $advertisment)
                                 <tr>
-                                    <td>Tatyana Fitzpatrick</td>
-                                    <td>Regional Director</td>
-                                    <td>London</td>
-                                    <td>19</td>
-                                    <td>2010/03/17</td>
-                                    <td>$385,750</td>
-                                    <td>yo</td>
+                                    <td>{{$advertisment->title}}</td>
+                                    <td>{{$advertisment->detail}}</td>
+                                    <td>{{$advertisment->position}}</td>
+                                    <td>{{$advertisment->created_at}}</td>
+                                    @if($advertisment->validity=="1")
+                                    <td>Active</td>
+                                    @else
+                                    <td>In Active</td>
+                                    @endif
+                                    <td>{{$advertisment->created_at}}</td>
                                     <td>
-                                        <a class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
-                                        <a class="btn btn-danger"><span class="fa fa-trash"></span></a>
+                                        <a href="{{'advertisement/edit/'.$advertisment->id}}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
+                                        <a href="{{'advertisement/delete/'.$advertisment->id}}" class="btn btn-danger"><span class="fa fa-trash"></span></a>
                                     </td>
                                 </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

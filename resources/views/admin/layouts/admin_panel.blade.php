@@ -97,6 +97,7 @@
 <!-- bootstrap-daterangepicker -->
 <script src="{{ url('vendors/moment/min/moment.min.js') }}"></script>
 <script src="{{ url('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ url('js/ajaxCall.js') }}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{ url('js/custom.min.js') }}"></script>

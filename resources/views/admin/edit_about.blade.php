@@ -9,20 +9,33 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>About <small></small></h2>
+
+                            @if($check=="contactus")
+                                <h2>Contact <small></small></h2>
+                            @elseif($check=="about")
+                                <h2>About <small></small></h2>
+                            @elseif($check=="terms")
+                                <h2>Terms <small></small></h2>
+                            @endif
+
                             <ul class="nav navbar-right panel_toolbox">
                                 <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <br />
-                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                                @include('admin.includes.text_editor')
+                            <br/>
 
+                            <form action="{{url($check)}}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
+                                    @include('admin.includes.text_editor')
+                                @foreach($aboutus as $aboutus)
+                              <div id="editor" class="editor-wrapper"><?php echo $aboutus->description?></div>
+                                @endforeach
+                                <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success pull-right">Next</button>
+                                    <button  class="btn btn-success pull-right" id="abouatUs">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -107,6 +120,12 @@
 
             window.prettyPrint;
             prettyPrint();
+        });
+        //-- copy html to hidden textarea
+        $('#editor').bind("DOMSubtreeModified",function(){
+            $('#hidden_descr').html(
+                    $("#editor").html()
+            );
         });
     </script>
     <!-- /bootstrap-wysiwyg -->
