@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use App\Models\News;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,6 @@ class NewsController extends Controller
         $news->summary = $request['summary'];
         $news->description = $request['descr'];
         $news->priority = $request['priority'];
-        //$news->tag = $request['tags'];
 
         if(isset($request['latest']))
         {
@@ -93,13 +93,17 @@ class NewsController extends Controller
         $img = substr($img, strpos($img, ",")+1);
         $data = base64_decode($img);
         $success = file_put_contents($path, $data);
-        print $success ? $img_name : 'Unable to save the file.';
 
+        $error = '';
+        $success ? $news->picture = $img_name : $error = 'Unable to save cover image';
 
-        $news->picture = $img_name;
+        $tags = explode(',', $request['tags']);
+        $news->tags()->$tags;
+
         $news->save();
 
-        return redirect()->back();
+
+        return redirect()->back()->with(['message' => 'Successfully Submitted', 'error' => $error]);
     }
     
     public function getEditNews()
