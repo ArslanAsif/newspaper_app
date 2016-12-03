@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use App\Models\News;
+use App\Category;
+use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
