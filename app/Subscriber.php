@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Advertisement extends Model
+class Subscriber extends Model
 {
     //
 }
