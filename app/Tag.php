@@ -8,6 +8,6 @@ class Tag extends Model
 {
     public function news()
     {
-        return $this->belongsToMany('App\Models\News');
+        return $this->belongsToMany('App\News', 'news_tag');
     }
 }

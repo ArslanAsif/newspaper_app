@@ -25,7 +25,7 @@ class CreateNewsTable extends Migration
             $table->tinyInteger('homepage')->default(0);
             $table->tinyInteger('spotlight')->default(0);
             $table->tinyInteger('latest')->default(0);
-            $table->date('publish_date');
+            $table->date('publish_date')->default(null);
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('category_id');

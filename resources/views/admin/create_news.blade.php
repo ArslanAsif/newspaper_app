@@ -9,7 +9,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Create News <small></small></h2>
+                            <h2>{{ isset($news) ? 'Edit News': 'Create News'}} <small></small></h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             </ul>
@@ -17,15 +17,15 @@
                         </div>
                         <div class="x_content">
                             <br />
-                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method=post action="{{ url('admin/news/add') }}">
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method=post action="{{ isset($news) ?  url('admin/news/edit/'.$news->id): url('admin/news/add') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="type">
-                                            <option selected>News</option>
-                                            <option>Article</option>
-                                            <option>Column</option>
+                                            <option {{ isset($news) ? ($news->type == "news") ? 'selected': '': '' }}>News</option>
+                                            <option {{ isset($news) ? ($news->type == "article") ? 'selected': '': '' }}>Article</option>
+                                            <option {{ isset($news) ? ($news->type == "column") ? 'selected': '': '' }}>Column</option>
                                         </select>
                                     </div>
                                 </div>
@@ -34,7 +34,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" name="title" id="title" required="required" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" name="title" id="title" value="{{ isset($news) ? $news->title: '' }}" required="required" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
@@ -42,8 +42,9 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="category">
+                                            <option></option>
                                             @foreach($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <option  {{ isset($news) ? ($news->category_id == $category->id) ? 'selected': '': '' }} value="{{ isset($category) ? $category->id: '' }}">{{ isset($category) ? $category->name : '' }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -53,7 +54,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="summary">Summary <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12"></textarea>
+                                        <textarea id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12">{{ isset($news) ? $news->summary: '' }}</textarea>
                                     </div>
                                 </div>
 
@@ -61,11 +62,11 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Priority <small>(Lower is better)</small></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="priority">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5" selected>5</option>
+                                            <option {{ isset($news) ? ($news->priority == 1) ? 'selected': '': '' }} value="1">1</option>
+                                            <option {{ isset($news) ? ($news->priority == 2) ? 'selected': '': '' }} value="2">2</option>
+                                            <option {{ isset($news) ? ($news->priority == 3) ? 'selected': '': '' }} value="3">3</option>
+                                            <option {{ isset($news) ? ($news->priority == 4) ? 'selected': '': '' }} value="4">4</option>
+                                            <option {{ isset($news) ? ($news->priority == 5) ? 'selected': '': 'selected' }} value="5">5</option>
                                         </select>
                                     </div>
                                 </div>
@@ -73,10 +74,11 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Tags</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="tags_1" name="tags" type="text" class="tags form-control" value="" />
+                                        <input id="tags_1" name="tags" type="text" class="tags form-control" value="{{ isset($tags) ? $tags: '' }}" />
                                         <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                                     </div>
                                 </div>
+
 
 
                                 <div class="form-group">
@@ -105,25 +107,25 @@
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <div class="">
                                             <label>
-                                                <input name="latest" type="checkbox" class="js-switch" /> Show on Latest News bar
+                                                <input name="latest" type="checkbox" class="js-switch" {{ isset($news) ? ($news->latest == 1) ? 'checked': '': '' }} /> Show on Latest News bar
                                             </label>
                                         </div>
 
                                         <div class="">
                                             <label>
-                                                <input name="homepage" type="checkbox" class="js-switch" /> Show on Homepage
+                                                <input name="homepage" type="checkbox" class="js-switch" {{ isset($news) ? ($news->homepage == 1) ? 'checked': '': '' }} /> Show on Homepage
                                             </label>
                                         </div>
 
                                         <div class="">
                                             <label>
-                                                <input name="spotlight" type="checkbox" class="js-switch" /> Show as spotlight
+                                                <input name="spotlight" type="checkbox" class="js-switch" {{ isset($news) ? ($news->spotlight == 1) ? 'checked': '': '' }} /> Show as spotlight
                                             </label>
                                         </div>
 
                                         <div class="">
                                             <label>
-                                                <input name="publish" type="checkbox" class="js-switch" checked/> Publish
+                                                <input name="publish" type="checkbox" class="js-switch" {{ isset($news) ? ($news->publish_date != null) ? 'checked': '' : 'checked' }} /> Publish
                                             </label>
                                         </div>
                                     </div>
@@ -131,6 +133,8 @@
 
                                 <h4>Description</h4>
                                 @include('admin.includes.text_editor')
+                                <div id="editor" class="editor-wrapper">{{ isset($news) ? $news->description : '' }}</div>
+                                <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
 
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
@@ -320,7 +324,7 @@
         $(function() {
             $('.image-editor').cropit({
                 imageState: {
-                    src: 'http://lorempixel.com/500/400/',
+                    src: '{{ isset($news) ? '/images/news/'.$news->picture: '' }}',
                 },
             });
 

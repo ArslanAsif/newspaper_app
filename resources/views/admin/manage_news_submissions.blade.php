@@ -27,7 +27,6 @@
                                     <th>Category</th>
                                     <th>Author</th>
                                     <th>Submitted On</th>
-                                    <th>Status</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -40,9 +39,8 @@
                                     <td>{{ $this_news->title }}</td>
                                     <td>{{ $this_news->type }}</td>
                                     <td>{{ $this_news->category->name }}</td>
-                                    <td>{{ $this_news->user_id }}</td>
+                                    <td>{{ $this_news->user->name }}</td>
                                     <td>{{ $this_news->created_at }}</td>
-                                    <td>{{ $this_news->status }}</td>
                                     <td>
                                         <a href="{{ url('/admin/news/edit/'.$this_news->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
                                         <a href="{{ url('/admin/news/delete/'.$this_news->id) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>

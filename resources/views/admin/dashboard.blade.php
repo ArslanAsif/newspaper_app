@@ -9,32 +9,28 @@
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-users"></i></div>
                   <div class="count">0</div>
-                  <h3>New Sign ups</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <h3>New Sign ups</h3><br />
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-check-square-o"></i></div>
                   <div class="count">0</div>
-                  <h3>New Submissions</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <h3>New Submissions</h3><br />
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-sort-amount-asc"></i></div>
                   <div class="count">0</div>
-                  <h3>Visits Today</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <h3>Visits Today</h3><br />
                 </div>
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-comments-o"></i></div>
                   <div class="count">0</div>
-                  <h3>New Comments</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <h3>New Comments</h3><br />
                 </div>
               </div>
             </div>
