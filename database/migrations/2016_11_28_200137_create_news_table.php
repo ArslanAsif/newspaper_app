@@ -20,11 +20,11 @@ class CreateNewsTable extends Migration
             $table->string('picture');
             $table->string('summary');
             $table->unsignedInteger('priority');
-            $table->tinyInteger('active');
+            $table->tinyInteger('active')->default(1);
             $table->enum('type', ['news', 'column', 'article']);
-            $table->tinyInteger('homepage');
-            $table->tinyInteger('spotlight');
-            $table->tinyInteger('latest');
+            $table->tinyInteger('homepage')->default(0);
+            $table->tinyInteger('spotlight')->default(0);
+            $table->tinyInteger('latest')->default(0);
             $table->date('publish_date');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
