@@ -28,13 +28,12 @@
                                 </tr>
                                 </thead>
 
-
                                 <tbody>
 
                                 @foreach($categories as $category)
                                 <tr>
                                     <td>{{ $category->name }}</td>
-                                    <td>{{ $category->category_id ?  $category->category()->name : '' }}</td>
+                                    <td>{{ $category->category_id }}</td>
                                     <td>{{ $category->created_at }}</td>
                                     <td>
                                         <a href="{{ url('/admin/news/category/edit/'.$category->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>

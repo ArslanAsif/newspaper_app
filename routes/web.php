@@ -55,7 +55,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['adm
         Route::get('/add', 'AdvertisementController@getAddAdvertisement');
         Route::post('/add', 'AdvertisementController@postAddAdvertisement');
         Route::get('/edit/{id}', 'AdvertisementController@getEditAdvertisement');
-        Route::get('/edit/{id}', 'AdvertisementController@postEditAdvertisement');
+        Route::post('/edit/{id}', 'AdvertisementController@postEditAdvertisement');
         Route::get('/delete/{id}', 'AdvertisementController@getDeleteAdvertisement');
     });
 
@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['adm
     });
 
     Route::get('/subscriber', 'SubscriberController@index');
+    Route::get('/deleteSubscriber/{id}', 'SubscriberController@deleteSubscriber');
 
     Route::group(['prefix' => 'about'], function () {
         Route::get('/aboutus', 'AboutController@getAboutUs');

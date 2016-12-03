@@ -8,11 +8,11 @@ class Category extends Model
 {
     public function news()
     {
-        return $this->hasMany('App\Models\News');
+        return $this->hasMany('App\News');
     }
 
     public function category()
     {
-        return $this->hasOne('App\Models\Category');
+        return $this->hasOne('App\Category');
     }
 }

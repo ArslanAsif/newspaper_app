@@ -28,13 +28,14 @@
 
 
                                 <tbody>
-
-                                <tr>
-                                    <td>Tatyana Fitzpatrick</td>
-                                    <td>
-                                        <a class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
-                                    </td>
-                                </tr>
+                                @foreach($subcribe as $subcribe)
+                                    <tr>
+                                            <td>{{$subcribe->email}}</td>
+                                            <td>
+                                                <a href="{{url('admin/deleteSubscriber/'.$subcribe->id)}}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                                            </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

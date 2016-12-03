@@ -23,8 +23,8 @@
                         </div>
                         <div class="x_content">
                             <br />
-                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('admin/settings/changepassword')}}">
+                                {{csrf_field()}}
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="curr-pass">Current Password <span class="required">*</span>
                                     </label>
