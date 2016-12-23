@@ -84,6 +84,6 @@
     </div>
 
     <!-- Scripts -->
-    <script href="{{url('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{url('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 </body>
 </html>
