@@ -9,7 +9,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Add Category <small></small></h2>
+                            <h2>{{ isset($cateData) ? 'Edit': 'Add'}} Category <small></small></h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             </ul>
@@ -17,86 +17,27 @@
                         </div>
                         <div class="x_content">
                             <br />
-                            @if($check=="add")
-                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{ url('admin/news/category/add') }}">
-                                {{ csrf_field() }}
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Category Name <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="category" name="category" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="parent-category" class="control-label col-md-3 col-sm-3 col-xs-12">Parent Category (if any)</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" name="parent-category">
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name  }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="priority">Priority <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="number" id="priority" name="priority" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 col-sm-offset-3">
-                                        <div class="">
-                                            <label>
-                                                <input name="active" type="checkbox" class="js-switch" checked/> Active
-                                            </label>
-                                        </div>
-                                        <div class="">
-                                            <label>
-                                                <input name="homepage" type="checkbox" class="js-switch"/> Show on Homepage
-                                            </label>
-                                        </div>
-                                        <div class="">
-                                            <label>
-                                                <input name="latest" type="checkbox" class="js-switch"/> Show in Latest
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                            @elseif($check=="update")
-                                @foreach($cateData as $cateData)
-
-                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{ url('admin/news/category/edit/'.$cateData->id) }}">
+                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{ isset($cateData) ? url('admin/news/category/edit/'.$cateData->id) : url('admin/news/category/add') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Category Name <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="category" value="{{$cateData->name}}" name="category" required="required" class="form-control col-md-7 col-xs-12">
-                                            <input type="hidden" id="id" value="{{$cateData->id}}" name="id" required="required" class="form-control col-md-7 col-xs-12">
+                                            <input type="text" id="category" value="{{ isset($cateData) ? $cateData->name : '' }}" name="category" required="required" class="form-control col-md-7 col-xs-12">
+
+                                            <input type="hidden" value="{{ isset($cateData) ? $cateData->id : '' }}" name="id" class="form-control col-md-7 col-xs-12">
+                                            
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="parent-category" class="control-label col-md-3 col-sm-3 col-xs-12">Parent Category (if any)</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select class="form-control" name="parent-category">
+                                                <option></option>
                                                 @foreach($categories as $category)
-                                                    @if($cateData->category_id==$category->id)
-                                                    <option selected value="{{ $category->id }}">{{ $category->name  }} </option>
-                                                    @else
-                                                        <option value="{{ $category->id }}">{{ $category->name  }} </option>
-                                                    @endif
+                                                    <option {{ isset($cateData) ? ($cateData->category_id == $category->id) ? 'selected' : '' : '' }} value="{{ $category->id }}">
+                                                        {{ $category->name  }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -106,7 +47,7 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="priority">Priority <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" value="{{$cateData->priority}}" id="priority" name="priority" required="required" class="form-control col-md-7 col-xs-12">
+                                            <input type="number" value="{{ isset($cateData) ? $cateData->priority : '' }}" id="priority" name="priority" required="required" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
 
@@ -114,30 +55,17 @@
                                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 col-sm-offset-3">
                                             <div class="">
                                                 <label>
-                                                    @if($cateData->active==1)
-                                                    <input name="active" type="checkbox" class="js-switch" checked/> Active
-                                                    @else
-                                                     <input name="active" type="checkbox" class="js-switch" />In Active
-                                                    @endif
+                                                    <input name="active" type="checkbox" class="js-switch" {{ isset($cateData) ? ($cateData->active == 1) ? 'checked': '': '' }} /> Active
                                                 </label>
                                             </div>
                                             <div class="">
                                                 <label>
-                                                    @if($cateData->homepage==1)
-                                                    <input name="homepage" type="checkbox" checked class="js-switch"/> Show on Homepage.
-                                                    @else
-                                                    <input name="homepage" type="checkbox" class="js-switch"/> Show on Homepage.
-                                                    @endif
-
+                                                    <input name="homepage" type="checkbox" class="js-switch" {{ isset($cateData) ? ($cateData->homepage == 1) ? 'checked': '': '' }} /> Show on Homepage
                                                 </label>
                                             </div>
                                             <div class="">
                                                 <label>
-                                                    @if($cateData->latest==1)
-                                                    <input name="latest" type="checkbox" checked class="js-switch"/> Show in Latest
-                                                    @else
-                                                      <input name="latest" type="checkbox"  class="js-switch"/> Show in Latest
-                                                    @endif
+                                                    <input name="latest" type="checkbox" class="js-switch" {{ isset($cateData) ? ($cateData->latest == 1) ? 'checked': '': '' }} /> Show on Latest News bar
                                                 </label>
                                             </div>
                                         </div>
@@ -149,11 +77,8 @@
                                             <button type="submit" class="btn btn-success">Submit</button>
                                         </div>
                                     </div>
-                                    @endforeach
 
                                 </form>
-
-                            @endif
                         </div>
                     </div>
                 </div>

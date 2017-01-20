@@ -21,7 +21,7 @@
     @yield('css')
 
     <!-- Custom Theme Style -->
-    <link href="{{url('css/custom.min.css')}}" rel="stylesheet">
+    <link href="{{url('admin/css/custom.min.css')}}" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -38,7 +38,7 @@
                 <!-- menu profile quick info -->
                 <div class="profile">
                     <div class="profile_pic">
-                        <img src="{{ url('images/img.jpg') }}" alt="..." class="img-circle profile_img">
+                        <img src="{{ url('admin/images/img.jpg') }}" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
@@ -97,10 +97,10 @@
 <!-- bootstrap-daterangepicker -->
 <script src="{{ url('vendors/moment/min/moment.min.js') }}"></script>
 <script src="{{ url('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ url('js/ajaxCall.js') }}"></script>
+<script src="{{ url('admin/js/ajaxCall.js') }}"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="{{ url('js/custom.min.js') }}"></script>
+<script src="{{ url('admin/js/custom.min.js') }}"></script>
 
 @yield('js')
 

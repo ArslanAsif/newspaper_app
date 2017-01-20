@@ -54,7 +54,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="summary">Summary <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12">{{ isset($news) ? $news->summary: '' }}</textarea>
+                                        <textarea maxlength="150" id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12">{{ isset($news) ? $news->summary: '' }}</textarea>
                                     </div>
                                 </div>
 
@@ -133,7 +133,7 @@
 
                                 <h4>Description</h4>
                                 @include('admin.includes.text_editor')
-                                <div id="editor" class="editor-wrapper">{{ isset($news) ? $news->description : '' }}</div>
+                                <div id="editor" class="editor-wrapper"><? echo (isset($news) ? $news->description : '') ?></div>
                                 <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
 
                                 <div class="ln_solid"></div>
@@ -323,8 +323,9 @@
     <script>
         $(function() {
             $('.image-editor').cropit({
+                smallImage: 'allow',
                 imageState: {
-                    src: '{{ isset($news) ? '/images/news/'.$news->picture: '' }}',
+                    src: '{{ isset($news) ? url('images/news/'.$news->picture) : '' }}',
                 },
             });
 

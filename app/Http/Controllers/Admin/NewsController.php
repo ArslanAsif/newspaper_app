@@ -52,6 +52,21 @@ class NewsController extends Controller
         $news->description = $request['descr'];
         $news->priority = $request['priority'];
 
+        if(isset($request['homepage']) && isset($request['latest']) && isset($request['spotlight']))
+        {
+            $checking = News::where('homepage', 1)->where('spotlight', 1)->where('latest', 1)->get();
+            foreach($checking as $check)
+            {
+                $check->spotlight = 0;
+                $check->update();
+            }
+        }
+
+        if(isset($request['latest']))
+        {
+            $news->latest = 1;
+        }
+
         if(isset($request['homepage']))
         {
             $news->homepage = 1;
@@ -95,6 +110,7 @@ class NewsController extends Controller
         $error = '';
         $success ? $news->picture = $img_name : $error = 'Unable to save cover image';
 
+
         $news->save();
 
         $tags = explode(',', $request['tags']);
@@ -115,7 +131,7 @@ class NewsController extends Controller
     
     public function getEditNews($id)
     {
-        $news = News::find($id)->with('tags')->first();
+        $news = News::where('id', $id)->with('tags')->first();
         $categories = Category::orderBy('name', 'asc')->get();
 
         $array = '';
@@ -138,7 +154,7 @@ class NewsController extends Controller
     {
 //        return $request->all();
 
-        $news = News::find($id)->first();
+        $news = News::where('id', $id)->first();
 
         $news->user_id = $request->user()->id;
         $news->title = $request['title'];
@@ -224,8 +240,8 @@ class NewsController extends Controller
 
     public function getDeleteNews($id)
     {
-        $news = News::find($id)->first();
+        $news = News::where('id', $id)->first();
         $news->delete();
-        return view('admin.manage_news');
+        return back();
     }
 }

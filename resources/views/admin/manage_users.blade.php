@@ -23,10 +23,8 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Age</th>
-                                    <th>Submissions</th>
                                     <th>Member Since</th>
-                                    {{--<th></th>--}}
+                                    <th></th>
                                 </tr>
                                 </thead>
 
@@ -36,12 +34,10 @@
                                 <tr>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
-                                    <td>London</td>
-                                    <td>19</td>
                                     <td>{{$user->created_at}}</td>
-                                    {{--<td>--}}
-                                        {{--<a class="btn btn-danger"><span class="fa fa-trash-o"></span></a>--}}
-                                    {{--</td>--}}
+                                    <td>
+                                        <a href="{{ url('/admin/user/ban/'.$user->id) }}" class="btn btn-warning"><span class="fa fa-ban"></span> {{ ($user->ban == 1) ? 'Unban' : 'Ban' }}</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 </tbody>

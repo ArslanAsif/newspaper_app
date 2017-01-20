@@ -20,6 +20,7 @@ class CreateAdvertisementsTable extends Migration
             $table->string('image');
             $table->string('url');
             $table->unsignedInteger('validity');
+            $table->datetime('published_on');
             $table->string('detail');
             $table->timestamps();
         });

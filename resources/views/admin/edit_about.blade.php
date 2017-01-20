@@ -10,9 +10,9 @@
                     <div class="x_panel">
                         <div class="x_title">
 
-                            @if($check=="contactus")
+                            @if($check=="contact")
                                 <h2>Contact <small></small></h2>
-                            @elseif($check=="about")
+                            @elseif($check=="aboutus")
                                 <h2>About <small></small></h2>
                             @elseif($check=="terms")
                                 <h2>Terms <small></small></h2>
@@ -26,12 +26,10 @@
                         <div class="x_content">
                             <br/>
 
-                            <form action="{{url($check)}}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
-                                    @include('admin.includes.text_editor')
-                                @foreach($aboutus as $aboutus)
-                              <div id="editor" class="editor-wrapper"><?php echo $aboutus->description?></div>
-                                @endforeach
+                            <form action="{{url('/admin/about/'.$check)}}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                {{ csrf_field() }}
+                                @include('admin.includes.text_editor')
+                                <div id="editor" class="editor-wrapper">{{ $aboutus->description }}</div>
                                 <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">

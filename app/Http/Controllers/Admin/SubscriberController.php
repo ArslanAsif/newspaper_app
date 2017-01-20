@@ -15,7 +15,7 @@ class SubscriberController extends Controller
     }
     public function deleteSubscriber($id)
     {
-        $subcribe = Subscriber::find($id);
+        $subcribe = Subscriber::where('id', $id)->first();
         if($subcribe){
             $subcribe->delete();
             return redirect()->back();

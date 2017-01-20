@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Advertisement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class AdvertisementController extends Controller
 {
@@ -16,7 +17,7 @@ class AdvertisementController extends Controller
 
     public function getAddAdvertisement()
     {
-        return view('admin.create_advertisement',['check'=>'add']);
+        return view('admin.create_advertisement');
     }
 
     public function postAddAdvertisement(Request $request)
@@ -27,25 +28,52 @@ class AdvertisementController extends Controller
         ]);
         $advertisement=new Advertisement();
         $advertisement->title=$request['title'];
-        $advertisement->position=$request['position'];
-        $advertisement->image="sd";
+        $advertisement->validity=$request['duration'];
         $advertisement->url=$request['url'];
         $advertisement->detail=$request['detail'];
-        $advertisement->validity="1";
+
+        if(isset($request['publish']))
+            $advertisement->published_on = Carbon::now();
+        else
+            $advertisement->published_on = null;
+
+        //image save
+        $img = $request['image-data'];
+        //decode the url, because we want to use decoded characters to use explode
+        $decoded = urldecode($img);
+
+        //get image extension
+        $ext = explode(';', $decoded);
+        $ext = explode(':', $ext[0]);
+        $ext = array_pop($ext);
+        $ext = explode('/', $ext);
+        $ext = array_pop($ext);
+
+        //save image in file
+        $img_name = "advert-".time().".".$ext;
+        $path = public_path() . "/images/advertisement/" . $img_name;
+        $img = substr($img, strpos($img, ",")+1);
+        $data = base64_decode($img);
+        $success = file_put_contents($path, $data);
+
+        $error = '';
+        $success ? $advertisement->image = $img_name : $error = 'Unable to save cover image';
+
+
         if($advertisement->save()){
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Successful');
         }
         else
         {
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Failed');
         }
 
     }
 
     public function getEditAdvertisement($id)
     {
-        $advertisement = Advertisement::where('id',$id)->get();
-        return view('admin.create_advertisement',['advertisement'=>$advertisement,'check'=>'edit']);
+        $advertisement = Advertisement::where('id',$id)->first();
+        return view('admin.create_advertisement')->with('advertisement', $advertisement);
     }
 
     public function postEditAdvertisement(Request $request)
@@ -54,19 +82,40 @@ class AdvertisementController extends Controller
             'title' => 'required',
             'url' => 'required',
         ]);
-        $id=$request['id'];
-        $advertisement = Advertisement::find($id);
-        $advertisement->title=$request['title'];
-        $advertisement->position=$request['position'];
-        $advertisement->image="sd";
-        $advertisement->url=$request['url'];
-        $advertisement->detail=$request['detail'];
-        if($request['status']!='')
-            $advertisement->validity="1";
-        else
-            $advertisement->validity="0";
 
-        if($advertisement->save()){
+        $advertisement = Advertisement::where('id', $request['id'])->first();
+        $advertisement->title = $request['title'];
+        $advertisement->url = $request['url'];
+        $advertisement->detail = $request['detail'];
+
+        if($request['publish'] != '')
+            $advertisement->published_on = Carbon::now();
+        else
+            $advertisement->published_on = null;
+
+        //image save
+        $img = $request['image-data'];
+        //decode the url, because we want to use decoded characters to use explode
+        $decoded = urldecode($img);
+
+        //get image extension
+        $ext = explode(';', $decoded);
+        $ext = explode(':', $ext[0]);
+        $ext = array_pop($ext);
+        $ext = explode('/', $ext);
+        $ext = array_pop($ext);
+
+        //save image in file
+        $img_name = "advert-".time().".".$ext;
+        $path = public_path() . "/images/advertisement/" . $img_name;
+        $img = substr($img, strpos($img, ",")+1);
+        $data = base64_decode($img);
+        $success = file_put_contents($path, $data);
+
+        $error = '';
+        $success ? $advertisement->image = $img_name : $error = 'Unable to save cover image';
+
+        if($advertisement->update()){
             return redirect()->back();
         }
         else

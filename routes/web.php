@@ -11,14 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+Route::get('/tag/{id}', 'HomeController@getTag');
+Route::get('/category/{news}/{id}', 'HomeController@category');
+Route::get('/category/media', 'HomeController@getMedia');
+Route::get('/category/column', 'HomeController@getColumns');
+Route::get('/category/column/author/{id}', 'HomeController@getUserColumns');
+Route::get('/article/{id}', 'HomeController@article');
+Route::post('/article/{id}/comment', 'HomeController@post_comment');
+Route::post('/subscriber/add', 'HomeController@postAddSubscriber');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
 
 Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['admin']], function() {
 
@@ -62,7 +65,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['adm
     Route::group(['prefix' => 'user'], function() {
         Route::get('/', 'UserController@index');
         Route::get('/edit/{id}', 'UserController@postEditUser');
-        Route::get('/delete/{id}', 'UserController@getDeleteUser');
+        Route::get('/ban/{id}', 'UserController@getbanUser');
     });
 
     Route::get('/subscriber', 'SubscriberController@index');
