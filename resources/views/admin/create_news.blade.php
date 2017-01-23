@@ -133,7 +133,7 @@
 
                                 <h4>Description</h4>
                                 @include('admin.includes.text_editor')
-                                <div id="editor" class="editor-wrapper"><? echo (isset($news) ? $news->description : '') ?></div>
+                                <div id="editor" class="editor-wrapper"><?php echo (isset($news) ? $news->description : '') ?></div>
                                 <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
 
                                 <div class="ln_solid"></div>
