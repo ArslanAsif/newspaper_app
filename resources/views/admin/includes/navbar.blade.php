@@ -13,6 +13,7 @@
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li><a href="{{ url('/') }}">Website Homepage</a></li>
                         <li><a href="{{ url('/admin/settings') }}">Settings</a></li>
                         <li>
                             <a href="{{ url('/logout') }}"

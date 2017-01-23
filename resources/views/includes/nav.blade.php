@@ -23,10 +23,14 @@
                                     <a href="{{ url('/login') }}"><span class="fa fa-user-circle"></span> Login</a>
                                 @else
                                 <div class="dropdown">
-                                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{ Auth::user()->name }}
+                                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{ Auth::user()->name }}
                                   <span class="caret"></span></button>
                                   <ul class="dropdown-menu">
-                                    <li><form action="{{ url('/logout') }}" method="post" >{{ csrf_field() }}<button type="submit">Logout</button></form></li>
+                                    @if(Auth::user()->type == 'admin')
+                                    <li><button class="btn btn-default form-control" onclick="window.location.href = '{{ url('/admin/dashboard') }}'">Admin Panel</button></li>
+                                    @endif
+
+                                    <li><form action="{{ url('/logout') }}" method="post" >{{ csrf_field() }}<button class="btn btn-danger form-control" type="submit">Logout</button></form></li>
                                   </ul>
                                 </div>
                                 @endif

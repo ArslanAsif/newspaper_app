@@ -39,7 +39,7 @@ class HomeController extends Controller
 
         $category_wise = Category::where('active', 1)->where('homepage', 1)->orderBy('priority', 'ASC')->get();
 
-        $advertisements = Advertisement::where('published_on', '!=', '')->get();
+        $advertisements = Advertisement::where('published_on', '!=', null)->get();
 
         return view('welcome')->with(['headlines'=>$headlines ,'main_spotlight' => $main_spotlight, 'main_latest' => $main_latest, 'opinions'=>$opinions, 'category_wise' => $category_wise, 'advertisements'=>$advertisements]);
     }
@@ -58,7 +58,7 @@ class HomeController extends Controller
     {
         $article = News::where('id', $id)->first();
         $comment_count = $article->comments()->count();
-        $advertisements = Advertisement::where('published_on', '!=', '')->get();
+        $advertisements = Advertisement::where('published_on', '!=', null)->get();
 
         if($article->type == 'news')
         {

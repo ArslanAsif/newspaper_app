@@ -171,7 +171,9 @@
 							<h3>Advertisement</h3>
 							<div class="rst-hotnews owl-carousel">
 								@foreach($advertisements as $advertisement)
-                                    <img width="100%" src="{{ url('images/advertisement/'.$advertisement->image) }}" alt="" />
+								<a href="{{ $advertisement->url }}">
+									<img width="100%" src="{{ url('images/advertisement/'.$advertisement->image) }}" alt="" />
+								</a>
                                 @endforeach
 							</div>
 							<!-- <a href="#"><img src="{{ url('images/ad01.png') }}" alt="" /></a>
