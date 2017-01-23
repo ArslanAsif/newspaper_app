@@ -21,6 +21,9 @@ Route::get('/article/{id}', 'HomeController@article');
 Route::post('/article/{id}/comment', 'HomeController@post_comment');
 Route::post('/subscriber/add', 'HomeController@postAddSubscriber');
 
+Route::get('/user/submission', 'HomeController@usersubmission')->middleware('auth');
+Route::post('news/add', 'HomeController@postAddNews')->middleware('auth');
+
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['admin']], function() {
@@ -38,7 +41,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
         Route::get('/usersubmission', 'NewsController@getUserSubmission');
         Route::post('/usersubmission', 'NewsController@postUserSubmission');
         Route::get('/add', 'NewsController@getAddNews');
-        Route::post('/add', 'NewsController@postAddNews');
         Route::get('/edit/{id}', 'NewsController@getEditNews');
         Route::post('/edit/{id}', 'NewsController@postEditNews');
         Route::get('/delete/{id}', 'NewsController@getDeleteNews');

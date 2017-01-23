@@ -130,6 +130,8 @@
                             </div>
                         </div>
                     </div>
+                    
+                    @if($category->news()->first() != null)
                     <article class="col-sm-6 rst-leftpost">
                         <div class="rst-specpost owl-carousel">
                             <a href="{{ url('/article/'.$category->news()->first()->id) }}"><img class="img-border" src="{{ isset($category->news()->first()->picture) ? url('images/news/'.$category->news()->first()->picture) : url('images/slider/category/li01.jpg') }}" alt="" /></a>
@@ -157,6 +159,8 @@
                             </article>
                         @endforeach
                     </div>
+
+                    @endif
                 </div>
             </div>
         </section>

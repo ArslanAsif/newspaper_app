@@ -30,6 +30,10 @@
                                     <li><button class="btn btn-default form-control" onclick="window.location.href = '{{ url('/admin/dashboard') }}'">Admin Panel</button></li>
                                     @endif
 
+                                    @if(!Auth::guest() || !Auth::user()->type == 'admin')
+                                        <li><button class="btn btn-default form-control" onclick="window.location.href = '{{ url('/user/submission') }}'">User Submission</button></li>
+                                    @endif
+
                                     <li><form action="{{ url('/logout') }}" method="post" >{{ csrf_field() }}<button class="btn btn-danger form-control" type="submit">Logout</button></form></li>
                                   </ul>
                                 </div>
