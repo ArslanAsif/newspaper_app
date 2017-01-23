@@ -58,6 +58,7 @@ class HomeController extends Controller
     {
         $article = News::where('id', $id)->first();
         $comment_count = $article->comments()->count();
+        $advertisements = Advertisement::where('published_on', '!=', '')->get();
 
         if($article->type == 'news')
         {
@@ -72,7 +73,7 @@ class HomeController extends Controller
         
         
 
-        return view('article')->with(['article' => $article, 'comment_count' => $comment_count, 'related' => $related, 'latest' => $latest]);
+        return view('article')->with(['article' => $article, 'comment_count' => $comment_count, 'related' => $related, 'latest' => $latest, 'advertisements'=>$advertisements]);
     }
 
     public function post_comment(Request $request, $id)

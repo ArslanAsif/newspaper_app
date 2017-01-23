@@ -42,7 +42,7 @@
 						</div>
 						<div class="row">
 							<article class="col-xs-12">
-								<? echo $article->description ?>
+								<?php echo $article->description ?>
 							</article>
 							<!-- End Posts Contents -->
 							
@@ -170,8 +170,9 @@
 						<aside class="widget widget_adv">
 							<h3>Advertisement</h3>
 							<div class="rst-hotnews owl-carousel">
-								<img src="{{ url('images/slider/category/new05.jpg') }}" alt="" />
-								<img src="{{ url('images/slider/category/new04.jpg') }}" alt="" />
+								@foreach($advertisements as $advertisement)
+                                    <img width="100%" src="{{ url('images/advertisement/'.$advertisement->image) }}" alt="" />
+                                @endforeach
 							</div>
 							<!-- <a href="#"><img src="{{ url('images/ad01.png') }}" alt="" /></a>
 							<div class="clear"></div> -->

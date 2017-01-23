@@ -23,7 +23,7 @@ Route::post('/subscriber/add', 'HomeController@postAddSubscriber');
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['admin']], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['admin']], function() {
 
     Route::get('/settings', 'SettingsController@index');
     Route::post('/settings/changepassword', 'SettingsController@postChangePassword');
