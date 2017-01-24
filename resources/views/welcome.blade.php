@@ -147,7 +147,7 @@
                             @foreach($category->news as $article)
                                 @if($count > 0)
                                     <?php if(++$i == 5) break ?>
-                                    @if($article->published_date != null)
+                                    @if($article->publish_date)
                                         <article>
                                             <div class="rst-postpic">
                                                 <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/slider/category/li02.jpg') }}" alt="" /></a>

@@ -30,7 +30,7 @@
                                     <li><button class="btn btn-default form-control" onclick="window.location.href = '{{ url('/admin/dashboard') }}'">Admin Panel</button></li>
                                     @endif
 
-                                    @if(!Auth::guest() || !Auth::user()->type == 'admin')
+                                    @if(!Auth::guest() ? Auth::user()->type == 'user' ? 1 : 0 : 0)
                                         <li><button class="btn btn-default form-control" onclick="window.location.href = '{{ url('/user/submission') }}'">User Submission</button></li>
                                     @endif
 

@@ -8,9 +8,9 @@ Demo of the app is hosted at [Newspaper Demo](http://54.203.150.52:8010/).
 
 
 ## Work Remaining
-Footer design
-Search API
-Weather API
-Currency API
-Gold Rates API
+1. Footer design
+2. Search API
+3. Weather API
+4. Currency API
+5. Gold Rates API
 
