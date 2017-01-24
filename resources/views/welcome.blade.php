@@ -132,33 +132,37 @@
                     </div>
                     
                     @if($category->news()->first() != null)
-                    <article class="col-sm-6 rst-leftpost">
-                        <div class="rst-specpost owl-carousel">
-                            <a href="{{ url('/article/'.$category->news()->first()->id) }}"><img class="img-border" src="{{ isset($category->news()->first()->picture) ? url('images/news/'.$category->news()->first()->picture) : url('images/slider/category/li01.jpg') }}" alt="" /></a>
+                        <article class="col-sm-6 rst-leftpost">
+                            <div class="rst-specpost owl-carousel">
+                                <a href="{{ url('/article/'.$category->news()->first()->id) }}"><img class="img-border" src="{{ isset($category->news()->first()->picture) ? url('images/news/'.$category->news()->first()->picture) : url('images/slider/category/li01.jpg') }}" alt="" /></a>
+                            </div>
+                            <div class="rst-postinfo">
+                                <h6><a href="{{ url('/article/'.$category->news()->first()->id) }}">{{ $category->news()->first()->title }}</a></h6>
+                                <time><i class="fa fa-clock-o"></i>{{ $category->news()->first()->publish_date }}</time>
+                                <p>{{ $category->news()->first()->summary.'...' }}</p>
+                            </div>
+                        </article>
+                        <div class="col-sm-6 rst-rightpost">
+                            <?php $i = 0; $count = 0; ?>
+                            @foreach($category->news as $article)
+                                @if($count > 0)
+                                    <?php if(++$i == 5) break ?>
+                                    @if($article->published_date != null)
+                                        <article>
+                                            <div class="rst-postpic">
+                                                <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/slider/category/li02.jpg') }}" alt="" /></a>
+                                            </div>
+                                            <div class="rst-postinfo">
+                                                <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
+                                                <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
+                                                <p>{{ $article->summary.'...' }}</p>
+                                            </div>
+                                        </article>
+                                    @endif
+                                @endif
+                                <?php $count++ ?>
+                            @endforeach
                         </div>
-                        <div class="rst-postinfo">
-                            <h6><a href="{{ url('/article/'.$category->news()->first()->id) }}">{{ $category->news()->first()->title }}</a></h6>
-                            <time><i class="fa fa-clock-o"></i>{{ $category->news()->first()->publish_date }}</time>
-                            <p>{{ $category->news()->first()->summary.'...' }}</p>
-                        </div>
-                    </article>
-                    <div class="col-sm-6 rst-rightpost">
-                        <?php $i = 0 ?>
-                        @foreach($category->news as $article)
-                            <?php if(++$i==5) break ?>
-
-                            <article>
-                                <div class="rst-postpic">
-                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/slider/category/li02.jpg') }}" alt="" /></a>
-                                </div>
-                                <div class="rst-postinfo">
-                                    <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
-                                    <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
-                                    <p>{{ $article->summary.'...' }}</p>
-                                </div>
-                            </article>
-                        @endforeach
-                    </div>
 
                     @endif
                 </div>
