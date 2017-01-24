@@ -124,7 +124,7 @@
                                 <div class="col-xs-12">
                                     <h4>{{ $category->name }}</h4>
                                     <div class="rst-section-title-short">
-                                        <a href="{{ url('/category/'.$category->id) }}"><span>View all</span></a>
+                                        <a href="{{ url('/category/news/'.$category->id) }}"><span>View all</span></a>
                                     </div>
                                 </div>
                             </div>

@@ -50,7 +50,7 @@ class HomeController extends Controller
 
     public function category($type, $id)
     {
-        $articles = News::where('category_id', $id)->where('type', $type)->orderBy('created_at', 'DESC')->paginate(12);
+        $articles = News::where('category_id', $id)->where('type', $type)->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
         $category = Category::where('id', $id)->first()->name;
 
         $subcategories = Category::where('id', $id)->where('category_id', '!=',  '')->where('active', 1)->get();
@@ -66,13 +66,13 @@ class HomeController extends Controller
 
         if($article->type == 'news')
         {
-            $related = News::where('category_id', $article->category_id)->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-            $latest = News::where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+            $related = News::where('publish_date', '!=', null)->where('category_id', $article->category_id)->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+            $latest = News::where('publish_date', '!=', null)->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
         }
         else if($article->type == 'column')
         {
-            $related = News::where('type', 'column')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-            $latest = News::where('type', 'column')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+            $related = News::where('publish_date', '!=', null)->where('type', 'column')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+            $latest = News::where('publish_date', '!=', null)->where('type', 'column')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
         }
         
         
@@ -123,7 +123,7 @@ class HomeController extends Controller
 
     public function getMedia()
     {
-        $articles = News::where('type', 'article')->orderBy('created_at', 'DESC')->paginate(12);
+        $articles = News::where('publish_date', '!=', null)->where('type', 'article')->orderBy('created_at', 'DESC')->paginate(12);
         return view('category')->with(['category'=>'Media', 'articles'=>$articles]);
     }
 
