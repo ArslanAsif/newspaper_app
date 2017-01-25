@@ -29,7 +29,7 @@
                             <form action="{{url('/admin/about/'.$check)}}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                                 {{ csrf_field() }}
                                 @include('admin.includes.text_editor')
-                                <div id="editor" class="editor-wrapper">{{ $aboutus->description }}</div>
+                                <div id="editor" class="editor-wrapper"><?= $aboutus->description ?></div>
                                 <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">

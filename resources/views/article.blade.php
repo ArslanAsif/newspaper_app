@@ -90,6 +90,9 @@
 													</div>
 													<div class="comment-body">
 														<p>{{ $comment->comment }}</p>
+														@if(Auth::user()->type == 'admin' || Auth::user()->id == $comment->user->id)
+															<a href="{{ url('article/'.$article->id.'/comment/delete/'.$comment->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
+														@endif
 													</div>
 												</div>
 											</div>
@@ -114,7 +117,7 @@
 								<div class="col-xs-12">
 									<form action="{{ '/article/'.$article->id.'/comment' }}" method="POST">
 										{{ csrf_field() }}
-										<textarea class="rst-pageinput" name="comment" type="text" rows="5" placeholder="Add your comment" ></textarea>
+										<textarea maxlength="255" class="rst-pageinput" name="comment" type="text" rows="5" placeholder="Add your comment" ></textarea>
 										<button class="rst-pagebutton" type="submit" >Submit</button>
 									</form>
 								</div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\About;
 use App\User;
 use App\Category;
 use App\Comment;
@@ -74,6 +75,11 @@ class HomeController extends Controller
             $related = News::where('publish_date', '!=', null)->where('type', 'column')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
             $latest = News::where('publish_date', '!=', null)->where('type', 'column')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
         }
+        else if($article->type == 'article')
+        {
+            $related = News::where('publish_date', '!=', null)->where('type', 'article')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+            $latest = News::where('publish_date', '!=', null)->where('type', 'article')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+        }
         
         
 
@@ -136,7 +142,7 @@ class HomeController extends Controller
 
     public function userSubmission()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::where('active', 1)->orderBy('name', 'asc')->get();
         return view('userSubmission')->with('categories', $categories);
     }
 
@@ -226,5 +232,25 @@ class HomeController extends Controller
         }
 
         return redirect()->back()->with(['message' => 'Successfully Submitted', 'error' => $error]);
+    }
+
+    public function getDeleteComment($article_id, $comment_id)
+    {
+        $comment = Comment::find($comment_id);
+        $comment->delete();
+        return redirect()->back();
+    }
+
+    public function getAboutUs()
+    {
+        $about_us = About::where('type', 'aboutus')->first()->description;
+        $contact_us = About::where('type', 'contact')->first()->description;
+        return view('about')->with(['about_us'=>$about_us, 'contact_us'=>$contact_us]);
+    }
+
+    public function getTermsAndCondition()
+    {
+        $terms = About::where('type', 'terms')->first()->description;
+        return view('terms_and_conditions')->with('terms', $terms);
     }
 }

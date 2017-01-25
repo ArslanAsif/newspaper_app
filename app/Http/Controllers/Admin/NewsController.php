@@ -37,7 +37,7 @@ class NewsController extends Controller
 
     public function getAddNews()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::where('active', 1)->orderBy('name', 'asc')->get();
         return view('admin.create_news')->with('categories', $categories);
     }
 
@@ -46,7 +46,7 @@ class NewsController extends Controller
     public function getEditNews($id)
     {
         $news = News::where('id', $id)->with('tags')->first();
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::where('active', 1)->orderBy('name', 'asc')->get();
 
         $array = '';
         foreach($news->tags as $tag)

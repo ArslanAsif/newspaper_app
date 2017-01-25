@@ -9,7 +9,9 @@
                     <span>Headlines</span>
                     <div class="rst-pageline-slider owl-carousel">
                         @foreach($headlines as $headline)
-                            <p>{{ $headline->category->name }}: {{ $headline->title }}</p>
+                            @if($headline->category->active == 1 && $headline->category->latest == 1)
+                                <p>{{ $headline->category->name }}: {{ $headline->title }}</p>
+                            @endif
                         @endforeach
                     </div>
                 </div>
@@ -24,10 +26,11 @@
             <div class="row">
                 <div class="col-md-8 col-xs-12">
                     @if(isset($main_spotlight))
+                    @if($main_spotlight->type == 'news')
                         <div>
                             <div class="rst-postpic">
                                 <a href="{{ url('article/'.$main_spotlight->id) }}"><img class="img-border" width=100% src="{{ isset($main_spotlight->picture) ? url('images/news/'.$main_spotlight->picture) : url('images/slider/category/li01.jpg') }}" alt="" /></a>
-                                <a class="rst-postpic-cat" href="{{ url('/category/'.$main_spotlight->category->id) }}"><span>{{ $main_spotlight->category->name }}</span></a>
+                                <a class="rst-postpic-cat" href="{{ url('/category/news/'.$main_spotlight->category->id) }}"><span>{{ $main_spotlight->category->name }}</span></a>
                             </div>
                             <div class="rst-postinfo" >
                                 <h6 class="h6-title"><a href="{{ url('article/'.$main_spotlight->id) }}">{{ $main_spotlight->title }}</a></h6>
@@ -36,6 +39,7 @@
                             </div>
                         </div>
                     @endif
+                    @endif
 
                     <br>
 
@@ -43,10 +47,11 @@
                         <div class="row">
                             @if(isset($main_latest))
                                 @foreach($main_latest as $article)
+                                @if($article->type == 'news' )
                                     <article class="col-sm-4 col-xs-6">
                                         <div class="rst-postpic">
                                             <a href="{{ url('article/'.$article->id) }}"><img class="img-border" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : 'images/slider/category/po01.jpg' }}" alt="" /></a>
-                                            <a class="rst-postpic-cat" href="{{ url('category/'.$article->category->id) }}"><span>{{ $article->category->name }}</span></a>
+                                            <a class="rst-postpic-cat" href="{{ url('category/news/'.$article->category->id) }}"><span>{{ $article->category->name }}</span></a>
                                         </div>
                                         <div class="rst-postinfo">
                                             <h6><a href="{{ url('article/'.$article->id) }}">{{ $article->title }}</a></h6>
@@ -54,6 +59,7 @@
                                             <p>{{ $article->summary.'...' }}</p>
                                         </div>
                                     </article>
+                                @endif
                                 @endforeach
                             @endif
 
@@ -85,7 +91,7 @@
 
                         <br>
                         <div class="rst-section-title-short">
-                            <a href="#"><span>View all</span></a>
+                            <a href="{{ url('category/column') }}"><span>View all</span></a>
                         </div>
 
                         <div class="clear"></div>
@@ -95,7 +101,9 @@
                             <h3>Advertisement</h3>
                             <div class="rst-hotnews owl-carousel">
                                 @foreach($advertisements as $advertisement)
+                                <a href="{{ url($advertisement->url) }}">
                                     <img width="100%" src="{{ url('images/advertisement/'.$advertisement->image) }}" alt="" />
+                                </a>
                                 @endforeach
                             </div>
                             <!-- <a href="#"><img src="{{ url('images/ad01.png') }}" alt="" /></a>
@@ -132,6 +140,7 @@
                     </div>
                     
                     @if($category->news()->first() != null)
+                        @if($category->news()->first()->type == 'news')
                         <article class="col-sm-6 rst-leftpost">
                             <div class="rst-specpost owl-carousel">
                                 <a href="{{ url('/article/'.$category->news()->first()->id) }}"><img class="img-border" src="{{ isset($category->news()->first()->picture) ? url('images/news/'.$category->news()->first()->picture) : url('images/slider/category/li01.jpg') }}" alt="" /></a>
@@ -142,12 +151,13 @@
                                 <p>{{ $category->news()->first()->summary.'...' }}</p>
                             </div>
                         </article>
+                        @endif
                         <div class="col-sm-6 rst-rightpost">
                             <?php $i = 0; $count = 0; ?>
                             @foreach($category->news as $article)
                                 @if($count > 0)
                                     <?php if(++$i == 5) break ?>
-                                    @if($article->publish_date)
+                                    @if($article->type == 'news' && $article->publish_date)
                                         <article>
                                             <div class="rst-postpic">
                                                 <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/slider/category/li02.jpg') }}" alt="" /></a>

@@ -39,7 +39,7 @@ class DashboardController extends Controller
 
     	$comments_count = Comment::count();
 
-    	$comments = News::all();
+    	$comments = Comment::all();
     	$comments_count_today = 0;
     	foreach ($comments as $comment) {
 			$created_at= Carbon::parse($comment->created_at);
