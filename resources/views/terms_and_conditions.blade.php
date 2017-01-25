@@ -20,7 +20,7 @@
 		<section id="rst-itemcontent">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-sm-12">
 						<div class="rst-section-title rst-section-title-box rst-item-content-title">
 							<h2>Terms And Conditions</h2>
 						</div>
