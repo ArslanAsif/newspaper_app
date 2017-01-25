@@ -1,20 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-	<!-- Page Breadcrumb -->
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="rst-breadcrumb">
-						<a href="{{ url('/') }}"><span>About</span></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Page Breadcrumb -->
-		
-		<!-- Category Banner -->
-		
 		
 		<!-- Category Page Content -->
 		<section id="rst-itemcontent">
