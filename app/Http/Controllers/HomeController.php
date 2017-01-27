@@ -54,7 +54,7 @@ class HomeController extends Controller
         $articles = News::where('category_id', $id)->where('type', $type)->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
         $category = Category::where('id', $id)->first()->name;
 
-        $subcategories = Category::where('id', $id)->where('category_id', '!=',  '')->where('active', 1)->get();
+        $subcategories = Category::where('category_id', $id)->where('active', 1)->get();
 
         return view('category')->with(['category' => $category, 'articles' => $articles, 'subcategories'=>$subcategories]);
     }
@@ -181,6 +181,7 @@ class HomeController extends Controller
 
         if(isset($request['spotlight']))
         {
+
             $news->spotlight = 1;
         }
         else

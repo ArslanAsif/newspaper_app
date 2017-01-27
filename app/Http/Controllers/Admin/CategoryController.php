@@ -26,7 +26,7 @@ class CategoryController extends Controller
 
         $category->name = $request['category'];
 
-        if($request['parent-category'] != '')
+        if($request['parent-category'] != null)
         {
             $category->category_id = $request['parent-category'];
         }
@@ -70,8 +70,9 @@ class CategoryController extends Controller
 
         $category->name = $request['category'];
 
-        if($request['parent-category'] == '')
+        if($request['parent-category'] == null)
             $category->category_id = null;
+        else $category->category_id = $request['parent-category'];
 
         $category->priority = $request['priority'];
 

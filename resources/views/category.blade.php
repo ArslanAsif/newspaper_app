@@ -6,6 +6,7 @@
             <div class="col-sm-12">
                 <div class="rst-section-title rst-section-title-box">
                     <h4>{{ $category }}</h4>
+                    @if($category != 'Media')
                     <div class="rst-shortmenu">
                         <form action="#">
                             <select name="rst-catshortselect" id="rst-catshortselect" onchange="location = this.value;"> 
@@ -15,6 +16,7 @@
                                         <option {{ isset($user) ? $user->id == $author->user_id ? 'selected' : '' : '' }} value="{{ url('category/column/author/'.$author->user_id) }}">{{ $author->user->name }}</option>
                                     @endforeach
                                 @elseif(isset($subcategories))
+                                    <option>All</option>
                                     @foreach($subcategories as $subcategory)
                                         <option {{ isset($subcat) ? $category == $subcategory->name ? 'selected' : '' : '' }} value="{{ url('category/news/'.$subcategory->id) }}">{{ $subcategory->name }}</option>
                                     @endforeach
@@ -22,6 +24,7 @@
                             </select>
                         </form>
                     </div>
+                    @endif
                 </div>
 
                 <div id="rst-popular">

@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('includes.nav', function($view) {
-            $navs = Category::where('active', 1)->orderBy('priority', 'ASC')->take(5)->get();
+            $navs = Category::where('active', 1)->where('homepage', 1)->orderBy('priority', 'ASC')->take(5)->get();
             $view->with('navs', $navs);
         });
     }
