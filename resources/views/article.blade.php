@@ -27,8 +27,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-8">
-						<img src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/cat-01.jpg') }}" alt="" width=100%/>
+						<img src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" width=100%/>
 						<div class="rst-section-title rst-section-title-box rst-item-content-title">
+						<div class="row">
 							<h2 class="col-sm-8">{{ $article->title}}</h2>
 							<div class="rst-shortmenu col-sm-4">
 								<p>
@@ -36,9 +37,13 @@
 									
 									<span class="rst-item-author"><b>BY</b><a href="{{ ($article->type == 'column') ? url('/category/column/author/'.$article->user->id) : '' }}">{{$article->user->
 									name}}</a></span>
+									
+									<span class="rst-item-author"><i class="fa fa-clock-o"></i> {{ $article->publish_date }}</span>
 									<span class="rst-item-comments"><i class="fa fa-comment"></i>{{ $comment_count }}</span>
+									
 								</p>
 							</div>
+						</div>
 						</div>
 						<div class="row">
 							<article class="col-xs-12">
@@ -137,7 +142,7 @@
 										<li>
 											<article>
 												<div class="rst-postpic">
-													<a href="{{ url('/article/'.$article->id) }}"><img width="110px" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : images/slider/category/pol01.jpg) }}" alt="" /></a>
+													<a href="{{ url('/article/'.$article->id) }}"><img width="110px" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
 												</div>
 												<div class="rst-postinfo">
 													<h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
@@ -155,7 +160,7 @@
 										<li>
 											<article>
 												<div class="rst-postpic">
-													<a href="{{ url('/article/'.$article->id) }}"><img width="110px" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : images/slider/category/pol01.jpg) }}" alt="" /></a>
+													<a href="{{ url('/article/'.$article->id) }}"><img width="110px" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
 												</div>
 												<div class="rst-postinfo">
 													<h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
@@ -188,7 +193,7 @@
 							<h3>Newsletter</h3>
 							<form action="{{ url('/subscriber/add') }}" method="POST">
 								{{ csrf_field() }}
-								<input name="email" class="rst-pageinput" type="text" value="Email and hit enter" onblur="if (this.value == '') {this.value = 'Email and hit enter';}" onclick=" if (this.value == 'Email and hit enter') {this.value = '';}" />	
+								<input name="email" required="required" class="rst-pageinput" type="email" value="Email and hit enter" onblur="if (this.value == '') {this.value = 'Enter Email';}" onclick=" if (this.value == 'Email and hit enter') {this.value = '';}" />	
 								<input class="rst-pagebutton" type="submit" value="Subscribe"/>
 							</form>
 						</aside>

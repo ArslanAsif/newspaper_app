@@ -29,7 +29,7 @@
                     @if($main_spotlight->type == 'news')
                         <div>
                             <div class="rst-postpic">
-                                <a href="{{ url('article/'.$main_spotlight->id) }}"><img class="img-border" width=100% src="{{ isset($main_spotlight->picture) ? url('images/news/'.$main_spotlight->picture) : url('images/slider/category/li01.jpg') }}" alt="" /></a>
+                                <a href="{{ url('article/'.$main_spotlight->id) }}"><img class="img-border" width=100% src="{{ url(isset($main_spotlight->picture) ? 'images/news/'.$main_spotlight->picture : 'images/no-image-available.png') }}" alt="" /></a>
                                 <a class="rst-postpic-cat" href="{{ url('/category/news/'.$main_spotlight->category->id) }}"><span>{{ $main_spotlight->category->name }}</span></a>
                             </div>
                             <div class="rst-postinfo" >
@@ -50,7 +50,7 @@
                                 @if($article->type == 'news' )
                                     <article class="col-sm-4 col-xs-6">
                                         <div class="rst-postpic">
-                                            <a href="{{ url('article/'.$article->id) }}"><img class="img-border" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : 'images/slider/category/po01.jpg' }}" alt="" /></a>
+                                            <a href="{{ url('article/'.$article->id) }}"><img class="img-border" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
                                             <a class="rst-postpic-cat" href="{{ url('category/news/'.$article->category->id) }}"><span>{{ $article->category->name }}</span></a>
                                         </div>
                                         <div class="rst-postinfo">
@@ -145,7 +145,7 @@
                             @if($news->spotlight == 1)
                                 <article class="col-sm-6 rst-leftpost">
                                     <div class="rst-specpost owl-carousel">
-                                        <a href="{{ url('/article/'.$news->id) }}"><img class="img-border" src="{{ isset($news->picture) ? url('images/news/'.$news->picture) : url('images/slider/category/li01.jpg') }}" alt="" /></a>
+                                        <a href="{{ url('/article/'.$news->id) }}"><img class="img-border" src="{{ isset($news->picture) ? url('images/news/'.$news->picture) : url('images/no-image-available.png') }}" alt="" /></a>
                                     </div>
                                     <div class="rst-postinfo">
                                         <h6><a href="{{ url('/article/'.$news->id) }}">{{ $news->title }}</a></h6>
@@ -166,7 +166,7 @@
                             @if($article->type == 'news' && $article->publish_date && $article->spotlight != 1 && $article->homepage)
                                 <article>
                                     <div class="rst-postpic">
-                                        <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/slider/category/li02.jpg') }}" alt="" /></a>
+                                        <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
                                     </div>
                                     <div class="rst-postinfo">
                                         <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>

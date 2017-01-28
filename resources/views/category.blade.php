@@ -37,7 +37,7 @@
                             @endif
                             <article class="col-sm-4 col-xs-12">
                                 <div class="rst-postpic">
-                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : 'images/slider/category/po01.jpg' }}" alt="" /></a>
+                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
 
                                 </div>
                                 <div class="rst-postinfo">

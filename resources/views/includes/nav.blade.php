@@ -6,8 +6,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="rst-header-menu-content">
-                        <a class="rst-header-logo" href="{{ url('/') }}"><img src="{{ url('images/header-logo.png') }}" alt="" /></a>
-                        <div id="rst-weather" class="rst-weather"></div>
+                        <a class="rst-header-logo" style="margin-left: -15px; margin-top: 20px; margin-bottom: 0px;" href="{{ url('/') }}"><img style="" width="100px" src="{{ url('images/header-logo.jpg') }}" alt="" /><span style="color: #2F3E42; font-size: 24px;"><b>GCC</b> Connect</span></a>
                         <button class="rst-menu-trigger">
                             <span>Toggle navigation</span>
                         </button>

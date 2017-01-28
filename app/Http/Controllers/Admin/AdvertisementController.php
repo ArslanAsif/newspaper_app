@@ -11,8 +11,8 @@ class AdvertisementController extends Controller
 {
     public function index()
     {
-        $advertisment=Advertisement::get();
-        return view('admin.manage_advertisements',['advertisment'=>$advertisment]);
+        $advertisement=Advertisement::get();
+        return view('admin.manage_advertisements',['advertisement'=>$advertisement]);
     }
 
     public function getAddAdvertisement()

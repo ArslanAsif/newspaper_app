@@ -22,7 +22,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" name="type">
+                                        <select class="form-control" name="type" id="type">
                                             <option {{ isset($news) ? ($news->type == "news") ? 'selected': '': '' }}>News</option>
                                             <option {{ isset($news) ? ($news->type == "article") ? 'selected': '': '' }}>Article</option>
                                             <option {{ isset($news) ? ($news->type == "column") ? 'selected': '': '' }}>Column</option>
@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id='category-div'>
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="category">
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="priority-div">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Priority <small>(Lower is better)</small></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="priority">
@@ -105,25 +105,25 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Actions</label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <div class="">
+                                        <div class="" id="latest-switch">
                                             <label>
                                                 <input name="latest" type="checkbox" class="js-switch" {{ isset($news) ? ($news->latest == 1) ? 'checked': '': '' }} /> Show on Latest News bar
                                             </label>
                                         </div>
 
-                                        <div class="">
+                                        <div class="" id="homepage-switch">
                                             <label>
                                                 <input name="homepage" type="checkbox" class="js-switch" {{ isset($news) ? ($news->homepage == 1) ? 'checked': '': '' }} /> Show on Homepage
                                             </label>
                                         </div>
 
-                                        <div class="">
+                                        <div class="" id="spotlight-switch">
                                             <label>
                                                 <input name="spotlight" type="checkbox" class="js-switch" {{ isset($news) ? ($news->spotlight == 1) ? 'checked': '': '' }} /> Show as spotlight
                                             </label>
                                         </div>
 
-                                        <div class="">
+                                        <div class="" id="publish-switch">
                                             <label>
                                                 <input name="publish" type="checkbox" class="js-switch" {{ isset($news) ? ($news->publish_date != null) ? 'checked': '' : 'checked' }} /> Publish
                                             </label>
@@ -344,6 +344,26 @@
 
         $('.select-image-btn').click(function() {
             $('.cropit-image-input').click();
+        });
+    </script>
+
+    <!-- hide category dropdown if type != news -->
+    <script>
+        $('#type').on('change', function() {
+            if($(this).val() == 'News')
+            {
+                $('#category-div').show();
+                $('#latest-switch').show();
+                $('#homepage-switch').show();
+                $('#spotlight-switch').show();
+            }
+            else
+            {
+                $('#category-div').hide();
+                $('#latest-switch').hide();
+                $('#homepage-switch').hide();
+                $('#spotlight-switch').hide();
+            }
         });
     </script>
 @endsection

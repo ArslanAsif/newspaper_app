@@ -17,15 +17,15 @@
                         </div>
                         <div class="x_content">
                             <p class="text-muted font-13 m-b-30">
-                                DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
+                                
                             </p>
                             <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Detail</th>
-                                    <th>Position</th>
                                     <th>Added On</th>
+                                    <th>Validity (days)</th>
                                     <th>Status</th>
                                     <th>Activated On</th>
                                     <th></th>
@@ -35,21 +35,18 @@
 
 
                                 <tbody>
-                                @foreach($advertisment as $advertisment)
+                                @foreach($advertisement as $advertisement)
                                 <tr>
-                                    <td>{{$advertisment->title}}</td>
-                                    <td>{{$advertisment->detail}}</td>
-                                    <td>{{$advertisment->position}}</td>
-                                    <td>{{$advertisment->created_at}}</td>
-                                    @if($advertisment->validity=="1")
-                                    <td>Active</td>
-                                    @else
-                                    <td>In Active</td>
-                                    @endif
-                                    <td>{{$advertisment->created_at}}</td>
+                                    <td>{{$advertisement->title}}</td>
+                                    <td>{{$advertisement->detail}}</td>
+                                    <td>{{$advertisement->created_at}}</td>
+                                    <td>{{$advertisement->validity}}</td>
+                                    <td>{{($advertisement->published_on != null) ? 'Active' : 'Not Active'}}</td>
+                                    
+                                    <td>{{$advertisement->published_on}}</td>
                                     <td>
-                                        <a href="{{'advertisement/edit/'.$advertisment->id}}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
-                                        <a href="{{'advertisement/delete/'.$advertisment->id}}" class="btn btn-danger"><span class="fa fa-trash"></span></a>
+                                        <a href="{{'advertisement/edit/'.$advertisement->id}}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
+                                        <a href="{{'advertisement/delete/'.$advertisement->id}}" class="btn btn-danger"><span class="fa fa-trash"></span></a>
                                     </td>
                                 </tr>
                                 @endforeach

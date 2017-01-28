@@ -20,6 +20,7 @@ Route::get('/category/column/author/{id}', 'HomeController@getUserColumns');
 Route::get('/article/{id}', 'HomeController@article');
 Route::post('/article/{id}/comment', 'HomeController@post_comment');
 Route::post('/subscriber/add', 'HomeController@postAddSubscriber');
+Route::get('/subscriber/confirm/{email}/{token}', 'HomeController@getAddSubscriber');
 Route::get('article/{article_id}/comment/delete/{comment_id}', 'HomeController@getDeleteComment');
 Route::get('/about', 'HomeController@getAboutUs');
 Route::get('/terms', 'HomeController@getTermsAndCondition');

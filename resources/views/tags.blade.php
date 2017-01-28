@@ -23,7 +23,7 @@
                     <?php $count = 0; ?>
                     @if(isset($articles))
                         @foreach($articles as $article)
-                            <? if($count % 3 == 0) { echo "<div class='row category-row'>"; $count1 = 0; }?>
+                            <?php if($count % 3 == 0) { echo "<div class='row category-row'>"; $count1 = 0; }?>
                             <article class="col-sm-4 col-xs-12">
                                 <div class="rst-postpic">
                                     <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : 'images/slider/category/po01.jpg' }}" alt="" /></a>
@@ -35,7 +35,7 @@
                                     <p>{{ $article->summary }}</p>
                                 </div>
                             </article>
-                            <? $count1++; if($count1 % 3 == 0) echo "</div>"; $count++;?>
+                            <?php $count1++; if($count1 % 3 == 0) echo "</div>"; $count++;?>
 
                         @endforeach
                         <div class="col-xs-12">

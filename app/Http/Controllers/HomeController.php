@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Newsletter;
 use App\About;
 use App\User;
 use App\Category;
@@ -15,6 +16,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -67,8 +69,8 @@ class HomeController extends Controller
 
         if($article->type == 'news')
         {
-            $related = News::where('publish_date', '!=', null)->where('category_id', $article->category_id)->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-            $latest = News::where('publish_date', '!=', null)->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+            $related = News::where('publish_date', '!=', null)->where('category_id', $article->category_id)->where('type', 'news')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+            $latest = News::where('publish_date', '!=', null)->where('type', 'news')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
         }
         else if($article->type == 'column')
         {
@@ -97,6 +99,21 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function getAddSubscriber($email, $token)
+    {
+        $subscriber = Subscriber::where('email', $email)->where('token', $token);
+        $subscriber_count =  $subscriber->count();
+        $subscriber = $subscriber->first();
+        if($subscriber_count)
+        {
+            $subscriber->confirmed = 1;
+            $subscriber->update();
+
+            return view('confirmation')->with('message', 'Successfully Subscribed to GCC Connect Newsletter!');
+        }
+        return view('confirmation')->with('message', 'Not subscribed, try again!');
+    }
+
     public function postAddSubscriber(Request $request)
     {
         if(Subscriber::where('email', $request['email'])->count())
@@ -104,9 +121,12 @@ class HomeController extends Controller
             return redirect()->back()->with('message', 'Already Subscribed');
         }
 
+        $token = str_random(50);
         $subscriber = new Subscriber();
         $subscriber->email = $request['email'];
-        $subscriber->token = str_random(50);
+        $subscriber->token = $token;
+
+        Mail::to($request['email'])->send(new Newsletter($request['email'], $token));
         $subscriber->save();
 
         return redirect()->back()->with('message', 'Successfully Added! Please check your email to confirm');
