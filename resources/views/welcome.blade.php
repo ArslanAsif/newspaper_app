@@ -76,18 +76,16 @@
 
                         @if(isset($opinions))
                             @foreach($opinions as $opinion)
-                            <div class="col-md-12 col-sm-6">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img width="100px" class="media-object " src="{{ isset($opinion->user->avatar) ? url('images').$opinion->user->avatar : url('admin/images/img.jpg') }}" >
+                                <div class="media col-md-12 col-sm-6">
+                                    <div class="media-left" style="width:100px">
+                                        <img class="media-object " src="{{ isset($opinion->user->avatar) ? url('images').$opinion->user->avatar : url('admin/images/img.jpg') }}" alt="" />
                                     </div>
                                     <div class="media-body">
 
                                         <a style="color:#474747" href="{{ url('category/column/author/'.$opinion->user->id) }}"><p class="comment-body">{{ $opinion->user->name }}</p></a>
                                         <a href="{{ url('/article/'.$opinion->id) }}" class="media-heading comment-author">{{ $opinion->title }}</a>
                                     </div>
-                                </div><br>
-                            </div>
+                                </div>
                             @endforeach
                         @endif
 
