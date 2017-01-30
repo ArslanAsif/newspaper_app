@@ -25,6 +25,7 @@ Route::get('article/{article_id}/comment/delete/{comment_id}', 'HomeController@g
 Route::get('/about', 'HomeController@getAboutUs');
 Route::get('/terms', 'HomeController@getTermsAndCondition');
 
+
 Route::get('/user/submission', 'HomeController@usersubmission')->middleware('auth');
 Route::post('news/add', 'HomeController@postAddNews')->middleware('auth');
 
@@ -39,6 +40,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
         Route::get('/', 'DashboardController@index');
     });
 
+    Route::get('newsletter', 'SubscriberController@getNewsletter');
+    Route::post('newsletter', 'SubscriberController@postNewsletter');
+    Route::get('newsletter/send', 'SubscriberController@getSendNewsletter');
 
     Route::group(['prefix' => 'news'], function() {
         Route::get('/', 'NewsController@index');

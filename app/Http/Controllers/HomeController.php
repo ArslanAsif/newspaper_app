@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\Newsletter;
+use App\Mail\SubscribeMailer;
 use App\About;
 use App\User;
 use App\Category;
@@ -126,7 +126,7 @@ class HomeController extends Controller
         $subscriber->email = $request['email'];
         $subscriber->token = $token;
 
-        Mail::to($request['email'])->send(new Newsletter($request['email'], $token));
+        Mail::to($request['email'])->send(new SubscribeMailer($request['email'], $token));
         $subscriber->save();
 
         return redirect()->back()->with('message', 'Successfully Added! Please check your email to confirm');

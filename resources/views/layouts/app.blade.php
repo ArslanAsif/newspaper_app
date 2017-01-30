@@ -7,10 +7,9 @@
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home - NewsUp</title>
-    <meta name="description" content="Angle - Blog is a clean and minimalist photography blog perfectly designed for photographers and bloggers. Slimply is beautiful, clean and very classic design.">
-    <meta name="keywords" content="photoblog, portfolio, photography, photographer, unique, creative, blog, minimal, beautiful theme">
-    <meta name="author" content="Laza Themes">
+    <title>Home - GCC Connect</title>
+    <meta name="description" content="GCC Connect is hub of latest happenings in Gulf countries includes news, videos, colums and articles">
+    <meta name="keywords" content="gulf news, news, columns, articles, opinions, videos, blog, saudi arabia, middle east">
 
     <!-- Favicons
     ================================================== -->

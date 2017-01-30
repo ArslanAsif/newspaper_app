@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewsLetter extends Mailable
+class SubscribeMailer extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,6 +31,6 @@ class NewsLetter extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.newsletter')->with(['email'=>$this->email, 'token'=>$this->token]);
+        return $this->view('emails.subscriber')->with(['email'=>$this->email, 'token'=>$this->token]);
     }
 }
