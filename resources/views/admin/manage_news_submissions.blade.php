@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>{{ $this_news->title }}</td>
                                     <td>{{ $this_news->type }}</td>
-                                    <td>{{ $this_news->category->name }}</td>
+                                    <td>{{ isset($this_news->category) ? $this_news->category->name : '' }}</td>
                                     <td>{{ $this_news->user->name }}</td>
                                     <td>{{ $this_news->created_at }}</td>
                                     <td>

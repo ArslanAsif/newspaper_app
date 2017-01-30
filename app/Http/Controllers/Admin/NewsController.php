@@ -73,7 +73,10 @@ class NewsController extends Controller
         $news->user_id = $request->user()->id;
         $news->title = $request['title'];
         $news->type = $request['type'];
-        $news->category_id = $request['category'];
+        if($request['category'] != '')
+            $news->category_id = $request['category'];
+        else
+             $news->category_id = null;
         $news->summary = $request['summary'];
         $news->description = $request['descr'];
         $news->priority = $request['priority'];
