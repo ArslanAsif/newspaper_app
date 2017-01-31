@@ -95,8 +95,10 @@
 													</div>
 													<div class="comment-body">
 														<p>{{ $comment->comment }}</p>
+														@if(!Auth::guest())
 														@if(Auth::user()->type == 'admin' || Auth::user()->id == $comment->user->id)
 															<a href="{{ url('article/'.$article->id.'/comment/delete/'.$comment->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
+														@endif
 														@endif
 													</div>
 												</div>
