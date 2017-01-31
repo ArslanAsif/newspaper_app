@@ -10,14 +10,6 @@
                             <a><img style="" width="100px" src="{{ url('images/header-logo.jpg') }}" alt="" /></a>
                             <span style="font-size: 24px;">
                                 <a href="{{ url('/') }}" style="color: #2F3E42;"><b>GCC</b> Connect</a> 
-                                <select style="" class="btn btn-lg btn-primary">
-                                    <option>Bahrain</option>
-                                    <option>Kuwait</option>
-                                    <option>Qatar</option>
-                                    <option>Oman</option>
-                                    <option>Saudi Arabia</option>
-                                    <option>UAE</option>
-                                </select>
                             </span>
                         </span>
                         <button class="rst-menu-trigger">
