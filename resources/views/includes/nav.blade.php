@@ -6,7 +6,20 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="rst-header-menu-content">
-                        <a class="rst-header-logo" style="margin-left: -15px; margin-top: 20px; margin-bottom: 0px;" href="{{ url('/') }}"><img style="" width="100px" src="{{ url('images/header-logo.jpg') }}" alt="" /><span style="color: #2F3E42; font-size: 24px;"><b>GCC</b> Connect</span></a>
+                        <span class="rst-header-logo" style="margin-left: -15px; margin-top: 20px; margin-bottom: 0px;" href="{{ url('/') }}">
+                            <a><img style="" width="100px" src="{{ url('images/header-logo.jpg') }}" alt="" /></a>
+                            <span style="font-size: 24px;">
+                                <a href="{{ url('/') }}" style="color: #2F3E42;"><b>GCC</b> Connect</a> 
+                                <select style="" class="btn btn-lg btn-primary">
+                                    <option>Bahrain</option>
+                                    <option>Kuwait</option>
+                                    <option>Qatar</option>
+                                    <option>Oman</option>
+                                    <option>Saudi Arabia</option>
+                                    <option>UAE</option>
+                                </select>
+                            </span>
+                        </span>
                         <button class="rst-menu-trigger">
                             <span>Toggle navigation</span>
                         </button>
