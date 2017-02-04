@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -35,8 +36,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function getSetCountry($country)
     {
+        Cache::put('country', strtoupper($country), 60*24*7);
+        return redirect('/');
+    }
+
+    public function index()
+    {   
         $headlines = News::where('publish_date', '!=', null)->where('latest', 1)->orderBy('created_at', 'DESC')->orderBy('category_id', 'ASC')->take(10)->get();
 
         $main_spotlight = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
@@ -64,7 +72,8 @@ class HomeController extends Controller
     public function article($id)
     {
         $article = News::where('id', $id)->first();
-        $comment_count = $article->comments()->count();
+        $comment_count_admin = $article->comments()->count();
+        $comment_count = $article->comments()->where('confirmed', 1)->count();
         $advertisements = Advertisement::where('published_on', '!=', null)->get();
 
         if($article->type == 'news')
@@ -85,7 +94,7 @@ class HomeController extends Controller
         
         
 
-        return view('article')->with(['article' => $article, 'comment_count' => $comment_count, 'related' => $related, 'latest' => $latest, 'advertisements'=>$advertisements]);
+        return view('article')->with(['article' => $article, 'comment_count' => $comment_count, 'comment_count_admin' => $comment_count_admin, 'related' => $related, 'latest' => $latest, 'advertisements'=>$advertisements]);
     }
 
     public function post_comment(Request $request, $id)
@@ -277,5 +286,22 @@ class HomeController extends Controller
     {
         $terms = About::where('type', 'terms')->first()->description;
         return view('terms_and_conditions')->with('terms', $terms);
+    }
+
+    public function getCommentApprove($article_id, $comment_id)
+    {
+        $comment = Comment::where('id', $comment_id)->get()->first();
+        $comment->confirmed = 1;
+        $comment->update();
+        return redirect()->back();
+
+    }
+
+    public function getCommentDisapprove($article_id, $comment_id)
+    {
+        $comment = Comment::where('id', $comment_id)->get()->first();
+        $comment->confirmed = 0;
+        $comment->update();
+        return redirect()->back();
     }
 }

@@ -1,25 +1,81 @@
+<style>
+    .img-of-nav {
+        width: 40px;
+        height: 25px;
+    }
+
+    .navbar.navbar-default{
+        margin-bottom: 0px;
+        background-color: white;
+        border: none;
+    }
+
+    .nav-flag {
+        border: 1px solid silver;
+    }
+
+    .nav-flag img {
+        border: 1px solid grey;
+    }
+
+    .nav-flag li:hover {
+        background-color: #39E6AC;
+    }
+
+    .nav-flag-active {
+        background-color: #39E6AC;
+    }
+    .rst-header-logo {
+        margin-top: 10px;
+        position: absolute;
+    }
+</style>
+
 <!--- Header -->
 <header>
     <!-- Menu bar -->
     <div class="rst-header-menu">
         <div class="container" >
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="rst-header-menu-content">
-                        <span class="rst-header-logo" style="margin-left: -15px; margin-top: 20px; margin-bottom: 0px;" href="{{ url('/') }}">
-                            <a><img style="" width="100px" src="{{ url('images/header-logo.jpg') }}" alt="" /></a>
-                            <span style="font-size: 24px;">
-                                <a href="{{ url('/') }}" style="color: #2F3E42;"><b>GCC</b> Connect</a> 
-                                <select style="" class="btn btn-lg btn-primary">
-                                    <option>Bahrain</option>
-                                    <option>Kuwait</option>
-                                    <option>Qatar</option>
-                                    <option>Oman</option>
-                                    <option>Saudi Arabia</option>
-                                    <option>UAE</option>
-                                </select>
-                            </span>
-                        </span>
+
+                <span class="rst-header-logo" href="{{ url('/') }}">
+                    <a href="{{ url('/') }}">
+                        <img style="" width="200px" src="{{ url('images/header-logo.jpg') }}" alt="" />
+                    </a>
+                    <span style="font-size: 24px;">
+                        <a href="{{ url('/') }}" style="color: #2F3E42;"></a> 
+                    </span>
+                </span>
+                <div class="col-md-8 pull-right" >
+                    <div class="navbar navbar-default">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                Country: {{ $country }}
+                            </button>
+                            <div class="navbar-brand logo"></div>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li class="divider-vertical"></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right nav-flag">
+                                <li><a class="{{ ($country == 'BH') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/bh') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/bh.png') }}"> Bahrain</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a class="{{ ($country == 'KW') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/kw') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/kw.png') }}"> Kuwait</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a class="{{ ($country == 'OM') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/om') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/om.png') }}"> Oman</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a class="{{ ($country == 'QA') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/qa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/qa.png') }}"> Qatar</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a class="{{ ($country == 'SA') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a class="{{ ($country == 'AE') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="rst-header-menu-content" style="padding-right: 20px">
+                        
                         <button class="rst-menu-trigger">
                             <span>Toggle navigation</span>
                         </button>
@@ -54,9 +110,11 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+
 </header>
 <!--- End Header -->

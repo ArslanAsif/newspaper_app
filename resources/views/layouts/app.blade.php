@@ -122,6 +122,8 @@
 
 <script type="text/javascript" src="{{ url('js/main.js') }}"></script>
 
+@yield('js')
+
 </body>
 
 </html>

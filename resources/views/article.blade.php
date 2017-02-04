@@ -2,9 +2,11 @@
 
 @section('content')
 	<!-- Page Breadcrumb -->
+
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
+					<div style="border-top: 2px solid #e8ecf0;"></div>
 					<div class="rst-breadcrumb">
 						<a href="{{ url('/') }}"><span>{{ strtoupper($article->type) }}</span></a>
 						<span>></span>
@@ -79,14 +81,16 @@
 							<!-- Comment list -->
 							<div class="col-xs-12 rst-content-comment">
 								<div class="rst-section-title rst-section-title-box">
-									<h4>{{ $comment_count }} Comments</h4>
+									<h4>{{ !Auth::guest() ? (Auth::user()->type == 'admin')? $comment_count_admin  : $comment_count  : $comment_count  }} Comments</h4>
 								</div>
 								<ol class="commentlist">
-									@foreach($article->comments as $comment)
+									@if(!Auth::guest())
+									@if(Auth::user()->type == 'admin')
+										@foreach($article->comments as $comment)
 										<li class="comment">
 											<div class="comment-container">
 												<div class="comment-avatar">
-													<img src="{{ url(isset($comment->user->avatar) ? $comment->user->avatar : 'images/account.jpg') }}" alt="" />
+													<img src="{{ url(isset($comment->user->avatar) ? $comment->user->avatar : 'images/account.png') }}" alt="" />
 												</div>
 												<div class="comment-data">
 													<div class="comment-header">
@@ -96,15 +100,49 @@
 													<div class="comment-body">
 														<p>{{ $comment->comment }}</p>
 														@if(!Auth::guest())
-														@if(Auth::user()->type == 'admin' || Auth::user()->id == $comment->user->id)
-															<a href="{{ url('article/'.$article->id.'/comment/delete/'.$comment->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
-														@endif
+															@if(Auth::user()->type == 'admin' || Auth::user()->id == $comment->user->id)
+																<a href="{{ url('article/'.$article->id.'/comment/'.$comment->id.'/delete') }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
+																@if($comment->confirmed)
+																<a href="{{ url('article/'.$article->id.'/comment/'.$comment->id.'/disapprove') }}" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Approved</a>
+																@else
+																<a href="{{ url('article/'.$article->id.'/comment/'.$comment->id.'/approve') }}" class="btn btn-sm btn-primary"><i class="fa fa-close"></i> Not Approved</a>
+																@endif
+															@endif
 														@endif
 													</div>
 												</div>
 											</div>
 										</li>
 									@endforeach
+									@endif
+
+									@else
+									@foreach($article->comments as $comment)
+										@if($comment->confirmed)
+										<li class="comment">
+											<div class="comment-container">
+												<div class="comment-avatar">
+													<img src="{{ url(isset($comment->user->avatar) ? $comment->user->avatar : 'images/account.png') }}" alt="" />
+												</div>
+												<div class="comment-data">
+													<div class="comment-header">
+														<a href="#" class="comment-author">{{ $comment->user->name }}</a>
+														<time class="comment-date"><i class="fa fa-clock-o"></i>on {{ $comment->created_at }}</time>
+													</div>
+													<div class="comment-body">
+														<p>{{ $comment->comment }}</p>
+														@if(!Auth::guest())
+															@if(Auth::user()->type == 'admin' || Auth::user()->id == $comment->user->id)
+																<a href="{{ url('article/'.$article->id.'/comment/delete/'.$comment->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
+															@endif
+														@endif
+													</div>
+												</div>
+											</div>
+										</li>
+										@endif
+									@endforeach
+									@endif
 									
 								</ol>
 							</div>

@@ -12,18 +12,22 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/ver/{country}', 'HomeController@getSetCountry');
 Route::get('/tag/{id}', 'HomeController@getTag');
 Route::get('/category/{news}/{id}', 'HomeController@category');
 Route::get('/category/media', 'HomeController@getMedia');
 Route::get('/category/column', 'HomeController@getColumns');
 Route::get('/category/column/author/{id}', 'HomeController@getUserColumns');
 Route::get('/article/{id}', 'HomeController@article');
-Route::post('/article/{id}/comment', 'HomeController@post_comment');
 Route::post('/subscriber/add', 'HomeController@postAddSubscriber');
 Route::get('/subscriber/confirm/{email}/{token}', 'HomeController@getAddSubscriber');
-Route::get('article/{article_id}/comment/delete/{comment_id}', 'HomeController@getDeleteComment');
 Route::get('/about', 'HomeController@getAboutUs');
 Route::get('/terms', 'HomeController@getTermsAndCondition');
+
+Route::post('/article/{id}/comment', 'HomeController@post_comment');
+Route::get('article/{article_id}/comment/{comment_id}/delete', 'HomeController@getDeleteComment');
+Route::get('/article/{article_id}/comment/{comment_id}/approve', 'HomeController@getCommentApprove');
+Route::get('/article/{article_id}/comment/{comment_id}/disapprove', 'HomeController@getCommentDisapprove');
 
 
 Route::get('/user/submission', 'HomeController@usersubmission')->middleware('auth');

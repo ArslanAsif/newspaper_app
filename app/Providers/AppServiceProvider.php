@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Category;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,8 +16,20 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('includes.nav', function($view) {
+            if(Cache::has('country'))
+            {
+                $country = Cache::get('country');
+            }
+            else
+            {
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $ip = "103.255.4.61"; //demo ip remove when deploy
+                $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+                $country = $details->country;
+                Cache::put('country', $country, 60*24*7);
+            }
             $navs = Category::where('active', 1)->where('homepage', 1)->orderBy('priority', 'ASC')->take(5)->get();
-            $view->with('navs', $navs);
+            $view->with(['navs'=>$navs, 'country'=>$country]);
         });
     }
 

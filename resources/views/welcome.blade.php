@@ -78,10 +78,9 @@
                             @foreach($opinions as $opinion)
                                 <div class="media col-md-12 col-sm-6">
                                     <div class="media-left" style="width:100px">
-                                        <img class="media-object " src="{{ isset($opinion->user->avatar) ? url('images').$opinion->user->avatar : url('admin/images/img.jpg') }}" alt="" />
+                                        <img class="media-object " src="{{ isset($opinion->user->avatar) ? url('images').$opinion->user->avatar : url('images/account.png') }}" alt="" />
                                     </div>
                                     <div class="media-body">
-
                                         <a style="color:#474747" href="{{ url('category/column/author/'.$opinion->user->id) }}"><p class="comment-body">{{ $opinion->user->name }}</p></a>
                                         <a href="{{ url('/article/'.$opinion->id) }}" class="media-heading comment-author">{{ $opinion->title }}</a>
                                     </div>
@@ -103,6 +102,7 @@
                                 @foreach($advertisements as $advertisement)
                                 <a href="{{ url($advertisement->url) }}">
                                     <img width="100%" src="{{ url('images/advertisement/'.$advertisement->image) }}" alt="" />
+                                    <h4>{{ $advertisement->title }}</h4>
                                 </a>
                                 @endforeach
                             </div>
@@ -186,4 +186,10 @@
     @endif
     <br><br>
     <!-- End Category Wise -->
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $('#myModal').modal(); 
+    </script>
 @endsection
