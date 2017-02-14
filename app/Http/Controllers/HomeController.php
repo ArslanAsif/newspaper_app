@@ -117,7 +117,17 @@ class HomeController extends Controller
 
         $articles = News::where('country', $coun)->where('category', $category)->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
 
-        return view('category')->with(['category' => $category, 'articles' => $articles]);
+
+        if($category == 'opinion')
+        {
+            $authors = News::where('country', $coun)->select('user_id')->where('category', 'Opinion')->groupBy('user_id')->get();
+            
+            return view('category')->with(['category' => $category, 'authors'=>$authors, 'articles' => $articles]);
+        }
+        else
+        {
+            return view('category')->with(['category' => $category, 'articles' => $articles]);
+        }
     }
 
     public function article($id)
