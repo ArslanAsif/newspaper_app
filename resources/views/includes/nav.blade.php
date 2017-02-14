@@ -80,11 +80,12 @@
                             <span>Toggle navigation</span>
                         </button>
                         <ul>
-                            @foreach($navs as $nav)
-                                <li><a href="{{ url('/category/news/'.$nav->id) }}">{{ $nav->name }}</a></li>
-                            @endforeach
-                            <li><a href="{{ url('/category/column') }}">Opinion</a></li>
-                            <li><a href="{{ url('/category/media') }}">Media</a></li>
+                            <li><a href="{{ url('/category/world') }}">World</a></li>
+                            <li><a href="{{ url('/category/business') }}">Business</a></li>
+                            <li><a href="{{ url('/category/weather') }}">Weather</a></li>
+                            <li><a href="{{ url('/category/sports') }}">Sports</a></li>
+                            <li><a href="{{ url('/category/lifestyle') }}">Lifestyle</a></li>
+                            <li><a href="{{ url('/category/opinion') }}">Opinion</a></li>
                             
                             <li class="login-btn">
                                 @if(Auth::guest())

@@ -23,10 +23,12 @@ class AppServiceProvider extends ServiceProvider
             else
             {
                 $ip = $_SERVER['REMOTE_ADDR'];
-                $ip = "103.255.4.61"; //demo ip remove when deploy
+                // $ip = "119.155.54.186"; //demo ip remove when deploy
                 $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
                 $country = $details->country;
+                $city = $details->city;
                 Cache::put('country', $country, 60*24*7);
+                Cache::put('city', $city, 60*24*7);
             }
             $navs = Category::where('active', 1)->where('homepage', 1)->orderBy('priority', 'ASC')->take(5)->get();
             $view->with(['navs'=>$navs, 'country'=>$country]);

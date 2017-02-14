@@ -49,6 +49,18 @@ class DashboardController extends Controller
 				$comments_count_today++;
     	}
 
-        return view('admin.dashboard')->with(['users_count'=>$users_count, 'users_count_today'=>$users_count_today, 'submissions_count'=>$submissions_count, 'submissions_count_today'=>$submissions_count_today, 'comments_count'=>$comments_count, 'comments_count_today'=>$comments_count_today]);
+        $unapp_comments_count = Comment::where('confirmed', 0)->count();
+
+        $unapp_comments = Comment::where('confirmed', 0)->get();
+        $unapp_comments_count_today = 0;
+        foreach ($unapp_comments as $comment) {
+            $created_at= Carbon::parse($comment->created_at);
+            $dt = Carbon::now();
+
+            if($dt->diffInDays($created_at) == 0)
+                $unapp_comments_count_today++;
+        }
+
+        return view('admin.dashboard')->with(['users_count'=>$users_count, 'users_count_today'=>$users_count_today, 'submissions_count'=>$submissions_count, 'submissions_count_today'=>$submissions_count_today, 'comments_count'=>$comments_count, 'comments_count_today'=>$comments_count_today, 'unapp_comments_count'=>$unapp_comments_count, 'unapp_comments_count_today'=>$unapp_comments_count_today]);
     }
 }

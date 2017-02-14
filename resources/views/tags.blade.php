@@ -26,8 +26,8 @@
                             <?php if($count % 3 == 0) { echo "<div class='row category-row'>"; $count1 = 0; }?>
                             <article class="col-sm-4 col-xs-12">
                                 <div class="rst-postpic">
-                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : 'images/slider/category/po01.jpg' }}" alt="" /></a>
-                                    <a class="rst-postpic-cat" href="#"><span>{{ $article->type }}</span><br></a>
+                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                                    <a class="rst-postpic-cat" href="#"><span>{{ $article->category }}</span><br></a>
                                 </div>
                                 <div class="rst-postinfo">
                                     <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>

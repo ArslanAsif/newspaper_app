@@ -8,12 +8,8 @@
 				<div class="col-xs-12">
 					<div style="border-top: 2px solid #e8ecf0;"></div>
 					<div class="rst-breadcrumb">
-						<a href="{{ url('/') }}"><span>{{ strtoupper($article->type) }}</span></a>
+						<a href="#"><span>{{ strtoupper($article->category) }} </span></a>
 						<span>></span>
-						@if($article->type == 'news')
-							<a href="{{ url('/category/'.$article->type.'/'.$article->category->id) }}"><span>{{ strtoupper($article->category->name) }}</span></a>
-						<span>></span>
-						@endif
 						<a href="#"><span>{{ strtoupper($article->title) }}</span></a>
 					</div>
 				</div>
@@ -37,7 +33,7 @@
 								<p>
 									<!-- <span class="rst-item-likes"><i class="fa fa-heart"></i>10</span>  -->
 									
-									<span class="rst-item-author"><b>BY</b><a href="{{ ($article->type == 'column') ? url('/category/column/author/'.$article->user->id) : '' }}">{{$article->user->
+									<span class="rst-item-author"><b>BY</b><a href="{{ ($article->category == 'Opinion') ? url('/category/column/author/'.$article->user->id) : '#' }}">{{$article->user->
 									name}}</a></span>
 									
 									<span class="rst-item-author"><i class="fa fa-clock-o"></i> {{ $article->publish_date }}</span>
@@ -101,11 +97,11 @@
 														<p>{{ $comment->comment }}</p>
 														@if(!Auth::guest())
 															@if(Auth::user()->type == 'admin' || Auth::user()->id == $comment->user->id)
-																<a href="{{ url('article/'.$article->id.'/comment/'.$comment->id.'/delete') }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
+																<a href="{{ url('/comment/'.$comment->id.'/delete') }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
 																@if($comment->confirmed)
-																<a href="{{ url('article/'.$article->id.'/comment/'.$comment->id.'/disapprove') }}" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Approved</a>
+																<a href="{{ url('/comment/'.$comment->id.'/disapprove') }}" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Approved</a>
 																@else
-																<a href="{{ url('article/'.$article->id.'/comment/'.$comment->id.'/approve') }}" class="btn btn-sm btn-primary"><i class="fa fa-close"></i> Not Approved</a>
+																<a href="{{ url('/comment/'.$comment->id.'/approve') }}" class="btn btn-sm btn-primary"><i class="fa fa-close"></i> Not Approved</a>
 																@endif
 															@endif
 														@endif
@@ -133,7 +129,7 @@
 														<p>{{ $comment->comment }}</p>
 														@if(!Auth::guest())
 															@if(Auth::user()->type == 'admin' || Auth::user()->id == $comment->user->id)
-																<a href="{{ url('article/'.$article->id.'/comment/delete/'.$comment->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
+																<a href="{{ url('/comment/delete/'.$comment->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete Comment</a>
 															@endif
 														@endif
 													</div>

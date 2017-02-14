@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Comment;
 use App\News;
 use App\Tag;
 use Carbon\Carbon;
@@ -72,11 +73,10 @@ class NewsController extends Controller
 
         $news->user_id = $request->user()->id;
         $news->title = $request['title'];
-        $news->type = $request['type'];
-        if($request['category'] != '')
-            $news->category_id = $request['category'];
-        else
-             $news->category_id = null;
+        // $news->type = $request['type'];
+        $news->category = $request['category'];
+        $news->country = $request['country'];
+        
         $news->summary = $request['summary'];
         $news->description = $request['descr'];
         $news->priority = $request['priority'];
@@ -160,5 +160,13 @@ class NewsController extends Controller
         $news = News::where('id', $id)->first();
         $news->delete();
         return back();
+    }
+
+    public function getUnapprovedComments()
+    {
+        $comments_count = Comment::where('confirmed', 0)->count();
+        $comments = Comment::where('confirmed', 0)->get();
+
+        return view('admin/unapproved_comments')->with(['comments_count'=>$comments_count, 'comments'=>$comments]);
     }
 }

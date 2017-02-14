@@ -14,12 +14,12 @@
                 </ul>
             </li>
 
-            <li><a><i class="fa fa-list"></i> Categories <span class="fa fa-chevron-down"></span></a>
+            <!-- <li><a><i class="fa fa-list"></i> Categories <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{ url('/admin/news/category/add') }}">Add Category</a></li>
                     <li><a href="{{ url('/admin/news/category/') }}">Manage Categories</a></li>
                 </ul>
-            </li>
+            </li> -->
 
             <li><a><i class="fa fa-users"></i> Users <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">

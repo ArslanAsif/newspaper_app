@@ -54,6 +54,8 @@
     ================================================== -->
     <link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
+    @yield('css')
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -113,9 +115,6 @@
 
 <!-- Owl Slider Js -->
 <script type="text/javascript" src="{{ url('js/owl.carousel.js') }}"></script>
-
-<!-- Weather Js -->
-<script type="text/javascript" src="{{ url('js/jquery.simpleWeather.js') }}"></script>
 
 <!-- Custome Selectbox Js -->
 <script type="text/javascript" src="{{ url('js/jquery.rs.selectbox.js') }}"></script>

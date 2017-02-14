@@ -9,7 +9,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Manage News <small></small></h2>
+                            <h2>Unapproved Comments <small></small></h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             </ul>
@@ -17,19 +17,16 @@
                         </div>
                         <div class="x_content">
                             <p class="text-muted font-13 m-b-30">
-                                Published news, articles, columns are managed here. If unpublished, it will move back to user submissions.
+                                
                             </p>
 
                             <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Country</th>
-                                    <th>Category</th>
-                                    <th>Author</th>
-                                    <th>Submitted On</th>
-                                    <th>Updated On</th>
+                                    <th>User</th>
+                                    <th>Comment</th>
+                                    <th>TIme</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -37,18 +34,15 @@
 
                                 <tbody>
 
-                                @foreach($news as $this_news)
+                                @foreach($comments as $comment)
                                     <tr>
-                                        <td>{{ $this_news->id }}</td>
-                                        <td>{{ $this_news->title }}</td>
-                                        <td>{{ $this_news->country }}</td>
-                                        <td>{{ $this_news->category}}</td>
-                                        <td>{{ $this_news->user->name }}</td>
-                                        <td>{{ $this_news->created_at }}</td>
-                                        <td>{{ $this_news->updated_at }}</td>
+                                        <td>{{ $comment->id }}</td>
+                                        <td>{{ $comment->user->name }}</td>
+                                        <td>{{ $comment->comment }}</td>
+                                        <td>{{ $comment->created_at }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/news/edit/'.$this_news->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
-                                            <a href="{{ url('/admin/news/delete/'.$this_news->id) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                                            <a href="{{ url('/comment/'.$comment->id.'/approve') }}" class="btn btn-default"><span class="fa fa-check"></span>Approve</a>
+                                            <a href="{{ url('/comment/'.$comment->id.'/delete') }}" class="btn btn-danger"><span class="fa fa-trash-o"></span>Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -45,28 +45,73 @@ class HomeController extends Controller
 
     public function index()
     {   
-        $headlines = News::where('publish_date', '!=', null)->where('latest', 1)->orderBy('created_at', 'DESC')->orderBy('category_id', 'ASC')->take(10)->get();
+        $country = Cache::get('country');
+        $coun = "Saudi Arabia";
+        switch($country)
+        {
+            case "BH": {
+                $coun = "Bahrain";
+                break;
+            }
 
-        $main_spotlight = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
-        $main_latest = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('created_at', 'DESC')->take(3)->get();
+            case "KW": {
+                $coun = "Kuwait";
+                break;
+            }
 
-        $opinions = News::where('publish_date', '!=', null)->where('type', 'column')->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
+            case "OM": {
+                $coun = "Oman";
+                break;
+            }
 
-        $category_wise = Category::where('active', 1)->where('homepage', 1)->orderBy('priority', 'ASC')->get();
+            case "QA": {
+                $coun = "Qatar";
+                break;
+            }
+
+            case "SA": {
+                $coun = "Saudi Arabia";
+                break;
+            }
+
+            case "AE": {
+                $coun = "UAE";
+                break;
+            }
+        }
+        
+        // return $coun;
+
+        $headlines = News::where('publish_date', '!=', null)->where('latest', 1)->orderBy('created_at', 'DESC')->take(10)->get();
+
+        $main_spotlight = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
+        $main_latest = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('created_at', 'DESC')->take(3)->get();
+
+        $opinions = News::where('country', $coun)->where('publish_date', '!=', null)->where('category', 'Opinion')->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
+
+        $category_world_spotlight = News::where('country', $coun)->where('category', 'World')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
+        $category_world = News::where('country', $country)->where('category', 'World')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
+        $category_business_spotlight = News::where('country', $coun)->where('category', 'Business')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
+        $category_business = News::where('country', $coun)->where('category', 'Business')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
+        $category_weather_spotlight = News::where('country', $coun)->where('category', 'Weather')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
+        $category_weather =  News::where('country', $coun)->where('category', 'Weather')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
+        $category_sports_spotlight = News::where('country', $coun)->where('category', 'Sports')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
+        $category_sports = News::where('country', $coun)->where('category', 'Sports')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
+        $category_lifestyle_spotlight = News::where('country', $coun)->where('category', 'Lifestyle')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
+        $category_lifestyle = News::where('country', $coun)->where('category', 'Lifestyle')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
+
+        $categories[5] = News::where('country', $coun)->where('publish_date', '!=', null)->where('category', 'opinion')->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(5)->get();
 
         $advertisements = Advertisement::where('published_on', '!=', null)->get();
 
-        return view('welcome')->with(['headlines'=>$headlines ,'main_spotlight' => $main_spotlight, 'main_latest' => $main_latest, 'opinions'=>$opinions, 'category_wise' => $category_wise, 'advertisements'=>$advertisements]);
+        return view('welcome')->with(['headlines'=>$headlines ,'main_spotlight' => $main_spotlight, 'main_latest' => $main_latest, 'opinions'=>$opinions, 'advertisements'=>$advertisements, 'category_world_spotlight'=>$category_world_spotlight, 'category_business_spotlight'=>$category_business_spotlight, 'category_weather_spotlight'=>$category_weather_spotlight, 'category_sports_spotlight'=>$category_sports_spotlight, 'category_lifestyle_spotlight'=>$category_lifestyle_spotlight, 'category_world'=>$category_world, 'category_business'=>$category_business, 'category_weather'=>$category_weather, 'category_sports'=>$category_sports, 'category_lifestyle'=>$category_lifestyle]);
     }
 
-    public function category($type, $id)
+    public function category($category)
     {
-        $articles = News::where('category_id', $id)->where('type', $type)->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
-        $category = Category::where('id', $id)->first()->name;
+        $articles = News::where('category', $category)->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
 
-        $subcategories = Category::where('category_id', $id)->where('active', 1)->get();
-
-        return view('category')->with(['category' => $category, 'articles' => $articles, 'subcategories'=>$subcategories]);
+        return view('category')->with(['category' => $category, 'articles' => $articles]);
     }
 
     public function article($id)
@@ -76,23 +121,8 @@ class HomeController extends Controller
         $comment_count = $article->comments()->where('confirmed', 1)->count();
         $advertisements = Advertisement::where('published_on', '!=', null)->get();
 
-        if($article->type == 'news')
-        {
-            $related = News::where('publish_date', '!=', null)->where('category_id', $article->category_id)->where('type', 'news')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-            $latest = News::where('publish_date', '!=', null)->where('type', 'news')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-        }
-        else if($article->type == 'column')
-        {
-            $related = News::where('publish_date', '!=', null)->where('type', 'column')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-            $latest = News::where('publish_date', '!=', null)->where('type', 'column')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-        }
-        else if($article->type == 'article')
-        {
-            $related = News::where('publish_date', '!=', null)->where('type', 'article')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-            $latest = News::where('publish_date', '!=', null)->where('type', 'article')->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
-        }
-        
-        
+        $related = News::where('publish_date', '!=', null)->where('category', $article->category)->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
+        $latest = News::where('publish_date', '!=', null)->where('id', '!=', $article->id)->orderBy('created_at', 'DESC')->take(4)->get();
 
         return view('article')->with(['article' => $article, 'comment_count' => $comment_count, 'comment_count_admin' => $comment_count_admin, 'related' => $related, 'latest' => $latest, 'advertisements'=>$advertisements]);
     }
@@ -143,24 +173,25 @@ class HomeController extends Controller
 
     public function getColumns()
     {
-        $authors = News::select('user_id')->where('type', 'column')->groupBy('user_id')->get();
-        $columns = News::where('type', 'column')->orderBy('created_at', 'DESC')->paginate(12);
+        $authors = News::select('user_id')->where('category', 'Opinion')->groupBy('user_id')->get();
+        $columns = News::where('category', 'Opinion')->orderBy('created_at', 'DESC')->paginate(12);
 
+        return $columns;
         return view('category')->with(['category'=>'Columns', 'authors'=>$authors, 'articles'=>$columns]);
     }
 
     public function getUserColumns($id)
     {
-        $authors = News::select('user_id')->where('type', 'column')->groupBy('user_id')->get();
-        $columns = News::where('type', 'column')->where('user_id', $id)->orderBy('created_at', 'DESC')->paginate(12);
+        $authors = News::select('user_id')->where('category', 'Opinion')->groupBy('user_id')->get();
+        $columns = News::where('category', 'Opinion')->where('user_id', $id)->orderBy('created_at', 'DESC')->paginate(12);
         return view('category')->with(['category'=>'Columns', 'articles'=>$columns, 'user'=>User::where('id', $id)->first(), 'authors'=>$authors]);
     }
 
-    public function getMedia()
-    {
-        $articles = News::where('publish_date', '!=', null)->where('type', 'article')->orderBy('created_at', 'DESC')->paginate(12);
-        return view('category')->with(['category'=>'Media', 'articles'=>$articles]);
-    }
+    // public function getMedia()
+    // {
+    //     $articles = News::where('publish_date', '!=', null)->where('type', 'article')->orderBy('created_at', 'DESC')->paginate(12);
+    //     return view('category')->with(['category'=>'Media', 'articles'=>$articles]);
+    // }
 
     public function getTag($id)
     {
@@ -180,11 +211,11 @@ class HomeController extends Controller
         $news = new News();
         $news->user_id = Auth::user()->id;
         $news->title = $request['title'];
-        $news->type = $request['type'];
+        // $news->type = $request['type'];
         if($request['category'] != '')
-            $news->category_id = $request['category'];
+            $news->category = $request['category'];
         else
-            $news->category_id = null;
+            $news->category = null;
         
         $news->summary = $request['summary'];
         $news->description = $request['descr'];
@@ -268,8 +299,13 @@ class HomeController extends Controller
         return redirect()->back()->with(['message' => 'Successfully Submitted', 'error' => $error]);
     }
 
-    public function getDeleteComment($article_id, $comment_id)
+    public function getDeleteComment($comment_id)
     {
+        if(Auth::guest())
+        {
+            return redirect()->back();
+        }
+
         $comment = Comment::find($comment_id);
         $comment->delete();
         return redirect()->back();
@@ -288,8 +324,13 @@ class HomeController extends Controller
         return view('terms_and_conditions')->with('terms', $terms);
     }
 
-    public function getCommentApprove($article_id, $comment_id)
+    public function getCommentApprove($comment_id)
     {
+        if(Auth::guest())
+        {
+            return redirect()->back();
+        }
+        
         $comment = Comment::where('id', $comment_id)->get()->first();
         $comment->confirmed = 1;
         $comment->update();
@@ -297,8 +338,13 @@ class HomeController extends Controller
 
     }
 
-    public function getCommentDisapprove($article_id, $comment_id)
+    public function getCommentDisapprove($comment_id)
     {
+        if(Auth::guest())
+        {
+            return redirect()->back();
+        }
+
         $comment = Comment::where('id', $comment_id)->get()->first();
         $comment->confirmed = 0;
         $comment->update();

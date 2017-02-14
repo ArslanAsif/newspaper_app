@@ -20,12 +20,16 @@
                             <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method=post action="{{ isset($news) ?  url('admin/news/edit/'.$news->id): url('news/add') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" name="type" id="type">
-                                            <option {{ isset($news) ? ($news->type == "news") ? 'selected': '': '' }}>News</option>
-                                            <option {{ isset($news) ? ($news->type == "article") ? 'selected': '': '' }}>Article</option>
-                                            <option {{ isset($news) ? ($news->type == "column") ? 'selected': '': '' }}>Column</option>
+                                        <select class="form-control" name="country" id="country">
+                                            <option disabled="disabled" selected>-- Select --</option>
+                                            <option {{ isset($news) ? ($news->country == "Bahrain") ? 'selected': '': '' }}>Bahrain</option>
+                                            <option {{ isset($news) ? ($news->country == "Kuwait") ? 'selected': '': '' }}>Kuwait</option>
+                                            <option {{ isset($news) ? ($news->country == "Oman") ? 'selected': '': '' }}>Oman</option>
+                                            <option {{ isset($news) ? ($news->country == "Qatar") ? 'selected': '': '' }}>Qatar</option>
+                                            <option {{ isset($news) ? ($news->country == "Saudi Arabia") ? 'selected': '': '' }}>Saudi Arabia</option>
+                                            <option {{ isset($news) ? ($news->country == "UAE") ? 'selected': '': '' }}>UAE</option>
                                         </select>
                                     </div>
                                 </div>
@@ -39,13 +43,16 @@
                                 </div>
 
                                 <div class="form-group" id='category-div'>
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Category<span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" name="category">
-                                            <option></option>
-                                            @foreach($categories as $category)
-                                                <option  {{ isset($news) ? ($news->category_id == $category->id) ? 'selected': '': '' }} value="{{ isset($category) ? $category->id: '' }}">{{ isset($category) ? $category->name : '' }}</option>
-                                            @endforeach
+                                        <select class="form-control" name="category" id="category">
+                                            <option disabled="disabled" selected>-- Select --</option>
+                                            <option {{ isset($news) ? ($news->category == "World") ? 'selected': '': '' }}>World</option>
+                                            <option {{ isset($news) ? ($news->category == "Business") ? 'selected': '': '' }}>Business</option>
+                                            <option> {{ isset($news) ? ($news->category == "Weather") ? 'selected': '': '' }}Weather</option>
+                                            <option {{ isset($news) ? ($news->category == "Sports") ? 'selected': '': '' }}>Sports</option>
+                                            <option {{ isset($news) ? ($news->category == "Lifestyle") ? 'selected': '': '' }}>Lifestyle</option>
+                                            <option {{ isset($news) ? ($news->category == "Opinion") ? 'selected': '': '' }}>Opinion</option>
                                         </select>
                                     </div>
                                 </div>
@@ -349,20 +356,18 @@
 
     <!-- hide category dropdown if type != news -->
     <script>
-        $('#type').on('change', function() {
-            if($(this).val() == 'News')
+        $('#category').on('change', function() {
+            if($(this).val() == 'Opinion')
             {
-                $('#category-div').show();
-                $('#latest-switch').show();
-                $('#homepage-switch').show();
-                $('#spotlight-switch').show();
-            }
-            else
-            {
-                $('#category-div').hide();
                 $('#latest-switch').hide();
                 $('#homepage-switch').hide();
                 $('#spotlight-switch').hide();
+            }
+            else
+            {
+                $('#latest-switch').show();
+                $('#homepage-switch').show();
+                $('#spotlight-switch').show();
             }
         });
     </script>

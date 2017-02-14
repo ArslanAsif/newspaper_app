@@ -5,6 +5,8 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="row top_tiles">
+
+              <a href="{{ url('admin/user') }}">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-users"></i></div>
@@ -13,6 +15,9 @@
                   <h3>Registered Users</h3><br />
                 </div>
               </div>
+              </a>
+
+              <a href="{{ url('admin/news') }}">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-check-square-o"></i></div>
@@ -21,7 +26,9 @@
                   <h3>Articles Published</h3><br />
                 </div>
               </div>
+              </a>
               
+              <a href="#">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-comments-o"></i></div>
@@ -30,15 +37,18 @@
                   <h3>Comments</h3><br />
                 </div>
               </div>
+              </a>
 
+              <a href="{{ url('admin/unapprovedcomments') }}">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-sort-amount-asc"></i></div>
-                  <div class="count"> {{ 0 }} <small>Today</small></div>
-                  <div class="count"> {{ 0 }} Total</div>
-                  <h3>Visits Today</h3><br />
+                  <div class="count"> {{ $unapp_comments_count_today }} <small>Today</small></div>
+                  <div class="count"> {{ $unapp_comments_count }} Total</div>
+                  <h3>Unapproved Comments</h3><br />
                 </div>
               </div>
+              </a>
             </div>
 
 

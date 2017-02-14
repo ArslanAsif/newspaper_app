@@ -10,13 +10,15 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-
+Route::get('/exchangerate', function(){
+    return view('exchangerate');
+});
 Route::get('/', 'HomeController@index');
 Route::get('/ver/{country}', 'HomeController@getSetCountry');
 Route::get('/tag/{id}', 'HomeController@getTag');
-Route::get('/category/{news}/{id}', 'HomeController@category');
-Route::get('/category/media', 'HomeController@getMedia');
-Route::get('/category/column', 'HomeController@getColumns');
+Route::get('/category/{category}', 'HomeController@category');
+// Route::get('/category/media', 'HomeController@getMedia');
+Route::get('/category/opinion', 'HomeController@getColumns');
 Route::get('/category/column/author/{id}', 'HomeController@getUserColumns');
 Route::get('/article/{id}', 'HomeController@article');
 Route::post('/subscriber/add', 'HomeController@postAddSubscriber');
@@ -25,9 +27,9 @@ Route::get('/about', 'HomeController@getAboutUs');
 Route::get('/terms', 'HomeController@getTermsAndCondition');
 
 Route::post('/article/{id}/comment', 'HomeController@post_comment');
-Route::get('article/{article_id}/comment/{comment_id}/delete', 'HomeController@getDeleteComment');
-Route::get('/article/{article_id}/comment/{comment_id}/approve', 'HomeController@getCommentApprove');
-Route::get('/article/{article_id}/comment/{comment_id}/disapprove', 'HomeController@getCommentDisapprove');
+Route::get('comment/{comment_id}/delete', 'HomeController@getDeleteComment');
+Route::get('comment/{comment_id}/approve', 'HomeController@getCommentApprove');
+Route::get('comment/{comment_id}/disapprove', 'HomeController@getCommentDisapprove');
 
 
 Route::get('/user/submission', 'HomeController@usersubmission')->middleware('auth');
@@ -37,6 +39,8 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['admin']], function() {
 
+    Route::get('/unapprovedcomments', 'NewsController@getUnapprovedComments');
+    
     Route::get('/settings', 'SettingsController@index');
     Route::post('/settings/changepassword', 'SettingsController@postChangePassword');
 

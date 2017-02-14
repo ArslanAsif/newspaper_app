@@ -21,15 +21,17 @@ class CreateNewsTable extends Migration
             $table->string('summary');
             $table->unsignedInteger('priority');
             $table->tinyInteger('active')->default(1);
-            $table->enum('type', ['news', 'column', 'article']);
+            // $table->enum('type', ['news', 'column', 'article']);
             $table->tinyInteger('homepage')->default(0);
             $table->tinyInteger('spotlight')->default(0);
             $table->tinyInteger('latest')->default(0);
             $table->datetime('publish_date')->default(null);
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            // $table->unsignedInteger('category_id');
+            // $table->foreign('category_id')->references('id')->on('categories');
+            $table->enum('category', ['World', 'Business', 'Weather', 'Sports', 'Lifestyle', 'Opinion']);
+            $table->enum('country', ['Bahrain', 'Kuwait', 'Oman', 'Qatar', 'Saudi Arabia']);
             $table->timestamps();
         });
     }

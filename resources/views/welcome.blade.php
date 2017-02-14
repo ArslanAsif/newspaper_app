@@ -9,9 +9,7 @@
                     <span>Headlines</span>
                     <div class="rst-pageline-slider owl-carousel">
                         @foreach($headlines as $headline)
-                            @if($headline->category->active == 1 && $headline->category->latest == 1)
-                                <p>{{ $headline->category->name }}: {{ $headline->title }}</p>
-                            @endif
+                            <p>{{ $headline->category }}: {{ $headline->title }}</p>
                         @endforeach
                     </div>
                 </div>
@@ -26,11 +24,10 @@
             <div class="row">
                 <div class="col-md-8 col-xs-12">
                     @if(isset($main_spotlight))
-                    @if($main_spotlight->type == 'news')
                         <div>
                             <div class="rst-postpic">
                                 <a href="{{ url('article/'.$main_spotlight->id) }}"><img class="img-border" width=100% src="{{ url(isset($main_spotlight->picture) ? 'images/news/'.$main_spotlight->picture : 'images/no-image-available.png') }}" alt="" /></a>
-                                <a class="rst-postpic-cat" href="{{ url('/category/news/'.$main_spotlight->category->id) }}"><span>{{ $main_spotlight->category->name }}</span></a>
+                                <a class="rst-postpic-cat" href="{{ url('/category/news/'.$main_spotlight->category) }}"><span>{{ $main_spotlight->category }}</span></a>
                             </div>
                             <div class="rst-postinfo" >
                                 <h6 class="h6-title"><a href="{{ url('article/'.$main_spotlight->id) }}">{{ $main_spotlight->title }}</a></h6>
@@ -39,7 +36,6 @@
                             </div>
                         </div>
                     @endif
-                    @endif
 
                     <br>
 
@@ -47,11 +43,10 @@
                         <div class="row">
                             @if(isset($main_latest))
                                 @foreach($main_latest as $article)
-                                @if($article->type == 'news' )
                                     <article class="col-sm-4 col-xs-6">
                                         <div class="rst-postpic">
                                             <a href="{{ url('article/'.$article->id) }}"><img class="img-border" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
-                                            <a class="rst-postpic-cat" href="{{ url('category/news/'.$article->category->id) }}"><span>{{ $article->category->name }}</span></a>
+                                            <a class="rst-postpic-cat" href="{{ url('category/news/'.$article->category) }}"><span>{{ $article->category }}</span></a>
                                         </div>
                                         <div class="rst-postinfo">
                                             <h6><a href="{{ url('article/'.$article->id) }}">{{ $article->title }}</a></h6>
@@ -59,13 +54,19 @@
                                             <p>{{ $article->summary.'...' }}</p>
                                         </div>
                                     </article>
-                                @endif
                                 @endforeach
                             @endif
 
                         </div>
                     </div>
                     <div class="clear"></div>
+                </div>
+
+                <div class="col-md-4 col-xs-12">
+                    <div class="" style="border: 1px solid silver">
+                        <a class="btn btn-default" href="{{ url('/exchangerate') }}"><i style="color: green" class="fa fa-money"></i> Currency Exchange Rate</a>
+                        <a class="btn btn-default" href="#"><i style="color:yellow" class="fa fa-cubes"></i> Gold Rate</a>
+                    </div>
                 </div>
 
                 <div class="col-md-4 col-xs-12">
@@ -76,13 +77,15 @@
 
                         @if(isset($opinions))
                             @foreach($opinions as $opinion)
-                                <div class="media col-md-12 col-sm-6">
-                                    <div class="media-left" style="width:100px">
-                                        <img class="media-object " src="{{ isset($opinion->user->avatar) ? url('images').$opinion->user->avatar : url('images/account.png') }}" alt="" />
-                                    </div>
-                                    <div class="media-body">
-                                        <a style="color:#474747" href="{{ url('category/column/author/'.$opinion->user->id) }}"><p class="comment-body">{{ $opinion->user->name }}</p></a>
-                                        <a href="{{ url('/article/'.$opinion->id) }}" class="media-heading comment-author">{{ $opinion->title }}</a>
+                                <div class="row">
+                                    <div class="media col-md-12 col-sm-6">
+                                        <div class="media-left" style="width:100px">
+                                            <img class="media-object " src="{{ isset($opinion->user->avatar) ? url('images').$opinion->user->avatar : url('images/account.png') }}" alt="" />
+                                        </div>
+                                        <div class="media-body">
+                                            <a style="color:#474747" href="{{ url('category/column/author/'.$opinion->user->id) }}"><p class="comment-body">{{ $opinion->user->name }}</p></a>
+                                            <a href="{{ url('/article/'.$opinion->id) }}" class="media-heading comment-author">{{ $opinion->title }}</a>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -121,8 +124,7 @@
 
 
     <!-- Category Wise News -->
-    @if(isset($category_wise))
-        @foreach($category_wise as $category)
+        <!-- world -->
         <section>
             <div class="container">
                 <div class="row">
@@ -130,60 +132,237 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <h4>{{ $category->name }}</h4>
+                                    <h4>World</h4>
                                     <div class="rst-section-title-short">
-                                        <a href="{{ url('/category/news/'.$category->id) }}"><span>View all</span></a>
+                                        <a href="{{ url('/category/world') }}"><span>View all</span></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    @if($category->news()->first() != null)
-                    @foreach($category->news as $news)
-                        @if($news->type == 'news' && $news->publish_date && $news->homepage)
-                            @if($news->spotlight == 1)
-                                <article class="col-sm-6 rst-leftpost">
-                                    <div class="rst-specpost owl-carousel">
-                                        <a href="{{ url('/article/'.$news->id) }}"><img class="img-border" src="{{ isset($news->picture) ? url('images/news/'.$news->picture) : url('images/no-image-available.png') }}" alt="" /></a>
-                                    </div>
-                                    <div class="rst-postinfo">
-                                        <h6><a href="{{ url('/article/'.$news->id) }}">{{ $news->title }}</a></h6>
-                                        <time><i class="fa fa-clock-o"></i>{{ $news->publish_date }}</time>
-                                        <p>{{ $news->summary.'...' }}</p>
-                                    </div>
-                                </article>
-                            @else
-
-                            @endif
-                        @endif
-                    @endforeach
+                    @if(isset($category_world_spotlight))
+                        <article class="col-sm-6 rst-leftpost">
+                            <div class="rst-specpost owl-carousel">
+                                <a href="{{ url('/article/'.$category_world_spotlight->id) }}"><img class="img-border" src="{{ isset($category_world_spotlight->picture) ? url('images/news/'.$category_world_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                            </div>
+                            <div class="rst-postinfo">
+                                <h6><a href="{{ url('/article/'.$category_world_spotlight->id) }}">{{ $category_world_spotlight->title }}</a></h6>
+                                <time><i class="fa fa-clock-o"></i>{{ $category_world_spotlight->publish_date }}</time>
+                                <p>{{ $category_world_spotlight->summary.'...' }}</p>
+                            </div>
+                        </article>
+                    @endif
 
                     <div class="col-sm-6 rst-rightpost">
-                        <?php $i = 0; $count = 0; ?>
-                        @foreach($category->news as $article)
-                            <?php if(++$i == 5) break ?>
-                            @if($article->type == 'news' && $article->publish_date && $article->spotlight != 1 && $article->homepage)
-                                <article>
-                                    <div class="rst-postpic">
-                                        <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
-                                    </div>
-                                    <div class="rst-postinfo">
-                                        <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
-                                        <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
-                                        <p>{{ $article->summary.'...' }}</p>
-                                    </div>
-                                </article>
-                            @endif
+                        @foreach($category_world as $article)
+                            <article>
+                                <div class="rst-postpic">
+                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                                </div>
+                                <div class="rst-postinfo">
+                                    <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
+                                    <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
+                                    <p>{{ $article->summary.'...' }}</p>
+                                </div>
+                            </article>
                         @endforeach
                     </div>
-
-                    @endif
                 </div>
             </div>
         </section>
-        @endforeach
-    @endif
+
+        <!-- Business -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="rst-section-title rst-section-title-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h4>Business</h4>
+                                    <div class="rst-section-title-short">
+                                        <a href="{{ url('/category/business') }}"><span>View all</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    @if(isset($category_business_spotlight))
+                        <article class="col-sm-6 rst-leftpost">
+                            <div class="rst-specpost owl-carousel">
+                                <a href="{{ url('/article/'.$category_business_spotlight->id) }}"><img class="img-border" src="{{ isset($category_business_spotlight->picture) ? url('images/news/'.$category_business_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                            </div>
+                            <div class="rst-postinfo">
+                                <h6><a href="{{ url('/article/'.$category_business_spotlight->id) }}">{{ $category_business_spotlight->title }}</a></h6>
+                                <time><i class="fa fa-clock-o"></i>{{ $category_business_spotlight->publish_date }}</time>
+                                <p>{{ $category_business_spotlight->summary.'...' }}</p>
+                            </div>
+                        </article>
+                    @endif
+
+                    <div class="col-sm-6 rst-rightpost">
+                        @foreach($category_business as $article)
+                            <article>
+                                <div class="rst-postpic">
+                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                                </div>
+                                <div class="rst-postinfo">
+                                    <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
+                                    <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
+                                    <p>{{ $article->summary.'...' }}</p>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="rst-section-title rst-section-title-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h4>Weather</h4>
+                                    <div class="rst-section-title-short">
+                                        <a href="{{ url('/category/weather') }}"><span>View all</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    @if(isset($category_weather_spotlight))
+                        <article class="col-sm-6 rst-leftpost">
+                            <div class="rst-specpost owl-carousel">
+                                <a href="{{ url('/article/'.$category_weather_spotlight->id) }}"><img class="img-border" src="{{ isset($category_weather_spotlight->picture) ? url('images/news/'.$category_weather_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                            </div>
+                            <div class="rst-postinfo">
+                                <h6><a href="{{ url('/article/'.$category_weather_spotlight->id) }}">{{ $category_weather_spotlight->title }}</a></h6>
+                                <time><i class="fa fa-clock-o"></i>{{ $category_weather_spotlight->publish_date }}</time>
+                                <p>{{ $category_weather_spotlight->summary.'...' }}</p>
+                            </div>
+                        </article>
+                    @endif
+
+                    <div class="col-sm-6 rst-rightpost">
+                        @foreach($category_weather as $article)
+                            <article>
+                                <div class="rst-postpic">
+                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                                </div>
+                                <div class="rst-postinfo">
+                                    <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
+                                    <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
+                                    <p>{{ $article->summary.'...' }}</p>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sports -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="rst-section-title rst-section-title-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h4>Sports</h4>
+                                    <div class="rst-section-title-short">
+                                        <a href="{{ url('/category/sports') }}"><span>View all</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    @if(isset($category_sports_spotlight))
+                        <article class="col-sm-6 rst-leftpost">
+                            <div class="rst-specpost owl-carousel">
+                                <a href="{{ url('/article/'.$category_sports_spotlight->id) }}"><img class="img-border" src="{{ isset($category_sports_spotlight->picture) ? url('images/news/'.$category_sports_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                            </div>
+                            <div class="rst-postinfo">
+                                <h6><a href="{{ url('/article/'.$category_sports_spotlight->id) }}">{{ $category_sports_spotlight->title }}</a></h6>
+                                <time><i class="fa fa-clock-o"></i>{{ $category_sports_spotlight->publish_date }}</time>
+                                <p>{{ $category_sports_spotlight->summary.'...' }}</p>
+                            </div>
+                        </article>
+                    @endif
+
+                    <div class="col-sm-6 rst-rightpost">
+                        @foreach($category_sports as $article)
+                            <article>
+                                <div class="rst-postpic">
+                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                                </div>
+                                <div class="rst-postinfo">
+                                    <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
+                                    <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
+                                    <p>{{ $article->summary.'...' }}</p>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lifestyle -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="rst-section-title rst-section-title-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h4>Lifestyle</h4>
+                                    <div class="rst-section-title-short">
+                                        <a href="{{ url('/category/lifestyle') }}"><span>View all</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    @if(isset($category_lifestyle_spotlight))
+                        <article class="col-sm-6 rst-leftpost">
+                            <div class="rst-specpost owl-carousel">
+                                <a href="{{ url('/article/'.$category_lifestyle_spotlight->id) }}"><img class="img-border" src="{{ isset($category_lifestyle_spotlight->picture) ? url('images/news/'.$category_lifestyle_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                            </div>
+                            <div class="rst-postinfo">
+                                <h6><a href="{{ url('/article/'.$category_lifestyle_spotlight->id) }}">{{ $category_lifestyle_spotlight->title }}</a></h6>
+                                <time><i class="fa fa-clock-o"></i>{{ $category_lifestyle_spotlight->publish_date }}</time>
+                                <p>{{ $category_lifestyle_spotlight->summary.'...' }}</p>
+                            </div>
+                        </article>
+                    @endif
+
+                    <div class="col-sm-6 rst-rightpost">
+                        @foreach($category_lifestyle as $article)
+                            <article>
+                                <div class="rst-postpic">
+                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                                </div>
+                                <div class="rst-postinfo">
+                                    <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
+                                    <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
+                                    <p>{{ $article->summary.'...' }}</p>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
     <br><br>
     <!-- End Category Wise -->
 @endsection
