@@ -101,7 +101,7 @@
 #weather-image {
   position: absolute;
   margin-top: -40px;
-  margin-left: -100px;
+  margin-left: -120px;
 }
 
 #weather h5 {
@@ -154,7 +154,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
 
 <script>
-  alert('{{Cache::get('city').",".Cache::get('country')}}');
     // v3.1.0
     //Docs at http://simpleweatherjs.com
     $(document).ready(function() {  
@@ -164,7 +163,7 @@
 
     function getWeather() {
       $.simpleWeather({
-        location: '{{Cache::get('city').",".Cache::get('country')}}',
+        location: '{{Cache::get('city')}}',
         woeid: '',
         unit: 'c',
         success: function(weather) {

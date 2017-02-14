@@ -59,17 +59,17 @@
                                 <li class="divider-vertical"></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right nav-flag">
-                                <li><a class="{{ ($country == 'BH') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/bh') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/bh.png') }}"> Bahrain</a></li>
+                                <li><a class="{{ ($country == 'Bahrain') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/bh') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/bh.png') }}"> Bahrain</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'KW') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/kw') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/kw.png') }}"> Kuwait</a></li>
+                                <li><a class="{{ ($country == 'Kuwait') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/kw') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/kw.png') }}"> Kuwait</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'OM') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/om') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/om.png') }}"> Oman</a></li>
+                                <li><a class="{{ ($country == 'Oman') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/om') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/om.png') }}"> Oman</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'QA') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/qa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/qa.png') }}"> Qatar</a></li>
+                                <li><a class="{{ ($country == 'Qatar') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/qa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/qa.png') }}"> Qatar</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'SA') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
+                                <li><a class="{{ ($country == 'Saudi Arabia') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'AE') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
+                                <li><a class="{{ ($country == 'UAE') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
                             </ul>
                         </div>
                     </div>

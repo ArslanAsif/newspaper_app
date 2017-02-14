@@ -39,46 +39,50 @@ class HomeController extends Controller
 
     public function getSetCountry($country)
     {
-        Cache::put('country', strtoupper($country), 60*24*7);
+        switch(strtoupper($country))
+        {
+            case "BH": {
+                $country = "Bahrain";
+                break;
+            }
+
+            case "KW": {
+                $country = "Kuwait";
+                break;
+            }
+
+            case "OM": {
+                $country = "Oman";
+                break;
+            }
+
+            case "QA": {
+                $country = "Qatar";
+                break;
+            }
+
+            case "SA": {
+                $country = "Saudi Arabia";
+                break;
+            }
+
+            case "AE": {
+                $country = "UAE";
+                break;
+            }
+
+            default: {
+                $country = "Saudi Arabia";
+            }
+        }
+
+        Cache::put('country', $country, 60*24*7);
         return redirect('/');
     }
 
     public function index()
     {   
-        $country = Cache::get('country');
-        $coun = "Saudi Arabia";
-        switch($country)
-        {
-            case "BH": {
-                $coun = "Bahrain";
-                break;
-            }
-
-            case "KW": {
-                $coun = "Kuwait";
-                break;
-            }
-
-            case "OM": {
-                $coun = "Oman";
-                break;
-            }
-
-            case "QA": {
-                $coun = "Qatar";
-                break;
-            }
-
-            case "SA": {
-                $coun = "Saudi Arabia";
-                break;
-            }
-
-            case "AE": {
-                $coun = "UAE";
-                break;
-            }
-        }
+        $coun = Cache::get('country');
         
         // return $coun;
 
@@ -90,7 +94,7 @@ class HomeController extends Controller
         $opinions = News::where('country', $coun)->where('publish_date', '!=', null)->where('category', 'Opinion')->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
 
         $category_world_spotlight = News::where('country', $coun)->where('category', 'World')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
-        $category_world = News::where('country', $country)->where('category', 'World')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
+        $category_world = News::where('country', $coun)->where('category', 'World')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
         $category_business_spotlight = News::where('country', $coun)->where('category', 'Business')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
         $category_business = News::where('country', $coun)->where('category', 'Business')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
         $category_weather_spotlight = News::where('country', $coun)->where('category', 'Weather')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
@@ -109,14 +113,18 @@ class HomeController extends Controller
 
     public function category($category)
     {
-        $articles = News::where('category', $category)->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
+        $coun = Cache::get('country');
+
+        $articles = News::where('country', $coun)->where('category', $category)->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
 
         return view('category')->with(['category' => $category, 'articles' => $articles]);
     }
 
     public function article($id)
     {
-        $article = News::where('id', $id)->first();
+        $coun = Cache::get('country');
+
+        $article = News::where('country', $coun)->where('id', $id)->first();
         $comment_count_admin = $article->comments()->count();
         $comment_count = $article->comments()->where('confirmed', 1)->count();
         $advertisements = Advertisement::where('published_on', '!=', null)->get();
@@ -173,17 +181,20 @@ class HomeController extends Controller
 
     public function getColumns()
     {
-        $authors = News::select('user_id')->where('category', 'Opinion')->groupBy('user_id')->get();
-        $columns = News::where('category', 'Opinion')->orderBy('created_at', 'DESC')->paginate(12);
+        $coun = Cache::get('country');
 
-        return $columns;
+        $authors = News::where('country', $coun)->select('user_id')->where('category', 'Opinion')->groupBy('user_id')->get();
+        $columns = News::where('country', $coun)->where('category', 'Opinion')->orderBy('created_at', 'DESC')->paginate(12);
+
         return view('category')->with(['category'=>'Columns', 'authors'=>$authors, 'articles'=>$columns]);
     }
 
     public function getUserColumns($id)
     {
-        $authors = News::select('user_id')->where('category', 'Opinion')->groupBy('user_id')->get();
-        $columns = News::where('category', 'Opinion')->where('user_id', $id)->orderBy('created_at', 'DESC')->paginate(12);
+        $coun = Cache::get('country');
+
+        $authors = News::where('country', $coun)->select('user_id')->where('category', 'Opinion')->groupBy('user_id')->get();
+        $columns = News::where('country', $coun)->where('category', 'Opinion')->where('user_id', $id)->orderBy('created_at', 'DESC')->paginate(12);
         return view('category')->with(['category'=>'Columns', 'articles'=>$columns, 'user'=>User::where('id', $id)->first(), 'authors'=>$authors]);
     }
 
@@ -195,8 +206,10 @@ class HomeController extends Controller
 
     public function getTag($id)
     {
+        $coun = Cache::get('country');
+        
         $tags = Tag::orderBy('created_at', 'DESC')->get();
-        $articles = Tag::where('id', $id)->first()->news()->orderBy('created_at', 'DESC')->paginate(12);
+        $articles = Tag::where('id', $id)->first()->news()->where('country', $coun)->orderBy('created_at', 'DESC')->paginate(12);
         return view('tags')->with(['tag_name'=>Tag::where('id', $id)->first()->title ,'tags'=>$tags, 'articles'=>$articles]);
     }
 

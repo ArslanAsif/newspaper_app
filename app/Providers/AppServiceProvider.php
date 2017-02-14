@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('includes.nav', function($view) {
+            $coun = "";
             if(Cache::has('country'))
             {
                 $country = Cache::get('country');
@@ -26,7 +27,52 @@ class AppServiceProvider extends ServiceProvider
                 // $ip = "119.155.54.186"; //demo ip remove when deploy
                 $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
                 $country = $details->country;
+                
+                
+                switch($country)
+                {
+                    case "BH": {
+                        $country = "Bahrain";
+                        break;
+                    }
+
+                    case "KW": {
+                        $country = "Kuwait";
+                        break;
+                    }
+
+                    case "OM": {
+                        $country = "Oman";
+                        break;
+                    }
+
+                    case "QA": {
+                        $country = "Qatar";
+                        break;
+                    }
+
+                    case "SA": {
+                        $country = "Saudi Arabia";
+                        break;
+                    }
+
+                    case "AE": {
+                        $country = "UAE";
+                        break;
+                    }
+
+                    default: {
+                        $country = "Saudi Arabia";
+                    }
+                }
+
                 $city = $details->city;
+
+
+                //Force selected between available countries
+                //Cache::put('coun', $coun, 60*24*7);
+
+                //Actual City, Country
                 Cache::put('country', $country, 60*24*7);
                 Cache::put('city', $city, 60*24*7);
             }
