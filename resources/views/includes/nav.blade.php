@@ -22,13 +22,20 @@
         background-color: #39E6AC;
     }
 
-    .nav-flag-active {
+    .nav.navbar-nav.navbar-right .nav-flag-active a{
         background-color: #39E6AC;
+        color: white;
     }
+
     .rst-header-logo {
         margin-top: 10px;
         position: absolute;
     }
+
+    .nav.navbar-nav.navbar-right li a:hover {
+        color: white;
+    }
+
 </style>
 
 <!--- Header -->
@@ -59,22 +66,22 @@
                                 <li class="divider-vertical"></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right nav-flag">
-                                <li><a class="{{ ($country == 'Bahrain') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/bh') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/bh.png') }}"> Bahrain</a></li>
+                                <li class="{{ ($country == 'Bahrain') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/bh') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/bh.png') }}"> Bahrain</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'Kuwait') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/kw') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/kw.png') }}"> Kuwait</a></li>
+                                <li class="{{ ($country == 'Kuwait') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/kw') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/kw.png') }}"> Kuwait</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'Oman') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/om') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/om.png') }}"> Oman</a></li>
+                                <li class="{{ ($country == 'Oman') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/om') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/om.png') }}"> Oman</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'Qatar') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/qa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/qa.png') }}"> Qatar</a></li>
+                                <li class="{{ ($country == 'Qatar') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/qa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/qa.png') }}"> Qatar</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'Saudi Arabia') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
+                                <li class="{{ ($country == 'Saudi Arabia') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
                                 <li class="divider-vertical"></li>
-                                <li><a class="{{ ($country == 'UAE') ? 'nav-flag-active' : '' }}" href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
+                                <li class="{{ ($country == 'UAE') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="rst-header-menu-content" style="padding-right: 20px">
+                    <div class="rst-header-menu-content" style="padding-right: 20px; position: relative; z-index: 1">
                         
                         <button class="rst-menu-trigger">
                             <span>Toggle navigation</span>

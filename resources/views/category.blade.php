@@ -10,10 +10,10 @@
                         <form action="#">
                             @if(isset($authors))
                             <select name="rst-catshortselect" id="rst-catshortselect" onchange="location = this.value;">
-                                    <option value="{{ url('category/column') }}">All</option>
-                                    @foreach($authors as $author)
-                                        <option {{ isset($user) ? $user->id == $author->user_id ? 'selected' : '' : '' }} value="{{ url('category/column/author/'.$author->user_id) }}">{{ $author->user->name }}</option>
-                                </select>
+                                <option value="{{ url('category/column') }}">All</option>
+                                @foreach($authors as $author)
+                                    <option {{ isset($user) ? $user->id == $author->user_id ? 'selected' : '' : '' }} value="{{ url('category/column/author/'.$author->user_id) }}">{{ $author->user->name }}</option>
+                            </select>
                             @endforeach
 
                             @else

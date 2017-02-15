@@ -2,14 +2,14 @@
 
 @section('content')
     <!-- Pageline -->
-    <div class="rst-pageline container" style="margin-top: -32px">
+    <div class="rst-pageline container" style="margin-top: -32px; position: relative; z-index: 0;">
         <div class="row">
             <div class="col-xs-12">
                 <div class="rst-pageline-content">
                     <span>Headlines</span>
                     <div class="rst-pageline-slider owl-carousel">
                         @foreach($headlines as $headline)
-                            <p>{{ $headline->category }}: {{ $headline->title }}</p>
+                            <p>{{ $headline->country }} ({{ $headline->category }}): {{ $headline->title }}</p>
                         @endforeach
                     </div>
                 </div>
@@ -63,9 +63,9 @@
                 </div>
 
                 <div class="col-md-4 col-xs-12">
-                    <div class="" style="border: 1px solid silver">
-                        <a class="btn btn-default" href="{{ url('/exchangerate') }}"><i style="color: green" class="fa fa-money"></i> Currency Exchange Rate</a>
-                        <a class="btn btn-default" href="#"><i style="color:yellow" class="fa fa-cubes"></i> Gold Rate</a>
+                    <div class="" style=" padding-top: 10px">
+                        <a style="width: 50%; padding-top: 20px; padding-bottom: 20px" class="btn btn-success" href="{{ url('/exchangerate') }}"><i style="color: white" class="fa fa-money"></i> Exchange Rates</a>
+                        <a style="width: 49%; padding-top: 20px; padding-bottom: 20px" class="btn btn-warning" href="#"><i style="color:white" class="fa fa-cubes"></i> Gold Rates</a>
                     </div>
                 </div>
 
