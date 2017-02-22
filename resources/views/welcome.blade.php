@@ -27,7 +27,7 @@
                         <div>
                             <div class="rst-postpic">
                                 <a href="{{ url('article/'.$main_spotlight->id) }}"><img class="img-border" width=100% src="{{ url(isset($main_spotlight->picture) ? 'images/news/'.$main_spotlight->picture : 'images/no-image-available.png') }}" alt="" /></a>
-                                <a class="rst-postpic-cat" href="{{ url('/category/news/'.$main_spotlight->category) }}"><span>{{ $main_spotlight->category }}</span></a>
+                                <a class="rst-postpic-cat" href="{{ url('/category/'.strtolower($main_spotlight->category)) }}"><span>{{ $main_spotlight->category }}</span></a>
                             </div>
                             <div class="rst-postinfo" >
                                 <h6 class="h6-title"><a href="{{ url('article/'.$main_spotlight->id) }}">{{ $main_spotlight->title }}</a></h6>
@@ -46,7 +46,7 @@
                                     <article class="col-sm-4 col-xs-6">
                                         <div class="rst-postpic">
                                             <a href="{{ url('article/'.$article->id) }}"><img class="img-border" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
-                                            <a class="rst-postpic-cat" href="{{ url('category/news/'.$article->category) }}"><span>{{ $article->category }}</span></a>
+                                            <a class="rst-postpic-cat" href="{{ url('category/'.strtolower($article->category)) }}"><span>{{ $article->category }}</span></a>
                                         </div>
                                         <div class="rst-postinfo">
                                             <h6><a href="{{ url('article/'.$article->id) }}">{{ $article->title }}</a></h6>

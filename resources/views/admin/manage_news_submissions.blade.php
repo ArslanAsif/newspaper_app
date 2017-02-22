@@ -23,7 +23,7 @@
                                 <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Type</th>
+                                    <th>Country</th>
                                     <th>Category</th>
                                     <th>Author</th>
                                     <th>Submitted On</th>
@@ -37,8 +37,8 @@
                                 @foreach($news as $this_news)
                                 <tr>
                                     <td>{{ $this_news->title }}</td>
-                                    <td>{{ $this_news->type }}</td>
-                                    <td>{{ isset($this_news->category) ? $this_news->category->name : '' }}</td>
+                                    <td>{{ $this_news->country }}</td>
+                                    <td>{{ $this_news->category }}</td>
                                     <td>{{ $this_news->user->name }}</td>
                                     <td>{{ $this_news->created_at }}</td>
                                     <td>

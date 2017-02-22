@@ -235,10 +235,8 @@ class HomeController extends Controller
         $news->user_id = Auth::user()->id;
         $news->title = $request['title'];
         // $news->type = $request['type'];
-        if($request['category'] != '')
-            $news->category = $request['category'];
-        else
-            $news->category = null;
+        $news->category = $request['category'];
+        $news->country = $request['country'];
         
         $news->summary = $request['summary'];
         $news->description = $request['descr'];

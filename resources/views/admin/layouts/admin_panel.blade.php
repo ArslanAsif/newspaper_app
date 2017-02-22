@@ -62,7 +62,7 @@
     <!-- footer content -->
         <footer>
             <div class="pull-right">
-                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                © 2017 GCC Connect | Developed By Quantum Bridge
             </div>
             <div class="clearfix"></div>
         </footer>

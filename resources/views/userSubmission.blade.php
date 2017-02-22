@@ -20,12 +20,16 @@
                             <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method=post action="{{ url('news/add') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" name="type">
-                                            <option>News</option>
-                                            <option>Article</option>
-                                            <option>Column</option>
+                                        <select class="form-control" name="country" id="country">
+                                            <option disabled="disabled" selected>-- Select --</option>
+                                            <option>Bahrain</option>
+                                            <option>Kuwait</option>
+                                            <option>Oman</option>
+                                            <option>Qatar</option>
+                                            <option>Saudi Arabia</option>
+                                            <option>UAE</option>
                                         </select>
                                     </div>
                                 </div>
@@ -38,14 +42,17 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                                <div class="form-group" id='category-div'>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Category<span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" name="category">
-                                            <option></option>
-                                            @foreach($categories as $category)
-                                                <option value="{{ isset($category) ? $category->id: '' }}">{{ isset($category) ? $category->name : '' }}</option>
-                                            @endforeach
+                                        <select class="form-control" name="category" id="category">
+                                            <option disabled="disabled" selected>-- Select --</option>
+                                            <option>World</option>
+                                            <option>Business</option>
+                                            <option>Weather</option>
+                                            <option>Sports</option>
+                                            <option>Lifestyle</option>
+                                            <option>Opinion</option>
                                         </select>
                                     </div>
                                 </div>
@@ -55,19 +62,6 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <textarea maxlength="150" id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Priority <small>(Lower is better)</small></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" name="priority">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
                                     </div>
                                 </div>
 
