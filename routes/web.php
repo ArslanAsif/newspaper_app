@@ -13,6 +13,10 @@
 Route::get('/exchangerate', function(){
     return view('exchangerate');
 });
+
+Route::get('/api/currencyconverter', 'HomeController@getCurrenctExchangeAjax');
+Route::get('/links', 'HomeController@getImpLinks');
+
 Route::get('/', 'HomeController@index');
 Route::get('/ver/{country}', 'HomeController@getSetCountry');
 Route::get('/tag/{id}', 'HomeController@getTag');
@@ -96,6 +100,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
         Route::post('/contact', 'AboutController@postContactUs');
         Route::get('/terms', 'AboutController@getTerms');
         Route::post ('/terms', 'AboutController@postTerms');
+        Route::get('/links/{country}', 'AboutController@getLinks');
+        Route::post('/links', 'AboutController@postLinks');
     });
 });
 

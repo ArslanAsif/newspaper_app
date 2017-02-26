@@ -23,10 +23,7 @@ class AppServiceProvider extends ServiceProvider
             }
             else
             {
-                $ip = $_SERVER['REMOTE_ADDR'];
-                // $ip = "119.155.54.186"; //demo ip remove when deploy
-                $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
-                $coun = $details->country;
+                
 
                 $country = "Saudi Arabia";
                 
@@ -63,6 +60,10 @@ class AppServiceProvider extends ServiceProvider
                     }
                 }
 
+                $ip = $_SERVER['REMOTE_ADDR'];
+                //$ip = "119.155.54.186"; //demo ip remove when deploy
+                $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+                $coun = $details->country;
                 $city = $details->city;
 
 

@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Cache;
 
 use App\About;
+use App\Link;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,9 +18,20 @@ class AboutController extends Controller
 
     public function postAboutUs(Request $request)
     {
-        $aboutus = About::where('type', 'aboutus')->first();
-        $aboutus->description = $request['descr'];
-        $aboutus->update();
+        $aboutus = About::where('type', 'aboutus');
+        if($aboutus->count() > 0)
+        {
+            $aboutus = $aboutus->first();
+            $aboutus->description = $request['descr'];
+            $aboutus->update();
+        }
+        else
+        {
+            $aboutus = new About();
+            $aboutus->type = 'aboutus';
+            $aboutus->description = $request['descr'];
+            $aboutus->save();
+        }
 
         return redirect()->back();
     }
@@ -31,9 +44,20 @@ class AboutController extends Controller
 
     public function postContactUs(Request $request)
     {
-        $about = About::where('type', 'contact')->first();
-        $about->description = $request['descr'];
-        $about->update();
+        $contact = About::where('type', 'contact');
+        if($contact->count() > 0)
+        {
+            $contact = $contact->first();
+            $contact->description = $request['descr'];
+            $contact->update();
+        }
+        else
+        {
+            $contact = new About();
+            $contact->type = 'contact';
+            $contact->description = $request['descr'];
+            $contact->save();
+        }
 
         return redirect()->back();
     }
@@ -47,10 +71,48 @@ class AboutController extends Controller
 
     public function postTerms(Request $request)
     {
-        $terms = About::where('type', 'terms')->first();
-        $terms->description = $request['descr'];
-        $terms->update();
+        $terms = About::where('type', 'terms');
+        if($terms->count() > 0)
+        {
+            $terms = $terms->first();
+            $terms->description = $request['descr'];
+            $terms->update();
+        }
+        else
+        {
+            $terms = new About();
+            $terms->type = 'terms';
+            $terms->description = $request['descr'];
+            $terms->save();
+        }
 
+        return redirect()->back();
+    }
+
+    public function getLinks($country)
+    {
+        $links = About::where('type', 'links')->where('country', $country)->first();
+        return view('admin.edit_about',['aboutus'=>$links,'check'=>'links', 'country'=>$country]);
+    }
+
+    public function postLinks(Request $request)
+    {
+        $links = About::where('type', 'links')->where('country', $request['country']);
+        if($links->count() > 0)
+        {
+            $links = $links->first();
+            $links->description = $request['descr'];
+            $links->update();
+        }
+        else
+        {
+            $links = new About();
+            $links->country = $request['country'];
+            $links->type = 'links';
+            $links->description = $request['descr'];
+            $links->save();
+        }
+        
         return redirect()->back();
     }
 }

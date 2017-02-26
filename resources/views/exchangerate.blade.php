@@ -4,11 +4,19 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12" >
-			<h2>Currency exchange rate <small></small></h2>
-			<div id="exchangeRate" class="table-responsive">
-				<div class="loading-image">
-					<h1 style="text-align: center">Loading exchange rate...</h1><br><br><br><br>
+		<div class="col-sm-12" >
+			<h2>Currency Exchange Rate <small></small></h2>
+			<div class="row">
+				<div class="col-sm-9">
+					<div id="exchangeRate" class="table-responsive">
+						<div class="loading-image">
+							<h1 style="text-align: center">Loading exchange rate...</h1><br><br><br><br>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div id="currency_widget_holder"></div>
 				</div>
 			</div>
 		</div>
@@ -17,13 +25,23 @@
 @endsection
 
 @section('css')
+	<link rel="stylesheet" type="text/css" href="{{ url('currency_widget/css/ui-lightness/jquery-ui-1.8.2.custom.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ url('currency_widget/css/currency_widget.css') }}" />
 @endsection
 
 @section('js')
+<script type="text/javascript" src="{{ url('currency_widget/js/jquery.currency_widget.js') }}"></script>
+
 <script>
 	$(document).ready(function() {  
       getExchangeRate(); //Get the initial currency rate.
       //setInterval(getExchangeRate, 14400000); //Update the currency rate every 4 hours.
+      $('#currency_widget_holder').currency_widget({ 
+      		url: '{{url("/api/currencyconverter")}}',
+ 			source_currencies: { 'BHD': 'Bahraini Dinar', 'KWD': 'Kuwaiti Dinar', 'OMR':'Omani Riyal', 'QAR':'Qatari Riyal', 'SAR':'Saudi Riyal', 'AED':'UAE Dirham', 'USD':'US Dollar', 'EUR':'Euro' },
+ 			target_currencies: { 'BHD': 'Bahraini Dinar', 'KWD': 'Kuwaiti Dinar', 'OMR':'Omani Riyal', 'QAR':'Qatari Riyal', 'SAR':'Saudi Riyal', 'AED':'UAE Dirham', 'USD':'US Dollar', 'EUR':'Euro' }
+			}); // set the available currencies
+
     });
 
     function getExchangeRate() {
@@ -52,4 +70,5 @@
       });
     }
 </script>
+
 @endsection

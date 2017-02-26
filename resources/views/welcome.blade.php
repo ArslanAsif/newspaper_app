@@ -63,10 +63,15 @@
                 </div>
 
                 <div class="col-md-4 col-xs-12">
-                    <div class="" style=" padding-top: 10px">
-                        <a style="width: 50%; padding-top: 20px; padding-bottom: 20px" class="btn btn-success" href="{{ url('/exchangerate') }}"><i style="color: white" class="fa fa-money"></i> Exchange Rates</a>
-                        <a style="width: 49%; padding-top: 20px; padding-bottom: 20px" class="btn btn-warning" href="#"><i style="color:white" class="fa fa-cubes"></i> Gold Rates</a>
+                    <a href="{{ url('/category/weather') }}">
+                    <div id="weather" style="padding-top: 1px; padding-bottom: 1px;">
+                      <div class="loading-image">
+                        <br><br><p style="text-align: center; color: white"  >Loading weather data...</p><br><br>
+                      </div>
                     </div>
+                    </a>
+                    <a hidden="hidden" id="exchangerate-btn" href="{{ url('/exchangerate') }}" class="btn btn-sm btn-success" style="position: absolute; margin-left: 160px; font-size: 12px; margin-top: 5px; "><i class="fa fa-money"></i> Exchange rates</a>
+                    <div id="currency_widget_holder"></div>
                 </div>
 
                 <div class="col-md-4 col-xs-12">
@@ -93,7 +98,7 @@
 
                         <br>
                         <div class="rst-section-title-short">
-                            <a href="{{ url('category/column') }}"><span>View all</span></a>
+                            <a href="{{ url('category/opinion') }}"><span>View all</span></a>
                         </div>
 
                         <div class="clear"></div>
@@ -367,8 +372,103 @@
     <!-- End Category Wise -->
 @endsection
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ url('currency_widget/css/ui-lightness/jquery-ui-1.8.2.custom.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ url('currency_widget/css/currency_widget.css') }}" />
+<style>
+
+#weather {
+    font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    text-transform: uppercase;
+    background-color: #0091C2;
+    color: white;
+    margin-bottom: 20px;
+}
+
+#weather-image {
+  position: absolute;
+  width: 200px;
+  margin-top: -40px;
+  margin-left: -120px;
+}
+
+#weather h5 {
+  padding: 2px;
+  color: white;
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+#weather h4 {
+  padding: 2px;
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+#weather h3 {
+  padding: 2px;
+  color: white;
+  font-size: 50px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+#weather p {
+    text-align: center;
+    font-size: 12px;
+}
+
+
+</style>
+
+@endsection
+
 @section('js')
     <script type="text/javascript">
         $('#myModal').modal(); 
     </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
+    <script type="text/javascript" src="{{ url('currency_widget/js/jquery.currency_widget.js') }}"></script>
+
+<script>
+    // v3.1.0
+    //Docs at http://simpleweatherjs.com
+    $(document).ready(function() {  
+      getWeather(); //Get the initial weather.
+      setInterval(getWeather, 300000); //Update the weather every 10 minutes.
+      
+      $('#currency_widget_holder').currency_widget({ 
+            url: '{{url("/api/currencyconverter")}}',
+            source_currencies: { 'BHD': 'Bahraini Dinar', 'KWD': 'Kuwaiti Dinar', 'OMR':'Omani Riyal', 'QAR':'Qatari Riyal', 'SAR':'Saudi Riyal', 'AED':'UAE Dirham', 'USD':'US Dollar', 'EUR':'Euro' },
+            target_currencies: { 'BHD': 'Bahraini Dinar', 'KWD': 'Kuwaiti Dinar', 'OMR':'Omani Riyal', 'QAR':'Qatari Riyal', 'SAR':'Saudi Riyal', 'AED':'UAE Dirham', 'USD':'US Dollar', 'EUR':'Euro' }
+        }); // set the available currencies
+    });
+
+    function getWeather() {
+      $.simpleWeather({
+        location: '{{Cache::get('city')}}',
+        woeid: '',
+        unit: 'c',
+        success: function(weather) {
+          html = '<h4>'+weather.city+', '+weather.region+'</h4>';
+          html += '<h3><img id="weather-image" src="'+weather.image+'">'+weather.temp+'&deg;'+weather.units.temp+'</h3>';
+          html += '<h5><span class="fa fa-arrow-down"> '+weather.forecast[0].low+'&deg;'+weather.units.temp+' <span class="fa fa-arrow-up"> '+weather.forecast[0].high+'&deg;'+weather.units.temp+'</h5>';
+          html += '</div>';
+      
+          $("#weather").html(html);
+        },
+        error: function(error) {
+          $("#weather").html('<p>'+error+'</p>');
+        }
+      });
+    }
+</script>
+
 @endsection

@@ -89,7 +89,7 @@ class HomeController extends Controller
         $headlines = News::where('publish_date', '!=', null)->where('latest', 1)->orderBy('created_at', 'DESC')->take(10)->get();
 
         $main_spotlight = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
-        $main_latest = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('created_at', 'DESC')->take(3)->get();
+        $main_latest = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('created_at', 'DESC')->take(6)->get();
 
         $opinions = News::where('country', $coun)->where('publish_date', '!=', null)->where('category', 'Opinion')->orderBy('created_at', 'DESC')->orderBy('priority', 'ASC')->take(4)->get();
 
@@ -279,7 +279,7 @@ class HomeController extends Controller
         else
             $news->publish_date = null;
 
-        $img = $request['image-data'];
+        $img = $request['image_data'];
 
         //decode the url, because we want to use decoded characters to use explode
         $decoded = urldecode($img);
@@ -370,5 +370,24 @@ class HomeController extends Controller
         $comment->confirmed = 0;
         $comment->update();
         return redirect()->back();
+    }
+
+    public function getCurrenctExchangeAjax()
+    {
+        header('Content-Type: text/plain');
+
+        $amount = $_GET['amount'];
+        $source_currency = $_GET['source_currency'];
+        $target_currency = $_GET['target_currency'];
+
+        $ex_rate = floatval(file_get_contents('http://download.finance.yahoo.com/d/quotes.csv?s='.$source_currency.$target_currency.'=X&f=l1'));
+        echo round($ex_rate*$amount, 2);
+    }
+
+    public function getImpLinks()
+    {
+        $country = Cache::get('country');
+        $links = About::where('type', 'links')->where('country', $country)->first();
+        return view('implinks')->with('links', $links);
     }
 }

@@ -25,9 +25,10 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>User</th>
+                                    <th>Post Title</th>
                                     <th>Comment</th>
-                                    <th>TIme</th>
-                                    <th></th>
+                                    <th>Time</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
 
@@ -38,11 +39,13 @@
                                     <tr>
                                         <td>{{ $comment->id }}</td>
                                         <td>{{ $comment->user->name }}</td>
+                                        <td>{{ $comment->news->title }}</td>
                                         <td>{{ $comment->comment }}</td>
                                         <td>{{ $comment->created_at }}</td>
                                         <td>
-                                            <a href="{{ url('/comment/'.$comment->id.'/approve') }}" class="btn btn-default"><span class="fa fa-check"></span>Approve</a>
-                                            <a href="{{ url('/comment/'.$comment->id.'/delete') }}" class="btn btn-danger"><span class="fa fa-trash-o"></span>Delete</a>
+                                            <a href="{{ url('/article/'.$comment->news->id) }}" class="btn btn-primary"><span class="fa fa-eye"></span> View On Post</a>
+                                            <a href="{{ url('/comment/'.$comment->id.'/approve') }}" class="btn btn-default"><span class="fa fa-check"></span> Approve</a>
+                                            <a href="{{ url('/comment/'.$comment->id.'/delete') }}" class="btn btn-danger"><span class="fa fa-trash-o"></span> Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

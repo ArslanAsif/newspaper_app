@@ -9,8 +9,9 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-
-                            @if($check=="contact")
+                            @if($check=="links")
+                                <h2>Important Links</h2>
+                            @elseif($check=="contact")
                                 <h2>Contact <small></small></h2>
                             @elseif($check=="aboutus")
                                 <h2>About <small></small></h2>
@@ -24,12 +25,26 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <br/>
 
                             <form action="{{url('/admin/about/'.$check)}}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                @if($check == 'links' && isset($country))
+                                <h2>Country</h2>
+                                <select name="country" class="form-control" onchange="if (this.value) window.location.href='{{ url("/admin/about/links") }}'+'/'+this.value">
+                                    <option {{ $country == 'Saudi Arabia' ? 'selected' : '' }}>Saudi Arabia</option>
+                                    <option {{ $country == 'UAE' ? 'selected' : '' }}>UAE</option>
+                                    <option {{ $country == 'Qatar' ? 'selected' : '' }}>Qatar</option>
+                                    <option {{ $country == 'Kuwait' ? 'selected' : '' }}>Kuwait</option>
+                                    <option {{ $country == 'Bahrain' ? 'selected' : '' }}>Bahrain</option>
+                                    <option {{ $country == 'Oman' ? 'selected' : '' }}>Oman</option>
+                                </select>
+
+                                <br>
+                                <h2>Links</h2>
+                                @endif
+
                                 {{ csrf_field() }}
                                 @include('admin.includes.text_editor')
-                                <div id="editor" class="editor-wrapper"><?= $aboutus->description ?></div>
+                                <div id="editor" class="editor-wrapper"><?= isset($aboutus) ? $aboutus->description : '' ?></div>
                                 <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">

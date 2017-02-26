@@ -17,7 +17,7 @@
                         </div>
                         <div class="x_content">
                             <br />
-                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method=post action="{{ url('news/add') }}">
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" >
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required">*</span></label>
@@ -87,7 +87,7 @@
                                         <a class="btn btn-warning rotate-ccw"><span class="fa fa-rotate-left"></span></a>
                                         <a class="btn btn-warning rotate-cw"><span class="fa fa-rotate-right"></span></a>
 
-                                        <input type="hidden" name="image-data" class="hidden-image-data" />
+                                        <input type="hidden" name="image_data" id="hidden_img" class="hidden-image-data" />
                                         <span class="pull-right">
                                             <a class="btn btn-default select-image-btn">Select new image</a>
                                         <a class="btn btn-success export">Upload</a>
@@ -104,7 +104,7 @@
 
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success pull-right">Submit</button>
+                                    <a onclick="formSubmit()" class="btn btn-success pull-right">Submit</a>
                                 </div>
 
                             </form>
@@ -117,6 +117,7 @@
 @endsection
 
 @section('css')
+
     <!-- bootstrap-wysiwyg -->
     <link href="{{ url('vendors/google-code-prettify/bin/prettify.min.css') }}" rel="stylesheet">
 
@@ -172,6 +173,9 @@
 
     </style>
 
+
+    <!--Toastr notification-->
+    <link rel="stylesheet" href="{{ url('toastr/toastr.min.css') }}">
 
 @endsection
 
@@ -311,5 +315,55 @@
         $('.select-image-btn').click(function() {
             $('.cropit-image-input').click();
         });
+    </script>
+
+    <!--Toastr notification-->
+    <script src="{{ url('toastr/toastr.min.js') }}"></script>
+
+    <script>
+    function formSubmit()
+    {
+        $csrf_token = '{{ csrf_token() }}';
+        $country = $('#country option:selected').text();
+        $title = $('#title').val();
+        $category = $('#category option:selected').text();
+        $summary = $('#summary').val();
+        $tags = $('#tags_1').val();
+        $image_data = $('#hidden_img').val();
+        $descr = $('#hidden_descr').val();
+
+        console.log(
+            //$csrf_token
+            //$country
+            //$title
+            //$category
+            //$summary
+            //$tags
+            //$image_data
+            //$descr
+            );
+
+
+        $.ajax({
+            method: 'POST',
+            url: "{{ url('news/add') }}",
+            data: {
+                _token: $csrf_token,
+                country: $country,
+                title: $title,
+                category: $category,
+                summary: $summary,
+                tags: $tags,
+                image_data: $image_data,
+                descr: $descr,
+            },
+            success: function() {
+                toastr["success"]("Successfully Submitted");
+            }
+        })
+        .fail(function() {
+            toastr["error"]("An error occured!");
+        });
+    }
     </script>
 @endsection
