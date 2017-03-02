@@ -47,7 +47,7 @@
 
                 <span class="rst-header-logo" href="{{ url('/') }}">
                     <a href="{{ url('/') }}">
-                        <img style="padding-left:15px; margin-top: -9px" width="165px" src="{{ url('images/header-logo.jpg') }}" alt="" />
+                        <img style="padding-left:0px; margin-top: -18px" width="165px" src="{{ url('images/gccc.png') }}" alt="" />
                     </a>
                     <span style="font-size: 24px;">
                         <a href="{{ url('/') }}" style="color: #2F3E42;"></a>
@@ -55,7 +55,7 @@
                 </span>
                 <div class="col-md-10 col-sm-10 pull-right" >
                     <div class="navbar navbar-default">
-                        <div class="navbar-header">
+                        <div class="navbar-header" style="margin-right: -15px">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 Country: {{ $country }}
                             </button>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
 
-                    <div class="rst-header-menu-content" style="padding-right: 20px; position: relative; z-index: 1">
+                    <div class="rst-header-menu-content" style="padding-right: 0px; position: relative; z-index: 1">
                         
                         <button class="rst-menu-trigger">
                             <span>Toggle navigation</span>
