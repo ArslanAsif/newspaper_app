@@ -82,6 +82,57 @@ class HomeController extends Controller
 
     public function index()
     {   
+        //$ip = $_SERVER['REMOTE_ADDR'];
+        $ip = "119.155.54.186"; //demo ip remove when deploy
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+        $city = $details->city;
+        Cache::put('city', $city, 60*24*7);
+
+        $coun = "";
+        
+        if(Cache::has('country'))
+        {
+            $country = Cache::get('country');
+        }
+        else
+        {
+            $country = "Saudi Arabia";
+            
+            switch($coun)
+            {
+                case "BH": {
+                    $country = "Bahrain";
+                    break;
+                }
+
+                case "KW": {
+                    $country = "Kuwait";
+                    break;
+                }
+
+                case "OM": {
+                    $country = "Oman";
+                    break;
+                }
+
+                case "QA": {
+                    $country = "Qatar";
+                    break;
+                }
+
+                case "SA": {
+                    $country = "Saudi Arabia";
+                    break;
+                }
+
+                case "AE": {
+                    $country = "UAE";
+                    break;
+                }
+            }
+            Cache::put('country', $country, 60*24*7);                
+        }
+
         $coun = Cache::get('country');
         
         // return $coun;
@@ -231,6 +282,7 @@ class HomeController extends Controller
 
     public function postAddNews(Request $request)
     {
+        //return $request->all();
         $news = new News();
         $news->user_id = Auth::user()->id;
         $news->title = $request['title'];
@@ -277,30 +329,35 @@ class HomeController extends Controller
             $news->publish_date = Carbon::now();
         }
         else
+        {
             $news->publish_date = null;
-
-        $img = $request['image_data'];
+        }
 
         //decode the url, because we want to use decoded characters to use explode
-        $decoded = urldecode($img);
+        if(isset($request['image-data']))
+        {
+            $img = $request['image-data'];
 
-        //get image extension
-        $ext = explode(';', $decoded);
-        $ext = explode(':', $ext[0]);
-        $ext = array_pop($ext);
-        $ext = explode('/', $ext);
-        $ext = array_pop($ext);
+            //decode the url, because we want to use decoded characters to use explode
+            $decoded = urldecode($img);
 
-        //save image in file
-        $img_name = "perfil-".time().".".$ext;
-        $path = public_path() . "/images/news/" . $img_name;
-        $img = substr($img, strpos($img, ",")+1);
-        $data = base64_decode($img);
-        $success = file_put_contents($path, $data);
+            //get image extension
+            $ext = explode(';', $decoded);
+            $ext = explode(':', $ext[0]);
+            $ext = array_pop($ext);
+            $ext = explode('/', $ext);
+            $ext = array_pop($ext);
 
-        $error = '';
-        $success ? $news->picture = $img_name : $error = 'Unable to save cover image';
+            //save image in file
+            $img_name = "perfil-".time().".".$ext;
+            $path = public_path() . "/images/news/" . $img_name;
+            $img = substr($img, strpos($img, ",")+1);
+            $data = base64_decode($img);
+            $success = file_put_contents($path, $data);
 
+            $error = '';
+            $success ? $news->picture = $img_name : $error = 'Unable to save cover image';
+        }
 
         $news->save();
 

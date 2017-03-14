@@ -102,10 +102,10 @@
 		if (options.show_labels) {
 			s += '<span class="currency_widget_float">'+options.labels.price+'</span>';
 		}
-		s += '<span class="currency_widget_float currency_widget_result">&nbsp;</span>';
+		s += '<span class="currency_widget_result">&nbsp;</span>';
 		s += '</li>';
 		s += '</ul>';
-		s += '<div class="currency_widget_ex_rate_source">Exchange rates from <a href="http://finance.yahoo.com/currency-converter/">Yahoo</a></div>';
+		s += '<div class="currency_widget_ex_rate_source"></div>';
 		s += '</form>';
 		s += '</div>';
 		s += '</div>';

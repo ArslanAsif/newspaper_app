@@ -51,7 +51,6 @@
                                         <div class="rst-postinfo">
                                             <h6><a href="{{ url('article/'.$article->id) }}">{{ $article->title }}</a></h6>
                                             <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
-                                            <p>{{ $article->summary.'...' }}</p>
                                         </div>
                                     </article>
                                 @endforeach
@@ -62,16 +61,25 @@
                     <div class="clear"></div>
                 </div>
 
+                <br>
                 <div class="col-md-4 col-xs-12">
-                    <a href="{{ url('/category/weather') }}">
-                    <div id="weather" style="padding-top: 1px; padding-bottom: 1px;">
-                      <div class="loading-image">
-                        <br><br><p style="text-align: center; color: white"  >Loading weather data...</p><br><br>
-                      </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a hidden="hidden" id="exchangerate-btn" href="{{ url('/exchangerate') }}" class="btn btn-sm btn-success" style="position: absolute; margin-top: 5px; margin-left: 160px; font-size: 12px; "><i class="fa fa-money"></i></a>
+                            <div id="currency_widget_holder"></div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <a href="{{ url('/category/weather') }}">
+                                <div id="weather" style="padding-top: 1px; padding-bottom: 1px;">
+                                  <div class="loading-image">
+                                    <br><br><p style="text-align: center; color: white"  >Loading weather data...</p><br><br>
+                                  </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    </a>
-                    <a hidden="hidden" id="exchangerate-btn" href="{{ url('/exchangerate') }}" class="btn btn-sm btn-success" style="position: absolute; margin-left: 160px; font-size: 12px; margin-top: 5px; "><i class="fa fa-money"></i> Exchange rates</a>
-                    <div id="currency_widget_holder"></div>
+                    
                 </div>
 
                 <div class="col-md-4 col-xs-12">
@@ -386,10 +394,9 @@
 }
 
 #weather-image {
-  position: absolute;
-  width: 200px;
-  margin-top: -40px;
-  margin-left: -120px;
+  margin-top: -10px;
+  margin-left: 25px;
+  margin-bottom: -10px;
 }
 
 #weather h5 {
@@ -413,7 +420,7 @@
 #weather h3 {
   padding: 2px;
   color: white;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 300;
   text-align: center;
   text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
@@ -460,6 +467,8 @@
           html = '<h4>'+weather.city+', '+weather.region+'</h4>';
           html += '<h3><img id="weather-image" src="'+weather.image+'">'+weather.temp+'&deg;'+weather.units.temp+'</h3>';
           html += '<h5><span class="fa fa-arrow-down"> '+weather.forecast[0].low+'&deg;'+weather.units.temp+' <span class="fa fa-arrow-up"> '+weather.forecast[0].high+'&deg;'+weather.units.temp+'</h5>';
+          html += '<p> <span class="fa fa-exchange"></span></p><p style="margin-top: -10px;"> '+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</p>';
+          html += '<p><span class="fa fa-sun-o"></span> '+weather.sunrise+'</p><p><span class="fa fa-moon-o"></span>  '+weather.sunset+'</p></div>';
           html += '</div>';
       
           $("#weather").html(html);
