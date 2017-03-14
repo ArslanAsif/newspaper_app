@@ -82,8 +82,8 @@ class HomeController extends Controller
 
     public function index()
     {   
-        $ip = $_SERVER['REMOTE_ADDR'];
-        //$ip = "119.155.54.186"; //demo ip remove when deploy
+        //$ip = $_SERVER['REMOTE_ADDR'];
+        $ip = "119.155.54.186"; //demo ip remove when deploy
         $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
         $city = $details->city;
         Cache::put('city', $city, 60*24*7);
@@ -165,6 +165,13 @@ class HomeController extends Controller
     public function category($category)
     {
         $coun = Cache::get('country');
+
+        if($category == 'gcc')
+        {
+            
+            $articles = News::where('category', 'GCC')->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
+            return view('category')->with(['category' => 'GCC', 'articles' => $articles]);
+        }
 
         $articles = News::where('country', $coun)->where('category', $category)->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
 

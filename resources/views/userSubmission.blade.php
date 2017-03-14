@@ -47,6 +47,7 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="category" id="category">
                                             <option disabled="disabled" selected>-- Select --</option>
+                                            <option>GCC</option>
                                             <option>World</option>
                                             <option>Business</option>
                                             <option>Weather</option>

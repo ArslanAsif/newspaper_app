@@ -92,6 +92,7 @@
                             <span>Toggle navigation</span>
                         </button>
                         <ul>
+                            <li><a href="{{ url('/category/gcc') }}">GCC</a></li>
                             <li><a href="{{ url('/category/world') }}">World</a></li>
                             <li><a href="{{ url('/category/business') }}">Business</a></li>
                             <li><a href="{{ url('/category/weather') }}">Weather</a></li>

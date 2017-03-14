@@ -9,8 +9,6 @@
 					<div style="border-top: 2px solid #e8ecf0;"></div>
 					<div class="rst-breadcrumb">
 						<a href="#"><span>{{ strtoupper($article->category) }} </span></a>
-						<span>></span>
-						<a href="#"><span>{{ strtoupper($article->title) }}</span></a>
 					</div>
 				</div>
 			</div>
