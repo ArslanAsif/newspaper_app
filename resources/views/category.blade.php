@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="rst-section-title rst-section-title-box">
-                    <h4>{{ strtoupper($category) }}</h4>
+                    <h4>{{ ucfirst($category) }}</h4>
                     <div class="rst-shortmenu">
                         <form action="#">
                             @if(isset($authors))

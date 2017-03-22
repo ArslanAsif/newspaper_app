@@ -62,14 +62,14 @@
                 </div>
 
                 <br>
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-4 col-xs-12 hidden-xs hidden-sm">
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-7 col-sm-6 col-xs-6">
                             <a hidden="hidden" id="exchangerate-btn" href="{{ url('/exchangerate') }}" class="btn btn-sm btn-success" style="position: absolute; margin-top: 5px; margin-left: 160px; font-size: 12px; "><i class="fa fa-money"></i></a>
                             <div id="currency_widget_holder"></div>
                         </div>
 
-                        <div class="col-md-5">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
                             <a href="{{ url('/category/weather') }}">
                                 <div id="weather" style="padding-top: 1px; padding-bottom: 1px;">
                                   <div class="loading-image">
@@ -137,6 +137,54 @@
 
 
     <!-- Category Wise News -->
+        <!-- GCC -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="rst-section-title rst-section-title-box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h4>GCC</h4>
+                                    <div class="rst-section-title-short">
+                                        <a href="{{ url('/category/gcc') }}"><span>View all</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    @if(isset($category_gcc_spotlight))
+                        <article class="col-sm-6 rst-leftpost">
+                            <div class="rst-specpost owl-carousel">
+                                <a href="{{ url('/article/'.$category_gcc_spotlight->id) }}"><img class="img-border" src="{{ isset($category_gcc_spotlight->picture) ? url('images/news/'.$category_gcc_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                            </div>
+                            <div class="rst-postinfo">
+                                <h6><a href="{{ url('/article/'.$category_gcc_spotlight->id) }}">{{ $category_world_spotlight->title }}</a></h6>
+                                <time><i class="fa fa-clock-o"></i>{{ $category_gcc_spotlight->publish_date }}</time>
+                                <p>{{ $category_gcc_spotlight->summary.'...' }}</p>
+                            </div>
+                        </article>
+                    @endif
+
+                    <div class="col-sm-6 rst-rightpost">
+                        @foreach($category_gcc as $article)
+                            <article>
+                                <div class="rst-postpic">
+                                    <a href="{{ url('/article/'.$article->id) }}"><img class="img-border" width="150px" src="{{ isset($article->picture) ? url('images/news/'.$article->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                                </div>
+                                <div class="rst-postinfo">
+                                    <h6><a href="{{ url('/article/'.$article->id) }}">{{ $article->title }}</a></h6>
+                                    <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
+                                    <p>{{ $article->summary.'...' }}</p>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- world -->
         <section>
             <div class="container">
@@ -430,6 +478,9 @@
     text-align: center;
     font-size: 12px;
 }
+
+    
+
 
 
 </style>

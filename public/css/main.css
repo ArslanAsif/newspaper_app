@@ -2435,7 +2435,7 @@ span.checkbox, span.radio {
 
 @media(min-width: 720px) {
   .login-btn {
-    margin-right: -20px;
+    margin-right: none;
   }
 
   .category-row {

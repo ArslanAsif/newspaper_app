@@ -17,6 +17,8 @@
                                 <h2>About <small></small></h2>
                             @elseif($check=="terms")
                                 <h2>Terms <small></small></h2>
+                            @elseif($check=="aboutgcc")
+                                <h2>All About GCC <small></small></h2>
                             @endif
 
                             <ul class="nav navbar-right panel_toolbox">

@@ -33,6 +33,7 @@
             <li><a><i class="fa fa-file"></i> About <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{ url('admin/about/aboutus') }}">About Us</a></li>
+                    <li><a href="{{ url('admin/about/aboutgcc') }}">All About GCC</a></li>
                     <li><a href="{{ url('admin/about/contact') }}">Contact Info</a></li>
                     <li><a href="{{ url('admin/about/terms') }}">Terms and Conditions</a></li>
                 </ul>

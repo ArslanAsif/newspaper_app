@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <br><br>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2" style="padding-bottom: 50px">
+        <br><br>
+        <div class="col-md-8 col-md-offset-2" style="padding: 50px 0px">
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">

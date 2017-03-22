@@ -36,6 +36,32 @@ class AboutController extends Controller
         return redirect()->back();
     }
 
+    public function getAboutGcc()
+    {
+        $aboutus = About::where('type','aboutgcc')->first();
+        return view('admin.edit_about',['aboutus'=>$aboutus,'check'=>'aboutgcc']);
+    }
+
+    public function postAboutGcc(Request $request)
+    {
+        $aboutgcc = About::where('type', 'aboutgcc');
+        if($aboutgcc->count() > 0)
+        {
+            $aboutgcc = $aboutgcc->first();
+            $aboutgcc->description = $request['descr'];
+            $aboutgcc->update();
+        }
+        else
+        {
+            $aboutgcc = new About();
+            $aboutgcc->type = 'aboutgcc';
+            $aboutgcc->description = $request['descr'];
+            $aboutgcc->save();
+        }
+
+        return redirect()->back();
+    }
+
     public function getContactUs()
     {
         $contact = About::where('type', 'contact')->first();

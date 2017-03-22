@@ -4,7 +4,7 @@
     <div class="container">
         <br><br>
         <div class="row">
-            <div class="col-md-8 col-md-offset-2" style="opacity: 0.9 ">
+            <div class="col-md-8 col-md-offset-2" style="opacity: 0.9; padding: 50px 0px;">
                 <div class="panel panel-default" style="color: black">
                     <div class="panel-heading">
                         <span class="fa fa-lock"></span>
@@ -109,6 +109,5 @@
                 </div>
             </div>
         </div>
-        <br><br>
     </div>
 @endsection

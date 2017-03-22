@@ -28,6 +28,7 @@ Route::get('/article/{id}', 'HomeController@article');
 Route::post('/subscriber/add', 'HomeController@postAddSubscriber');
 Route::get('/subscriber/confirm/{email}/{token}', 'HomeController@getAddSubscriber');
 Route::get('/about', 'HomeController@getAboutUs');
+Route::get('/aboutgcc', 'HomeController@getAboutGcc');
 Route::get('/terms', 'HomeController@getTermsAndCondition');
 
 Route::post('/article/{id}/comment', 'HomeController@post_comment');
@@ -96,6 +97,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
     Route::group(['prefix' => 'about'], function () {
         Route::get('/aboutus', 'AboutController@getAboutUs');
         Route::post('/aboutus', 'AboutController@postAboutUs');
+        Route::get('/aboutgcc', 'AboutController@getAboutGcc');
+        Route::post('/aboutgcc', 'AboutController@postAboutGcc');
         Route::get('/contact', 'AboutController@getContactUs');
         Route::post('/contact', 'AboutController@postContactUs');
         Route::get('/terms', 'AboutController@getTerms');
