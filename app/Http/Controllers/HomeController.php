@@ -145,6 +145,7 @@ class HomeController extends Controller
         $opinions = News::where('country', $coun)->where('publish_date', '!=', null)->where('category', 'Opinion')->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(4)->get();
 
         $category_gcc_spotlight = News::where('category', 'GCC')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
+
         $category_gcc = News::where('category', 'GCC')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(4)->get();
 
         $category_world_spotlight = News::where('country', $coun)->where('category', 'World')->where('publish_date', '!=', null)->where('spotlight', 1)->first();

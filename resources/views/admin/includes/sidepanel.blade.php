@@ -28,7 +28,7 @@
                 </ul>
             </li>
 
-            <li><a href="{{ url('admin/about/links/Saudi Arabia') }}"><i class="fa fa-file"></i> Links </a></li>
+            <li><a href="{{ url('admin/about/links/Saudi Arabia') }}"><i class="fa fa-external-link"></i> Links </a></li>
 
             <li><a><i class="fa fa-file"></i> About <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
