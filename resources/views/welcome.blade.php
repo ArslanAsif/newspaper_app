@@ -23,7 +23,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-xs-12">
-                    @if(isset($main_spotlight))
+                    @if(isset($main_spotlight->id))
                         <div>
                             <div class="rst-postpic">
                                 <a href="{{ url('article/'.$main_spotlight->id) }}"><img class="img-border" width=100% src="{{ url(isset($main_spotlight->picture) ? 'images/news/'.$main_spotlight->picture : 'images/no-image-available.png') }}" alt="" /></a>
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     
-                    @if(isset($category_gcc_spotlight))
+                    @if(isset($category_gcc_spotlight->id))
                         <article class="col-sm-6 rst-leftpost">
                             <div class="rst-specpost owl-carousel">
                                 <a href="{{ url('/article/'.$category_gcc_spotlight->id) }}"><img class="img-border" src="{{ isset($category_gcc_spotlight->picture) ? url('images/news/'.$category_gcc_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
@@ -202,7 +202,7 @@
                         </div>
                     </div>
                     
-                    @if(isset($category_world_spotlight))
+                    @if(isset($category_world_spotlight->id))
                         <article class="col-sm-6 rst-leftpost">
                             <div class="rst-specpost owl-carousel">
                                 <a href="{{ url('/article/'.$category_world_spotlight->id) }}"><img class="img-border" src="{{ isset($category_world_spotlight->picture) ? url('images/news/'.$category_world_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
@@ -250,7 +250,7 @@
                         </div>
                     </div>
                     
-                    @if(isset($category_business_spotlight))
+                    @if(isset($category_business_spotlight->id))
                         <article class="col-sm-6 rst-leftpost">
                             <div class="rst-specpost owl-carousel">
                                 <a href="{{ url('/article/'.$category_business_spotlight->id) }}"><img class="img-border" src="{{ isset($category_business_spotlight->picture) ? url('images/news/'.$category_business_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
@@ -298,7 +298,7 @@
                         </div>
                     </div>
                     
-                    @if(isset($category_weather_spotlight))
+                    @if(isset($category_weather_spotlight->id))
                         <article class="col-sm-6 rst-leftpost">
                             <div class="rst-specpost owl-carousel">
                                 <a href="{{ url('/article/'.$category_weather_spotlight->id) }}"><img class="img-border" src="{{ isset($category_weather_spotlight->picture) ? url('images/news/'.$category_weather_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
@@ -346,7 +346,7 @@
                         </div>
                     </div>
                     
-                    @if(isset($category_sports_spotlight))
+                    @if(isset($category_sports_spotlight->id))
                         <article class="col-sm-6 rst-leftpost">
                             <div class="rst-specpost owl-carousel">
                                 <a href="{{ url('/article/'.$category_sports_spotlight->id) }}"><img class="img-border" src="{{ isset($category_sports_spotlight->picture) ? url('images/news/'.$category_sports_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
@@ -394,7 +394,7 @@
                         </div>
                     </div>
                     
-                    @if(isset($category_lifestyle_spotlight))
+                    @if(isset($category_lifestyle_spotlight->id))
                         <article class="col-sm-6 rst-leftpost">
                             <div class="rst-specpost owl-carousel">
                                 <a href="{{ url('/article/'.$category_lifestyle_spotlight->id) }}"><img class="img-border" src="{{ isset($category_lifestyle_spotlight->picture) ? url('images/news/'.$category_lifestyle_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
