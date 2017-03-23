@@ -70,7 +70,6 @@
     .sign-in-btn {
         float: right;
         margin-top: -100px;
-        padding-right: 4%;
         text-align: right;
     }
 
@@ -90,33 +89,45 @@
 <header>
     <!-- Menu bar -->
     <nav class="navbar navbar-default col-xs-6 col-sm-12" style="z-index: 3">
-        <div class="navbar-header mynavbar-icon">
-            <a href="{{url('/')}}">
-                <img style="margin-top: -15px" width="150px" src="{{ url('images/gccc.png') }}" alt="" />
-            </a>
-        </div>
-        <div class="sign-in-btn login-btn hidden-xs">
-            @if(Auth::guest())
-                <a href="{{ url('/login') }}"><span class="fa fa-user-circle"></span> Login</a>
-            @else
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{ Auth::user()->name }}
-              <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                @if(Auth::user()->type == 'admin')
-                <li><button class="btn btn-default form-control" onclick="window.location.href = '{{ url('/admin/dashboard') }}'">Admin Panel</button></li>
-                @endif
-
-                @if(!Auth::guest() ? Auth::user()->type == 'user' ? 1 : 0 : 0)
-                    <li><button class="btn btn-default form-control" onclick="window.location.href = '{{ url('/user/submission') }}'">User Submission</button></li>
-                @endif
-
-                <li><form action="{{ url('/logout') }}" method="post" >{{ csrf_field() }}<button class="btn btn-danger form-control" type="submit">Logout</button></form></li>
-              </ul>
+        <div class="container">
+            <div class="navbar-header mynavbar-icon">
+                <a href="{{url('/')}}">
+                    <img style="margin-top: -15px" width="150px" src="{{ url('images/gccc.png') }}" alt="" />
+                </a>
             </div>
-            @endif
+            <div class="sign-in-btn login-btn hidden-xs">
+                @if(Auth::guest())
+                    <a href="{{ url('/login') }}"><span class="fa fa-user-circle"></span> Login</a>
+                @else
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{ Auth::user()->name }}
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    @if(Auth::user()->type == 'admin')
+                    <li><a href="{{ url('/admin/dashboard') }}">Admin Panel</button></a></li>
+                    @endif
 
-            <p id="js-date"></p>
+                    @if(!Auth::guest() ? Auth::user()->type == 'user' ? 1 : 0 : 0)
+                        <li><a href="{{ url('/user/submission') }}">User Submission</button></li>
+                    @endif
+
+                    <li>
+                        <a href="{{ url('/logout') }}"
+                           onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                            <i class="fa fa-sign-out pull-right"></i> Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                  </ul>
+                </div>
+                @endif
+
+                <p id="js-date"></p>
+            </div>
         </div>
             
     </nav>
