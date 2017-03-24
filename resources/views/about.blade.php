@@ -17,7 +17,7 @@
 					</div>
 					<div class="col-sm-4">
 						<div class="rst-section-title rst-section-title-box rst-item-content-title">
-							<h2>Coutact Us</h2>
+							<h2>Contact Us</h2>
 							<?= $contact_us ?>
 							
 						</div>

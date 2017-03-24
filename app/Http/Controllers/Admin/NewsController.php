@@ -65,6 +65,24 @@ class NewsController extends Controller
         return view('admin.create_news')->with(['news' => $news, 'categories' => $categories, 'tags' => $array]);
     }
 
+    public function postPublishNews($id)
+    {
+        $news = News::where('id', $id)->first();
+        $news->publish_date = Carbon::now();
+        $news->update();
+
+        return redirect()->back();
+    }
+
+    public function postUnpublishNews($id)
+    {
+        $news = News::where('id', $id)->first();
+        $news->publish_date = null;
+        $news->update();
+
+        return redirect()->back();
+    }
+
     public function postEditNews($id, Request $request)
     {
 //        return $request->all();

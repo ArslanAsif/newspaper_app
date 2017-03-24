@@ -79,7 +79,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-4 rst-copyright">
-                        <span><a href="{{ url('/about') }}"><i class="fa fa-user"></i> About Us</a> &nbsp&nbsp|&nbsp&nbsp <a href="{{ url('/terms') }}"><i class="fa fa-file"></i> Terms & Conditions</a> &nbsp&nbsp|&nbsp&nbsp <a href="{{ url('/aboutgcc') }}"><i class="fa fa-bullhorn"></i>All About GCC</a></span>
+                        <span><a href="{{ url('/about') }}"><i class="fa fa-user"></i> About Us</a> &nbsp&nbsp|&nbsp&nbsp <a href="{{ url('/terms') }}"><i class="fa fa-file"></i> Terms & Conditions</a></span>
                     </div>
                     <div class="col-xs-4 rst-copyright">
                         <p style="text-align: center;">© 2017 GCC Connect</p>

@@ -194,7 +194,8 @@ class HomeController extends Controller
     {
         $coun = Cache::get('country');
 
-        $article = News::where('country', $coun)->where('id', $id)->first();
+        $article = News::where('id', $id)->first();
+
         $comment_count_admin = $article->comments()->count();
         $comment_count = $article->comments()->where('confirmed', 1)->count();
         $advertisements = Advertisement::where('published_on', '!=', null)->get();

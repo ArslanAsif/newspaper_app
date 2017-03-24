@@ -65,6 +65,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
         Route::get('/edit/{id}', 'NewsController@getEditNews');
         Route::post('/edit/{id}', 'NewsController@postEditNews');
         Route::get('/delete/{id}', 'NewsController@getDeleteNews');
+        Route::post('/publish/{id}', 'NewsController@postPublishNews');
+        Route::post('/unpublish/{id}', 'NewsController@postUnpublishNews');
 
         Route::group(['prefix' => 'category'], function() {
             Route::get('/', 'CategoryController@index');

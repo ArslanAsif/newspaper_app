@@ -10,7 +10,21 @@
         border: none;
     }
 
-    .nav-flag {
+    /*.nav-flag {
+        border-bottom: 1px solid silver;
+        border-left: 1px solid silver;
+        border-right: 1px solid silver;
+    }
+
+    .nav-flag1 {
+        border-top: 1px solid silver;
+    }*/
+
+    .nav-flag1 {
+        border-bottom: 1px solid silver;
+    }
+
+    .my-static-navbar {
         border: 1px solid silver;
     }
 
@@ -69,7 +83,7 @@
 
     .sign-in-btn {
         float: right;
-        margin-top: -100px;
+        margin-top: -80px;
         text-align: right;
     }
 
@@ -83,6 +97,15 @@
         left: auto;
     }
 
+    .gcc-link {
+        font-size: 20px;
+    }
+
+    .gcc-link:hover {
+        background-color: white;
+        color: black;
+    }    
+
 </style>
 
 <!--- Header -->
@@ -92,7 +115,7 @@
         <div class="container">
             <div class="navbar-header mynavbar-icon">
                 <a href="{{url('/')}}">
-                    <img style="margin-top: -15px" width="150px" src="{{ url('images/gccc.png') }}" alt="" />
+                    <img style="margin-top: -5px" width="150px" src="{{ url('images/gccc.png') }}" alt="" />
                 </a>
             </div>
             <div class="sign-in-btn login-btn hidden-xs">
@@ -140,8 +163,10 @@
                 <span>{{$country}}</span>                       
               </button>
             </div>
-            <div class="collapse navbar-collapse nav-flag" id="countryNavbar">
+            <div class="collapse navbar-collapse nav-flag nav-flag1" id="countryNavbar">
               <ul class="nav navbar-nav">
+              <li><a href="{{ url('/aboutgcc') }}" class="gcc-link"><!-- <img class="img-of-nav" src="{{ url('/images/countries_flags/gcc.jpg') }}">  -->All About GCC</a></li>
+
                 <li class="{{ ($country == 'Saudi Arabia') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
                     
                 <li class="{{ ($country == 'UAE') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
@@ -221,7 +246,7 @@
               </button>
             </div>
           <div class="container">
-            <div class="collapse navbar-collapse nav-flag" id="categoryNavbar2">
+            <div class="collapse navbar-collapse my-static-navbar" id="categoryNavbar2">
               <ul class="nav navbar-nav">
                 <li><a href="{{ url('/category/gcc') }}">GCC</a></li>
                 <li class="divider-vertical"></li>

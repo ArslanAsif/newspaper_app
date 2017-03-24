@@ -42,6 +42,13 @@
                                     <td>{{ $this_news->user->name }}</td>
                                     <td>{{ $this_news->created_at }}</td>
                                     <td>
+                                        <a href="#" class="btn btn-success" onclick="event.preventDefault();
+                                                                     document.getElementById('publish-form').submit();"><span class="fa fa-check"></span></a>
+
+                                        <form id="publish-form" action="{{ url('/admin/news/publish/'.$this_news->id) }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+
                                         <a href="{{ url('/admin/news/edit/'.$this_news->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
                                         <a href="{{ url('/admin/news/delete/'.$this_news->id) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
                                     </td>

@@ -157,7 +157,7 @@
                     @if(isset($category_gcc_spotlight))
                         <article class="col-sm-6 rst-leftpost">
                             <div class="rst-specpost owl-carousel">
-                                <a href="#"><img class="img-border" src="{{ isset($category_gcc_spotlight->picture) ? url('images/news/'.$category_gcc_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
+                                <a href="{{ url('/article/'.$category_gcc_spotlight->id) }}"><img class="img-border" src="{{ isset($category_gcc_spotlight->picture) ? url('images/news/'.$category_gcc_spotlight->picture) : url('images/no-image-available.png') }}" alt="" /></a>
                             </div>
                             <div class="rst-postinfo">
                                 <h6><a href="{{ url('/article/'.$category_gcc_spotlight->id) }}">{{ $category_gcc_spotlight->title }}</a></h6>
