@@ -630,35 +630,12 @@ footer li a:hover,
   color: #2f3e42;
   font-size: 12px;
   font-weight: 900;
-  height: 75px;
+  height: 34px;
   left: -1px;
   padding: 5px 20px;
   position: absolute;
   text-transform: uppercase;
   top: -1px;
-}
-.rst-pageline-content span::after {
-  border-bottom: 36px solid transparent;
-  border-left: 25px solid #e8ecf0;
-  border-top: 36px solid transparent;
-  content: "";
-  height: 73px;
-  position: absolute;
-  right: -25px;
-  top: 0;
-  width: 25px;
-}
-.rst-pageline-content span::before {
-  border-bottom: 36px solid transparent;
-  border-left: 25px solid #f7fafd;
-  border-top: 36px solid transparent;
-  content: "";
-  height: 73px;
-  position: absolute;
-  right: -24px;
-  top: 0;
-  width: 25px;
-  z-index: 1;
 }
 .rst-pageline-slider .owl-controls .owl-buttons div,
 .commentlist .owl-controls .owl-buttons div

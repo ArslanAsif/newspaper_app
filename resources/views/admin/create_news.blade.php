@@ -17,6 +17,9 @@
                         </div>
                         <div class="x_content">
                             <br />
+
+                            @include('admin.includes.errors')
+
                             <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method=post action="{{ isset($news) ?  url('admin/news/edit/'.$news->id): url('news/add') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
@@ -24,12 +27,12 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="country" id="country">
                                             <option disabled="disabled" selected>-- Select --</option>
-                                            <option {{ isset($news) ? ($news->country == "Bahrain") ? 'selected': '': '' }}>Bahrain</option>
-                                            <option {{ isset($news) ? ($news->country == "Kuwait") ? 'selected': '': '' }}>Kuwait</option>
-                                            <option {{ isset($news) ? ($news->country == "Oman") ? 'selected': '': '' }}>Oman</option>
-                                            <option {{ isset($news) ? ($news->country == "Qatar") ? 'selected': '': '' }}>Qatar</option>
-                                            <option {{ isset($news) ? ($news->country == "Saudi Arabia") ? 'selected': '': '' }}>Saudi Arabia</option>
-                                            <option {{ isset($news) ? ($news->country == "UAE") ? 'selected': '': '' }}>UAE</option>
+                                            <option {{ isset($news) ? ($news->country == "Bahrain") ? 'selected': '': ''}} {{isset($errors) ? old('country') == 'Bahrain' ? 'selected' : '' : ''}}>Bahrain</option>
+                                            <option {{ isset($news) ? ($news->country == "Kuwait") ? 'selected': '': '' }} {{isset($errors) ? old('country') == 'Kuwait' ? 'selected' : '' : ''}}>Kuwait</option>
+                                            <option {{ isset($news) ? ($news->country == "Oman") ? 'selected': '': '' }} {{isset($errors) ? old('country') == 'Oman' ? 'selected' : '' : ''}}>Oman</option>
+                                            <option {{ isset($news) ? ($news->country == "Qatar") ? 'selected': '': '' }} {{isset($errors) ? old('country') == 'Qatar' ? 'selected' : '' : ''}}>Qatar</option>
+                                            <option {{ isset($news) ? ($news->country == "Saudi Arabia") ? 'selected': '': '' }} {{isset($errors) ? old('country') == 'Saudi Arabia' ? 'selected' : '' : ''}}>Saudi Arabia</option>
+                                            <option {{ isset($news) ? ($news->country == "UAE") ? 'selected': '': '' }} {{isset($errors) ? old('country') == 'UAE' ? 'selected' : '' : ''}}>UAE</option>
                                         </select>
                                     </div>
                                 </div>
@@ -38,7 +41,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" name="title" id="title" value="{{ isset($news) ? $news->title: '' }}" required="required" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" name="title" id="title" value="{{ isset($news) ? $news->title: '' }}{{ isset($errors) ? old('title') : '' }}" required="required" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
@@ -47,13 +50,13 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="category" id="category">
                                             <option disabled="disabled" selected>-- Select --</option>
-                                            <option {{ isset($news) ? ($news->category == "GCC") ? 'selected': '': '' }}>GCC</option>
-                                            <option {{ isset($news) ? ($news->category == "World") ? 'selected': '': '' }}>World</option>
-                                            <option {{ isset($news) ? ($news->category == "Business") ? 'selected': '': '' }}>Business</option>
-                                            <option> {{ isset($news) ? ($news->category == "Weather") ? 'selected': '': '' }}Weather</option>
-                                            <option {{ isset($news) ? ($news->category == "Sports") ? 'selected': '': '' }}>Sports</option>
-                                            <option {{ isset($news) ? ($news->category == "Lifestyle") ? 'selected': '': '' }}>Lifestyle</option>
-                                            <option {{ isset($news) ? ($news->category == "Opinion") ? 'selected': '': '' }}>Opinion</option>
+                                            <option {{ isset($news) ? ($news->category == "GCC") ? 'selected': '': '' }} {{isset($errors) ? old('category') == 'GCC' ? 'selected' : '' : ''}}>GCC</option>
+                                            <option {{ isset($news) ? ($news->category == "World") ? 'selected': '': '' }} {{isset($errors) ? old('category') == 'World' ? 'selected' : '' : ''}}>World</option>
+                                            <option {{ isset($news) ? ($news->category == "Business") ? 'selected': '': '' }} {{isset($errors) ? old('category') == 'Business' ? 'selected' : '' : ''}}>Business</option>
+                                            <option {{ isset($news) ? ($news->category == "Weather") ? 'selected': '': '' }} {{isset($errors) ? old('category') == 'Weather' ? 'selected' : '' : ''}}>Weather</option>
+                                            <option {{ isset($news) ? ($news->category == "Sports") ? 'selected': '': '' }} {{isset($errors) ? old('category') == 'Sports' ? 'selected' : '' : ''}}>Sports</option>
+                                            <option {{ isset($news) ? ($news->category == "Lifestyle") ? 'selected': '': '' }} {{isset($errors) ? old('category') == 'Lifestyle' ? 'selected' : '' : ''}}>Lifestyle</option>
+                                            <option {{ isset($news) ? ($news->category == "Opinion") ? 'selected': '': '' }} {{isset($errors) ? old('category') == 'Opinion' ? 'selected' : '' : ''}}>Opinion</option>
                                         </select>
                                     </div>
                                 </div>
@@ -62,7 +65,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="summary">Summary <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea maxlength="150" id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12">{{ isset($news) ? $news->summary: '' }}</textarea>
+                                        <textarea maxlength="150" id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12">{{ isset($news) ? $news->summary: '' }}{{ isset($errors) ? old('summary') : '' }}</textarea>
                                     </div>
                                 </div>
 
@@ -70,11 +73,15 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Priority <small>(Lower is better)</small></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="priority">
-                                            <option {{ isset($news) ? ($news->priority == 1) ? 'selected': '': '' }} value="1">1</option>
-                                            <option {{ isset($news) ? ($news->priority == 2) ? 'selected': '': '' }} value="2">2</option>
-                                            <option {{ isset($news) ? ($news->priority == 3) ? 'selected': '': '' }} value="3">3</option>
-                                            <option {{ isset($news) ? ($news->priority == 4) ? 'selected': '': '' }} value="4">4</option>
-                                            <option {{ isset($news) ? ($news->priority == 5) ? 'selected': '': 'selected' }} value="5">5</option>
+                                            <option {{ isset($news) ? ($news->priority == 5) ? 'selected' : '' : '' }} {{ isset($errors) ? (old('priority') == 5) ? 'selected': '': '' }} value="5">5</option>
+
+                                            <option {{ isset($news) ? ($news->priority == 4) ? 'selected' : '' : '' }} {{ isset($errors) ? (old('priority') == 4) ? 'selected': '' : '' }} value="4">4</option>
+
+                                            <option {{ isset($news) ? ($news->priority == 3) ? 'selected' : '' : '' }} {{ isset($errors) ? (old('priority') == 3) ? 'selected': '': '' }} value="3">3</option>
+
+                                            <option {{ isset($news) ? ($news->priority == 2) ? 'selected' : '' : '' }} {{ isset($errors) ? (old('priority') == 2) ? 'selected': '': '' }} value="2">2</option>
+
+                                            <option {{ isset($news) ? ($news->priority == 1) ? 'selected' : '' : '' }} {{ isset($errors) ? (old('priority') == 1) ? 'selected': '' : '' }} value="1">1</option>
                                         </select>
                                     </div>
                                 </div>
@@ -82,7 +89,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Tags</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="tags_1" name="tags" type="text" class="tags form-control" value="{{ isset($tags) ? $tags: '' }}" />
+                                        <input id="tags_1" name="tags" type="text" class="tags form-control" value="{{ isset($tags) ? $tags: '' }}{{isset($errors) ? old('tags') : ''}}" />
                                         <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                                     </div>
                                 </div>
@@ -101,7 +108,7 @@
                                         <a class="btn btn-warning rotate-ccw"><span class="fa fa-rotate-left"></span></a>
                                         <a class="btn btn-warning rotate-cw"><span class="fa fa-rotate-right"></span></a>
 
-                                        <input type="hidden" name="image-data" class="hidden-image-data" />
+                                        <input type="hidden" name="image-data" class="hidden-image-data" value="{{ isset($errors) ? old('image-data') : ''}}" />
                                         <span class="pull-right">
                                             <a class="btn btn-default select-image-btn">Select new image</a>
                                         <a class="btn btn-success export">Upload</a>
@@ -115,25 +122,25 @@
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <div class="" id="latest-switch">
                                             <label>
-                                                <input name="latest" type="checkbox" class="js-switch" {{ isset($news) ? ($news->latest == 1) ? 'checked': '': '' }} /> Show on Latest News bar
+                                                <input name="latest" type="checkbox" class="js-switch" {{ isset($news) ? ($news->latest == 1) ? 'checked': '': '' }} {{isset($errors) ? old('latest') ? 'checked' : '' : ''}} /> Show on Latest News bar
                                             </label>
                                         </div>
 
                                         <div class="" id="homepage-switch">
                                             <label>
-                                                <input name="homepage" type="checkbox" class="js-switch" {{ isset($news) ? ($news->homepage == 1) ? 'checked': '': '' }} /> Show on Homepage
+                                                <input name="homepage" type="checkbox" class="js-switch" {{ isset($news) ? ($news->homepage == 1) ? 'checked': '': '' }} {{isset($errors) ? old('homepage') ? 'checked' : '' : ''}} /> Show on Homepage
                                             </label>
                                         </div>
 
                                         <div class="" id="spotlight-switch">
                                             <label>
-                                                <input name="spotlight" type="checkbox" class="js-switch" {{ isset($news) ? ($news->spotlight == 1) ? 'checked': '': '' }} /> Show as spotlight
+                                                <input name="spotlight" type="checkbox" class="js-switch" {{ isset($news) ? ($news->spotlight == 1) ? 'checked': '': '' }} {{isset($errors) ? old('spotlight') ? 'checked' : '' : ''}} /> Show as spotlight
                                             </label>
                                         </div>
 
                                         <div class="" id="publish-switch">
                                             <label>
-                                                <input name="publish" type="checkbox" class="js-switch" {{ isset($news) ? ($news->publish_date != null) ? 'checked': '' : 'checked' }} /> Publish
+                                                <input name="publish" type="checkbox" class="js-switch" {{ isset($news) ? ($news->publish_date != null) ? 'checked': '' : 'checked' }} {{isset($errors) ? old('publish') ? 'checked' : '' : ''}} /> Publish
                                             </label>
                                         </div>
                                     </div>
@@ -141,7 +148,7 @@
 
                                 <h4>Description</h4>
                                 @include('admin.includes.text_editor')
-                                <div id="editor" class="editor-wrapper"><?php echo (isset($news) ? $news->description : '') ?></div>
+                                <div id="editor" class="editor-wrapper"><?php echo (isset($news) ? $news->description : ''); echo (isset($errors) ? old('descr') : '') ?></div>
                                 <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
 
                                 <div class="ln_solid"></div>
@@ -333,7 +340,7 @@
             $('.image-editor').cropit({
                 smallImage: 'allow',
                 imageState: {
-                    src: '{{ isset($news) ? url('images/news/'.$news->picture) : '' }}',
+                    src: '{{ isset($news) ? url('images/news/'.$news->picture) : '' }}{{ isset($errors) ? old('image-data') : ''}}',
                 },
             });
 
@@ -371,5 +378,14 @@
                 $('#spotlight-switch').show();
             }
         });
+    </script>
+
+    <!--Toastr notification-->
+    <script src="{{ url('toastr/toastr.min.js') }}"></script>
+
+    <script>
+        @if(Session::has('message'))
+            toastr["success"]("Successfully Submitted");
+        @endif
     </script>
 @endsection

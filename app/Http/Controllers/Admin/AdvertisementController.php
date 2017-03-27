@@ -22,10 +22,22 @@ class AdvertisementController extends Controller
 
     public function postAddAdvertisement(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'url' => 'required',
-        ]);
+        $this->validate(
+            $request, 
+            [
+                'title' => 'required',
+                'url' => 'required',
+                'duration'=>'required|numeric',
+                'image-data'=>'required'
+            ],
+            [
+                'title.required'=>'Title is required',
+                'url.required'=>'URL is required',
+                'duration.required'=>'Duration is required',
+                'image-data.required'=>'Image is required'
+            ]
+        );
+
         $advertisement=new Advertisement();
         $advertisement->title=$request['title'];
         $advertisement->validity=$request['duration'];
@@ -78,14 +90,9 @@ class AdvertisementController extends Controller
 
     public function postEditAdvertisement(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'url' => 'required',
-        ]);
-
         $advertisement = Advertisement::where('id', $request['id'])->first();
         $advertisement->title = $request['title'];
-        $advertisement->url = $request['url'];
+        $advertisement->url = 'http://'.$request['url'];
         $advertisement->detail = $request['detail'];
 
         if($request['publish'] != '')

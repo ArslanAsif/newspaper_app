@@ -23,7 +23,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-8">
-						<img src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" width=100%/>
+						@if(isset($article->picture))
+							<img src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" width=100%/>
+						@endif
 						<div class="rst-section-title rst-section-title-box rst-item-content-title">
 						<div class="row">
 							<h2 class="col-sm-8">{{ $article->title}}</h2>
@@ -64,7 +66,7 @@
 								</div>
 
 								<br>
-								<div style="border: 1px solid #EBEBEA	; padding: 10px">
+								<div style="border: 1px solid #EBEBEA; padding: 10px">
 									<!-- Go to www.addthis.com/dashboard to customize your tools -->
 									<div class="addthis_inline_share_toolbox"></div>
 								</div><br>
@@ -170,7 +172,7 @@
 						<aside class="widget widget_popular">
 							<ul>
 								<li>
-									<a href="#">Related</a>
+									<a>Related</a>
 									<ul>
 										@foreach($related as $article)
 										<li>
@@ -188,7 +190,7 @@
 									</ul>
 								</li>
 								<li>
-									<a href="#">Latest</a>
+									<a>Latest</a>
 									<ul>
 										@foreach($latest as $article)
 										<li>
@@ -227,7 +229,7 @@
 							<h3>Newsletter</h3>
 							<form action="{{ url('/subscriber/add') }}" method="POST">
 								{{ csrf_field() }}
-								<input name="email" required="required" class="rst-pageinput" type="email" value="Email and hit enter" onblur="if (this.value == '') {this.value = 'Enter Email';}" onclick=" if (this.value == 'Email and hit enter') {this.value = '';}" />	
+								<input name="email" required="required" class="rst-pageinput" type="email" value="Enter Email" onblur="if (this.value == '') {this.value = 'Enter Email';}" onclick=" if (this.value == 'Enter Email') {this.value = '';}" />	
 								<input class="rst-pagebutton" type="submit" value="Subscribe"/>
 							</form>
 						</aside>
@@ -240,4 +242,12 @@
 		</section>
 		<!-- End Category Page Content -->
 		
+@endsection
+
+@section('css')
+	<style>
+		.widget.widget_popular li:hover {
+			cursor: pointer;
+		}
+	</style>
 @endsection

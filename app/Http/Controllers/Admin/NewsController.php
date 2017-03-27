@@ -170,7 +170,7 @@ class NewsController extends Controller
             $news->tags()->attach($tag_id);
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Successfully Edited!');
     }
 
     public function getDeleteNews($id)

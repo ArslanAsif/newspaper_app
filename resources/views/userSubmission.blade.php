@@ -17,19 +17,21 @@
                         </div>
                         <div class="x_content">
                             <br />
-                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" >
+
+                            @include('admin.includes.errors')
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method=post action="{{ url('news/add') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="country" id="country">
                                             <option disabled="disabled" selected>-- Select --</option>
-                                            <option>Bahrain</option>
-                                            <option>Kuwait</option>
-                                            <option>Oman</option>
-                                            <option>Qatar</option>
-                                            <option>Saudi Arabia</option>
-                                            <option>UAE</option>
+                                            <option {{isset($errors) ? old('country') == 'Bahrain' ? 'selected' : '' : ''}}>Bahrain</option>
+                                            <option {{isset($errors) ? old('country') == 'Kuwait' ? 'selected' : '' : ''}}>Kuwait</option>
+                                            <option {{isset($errors) ? old('country') == 'Oman' ? 'selected' : '' : ''}}>Oman</option>
+                                            <option {{isset($errors) ? old('country') == 'Qatar' ? 'selected' : '' : ''}}>Qatar</option>
+                                            <option {{isset($errors) ? old('country') == 'Saudi Arabia' ? 'selected' : '' : ''}}>Saudi Arabia</option>
+                                            <option {{isset($errors) ? old('country') == 'UAE' ? 'selected' : '' : ''}}>UAE</option>
                                         </select>
                                     </div>
                                 </div>
@@ -38,7 +40,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" name="title" id="title" value="" required="required" class="form-control col-md-7 col-xs-12">
+                                        <input type="text" name="title" id="title" value="{{ isset($errors) ? old('title') : '' }}" required="required" class="form-control col-md-7 col-xs-12">
                                     </div>
                                 </div>
 
@@ -47,13 +49,13 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" name="category" id="category">
                                             <option disabled="disabled" selected>-- Select --</option>
-                                            <option>GCC</option>
-                                            <option>World</option>
-                                            <option>Business</option>
-                                            <option>Weather</option>
-                                            <option>Sports</option>
-                                            <option>Lifestyle</option>
-                                            <option>Opinion</option>
+                                            <option {{isset($errors) ? old('category') == 'GCC' ? 'selected' : '' : ''}}>GCC</option>
+                                            <option {{isset($errors) ? old('category') == 'World' ? 'selected' : '' : ''}}>World</option>
+                                            <option {{isset($errors) ? old('category') == 'Business' ? 'selected' : '' : ''}}>Business</option>
+                                            <option {{isset($errors) ? old('category') == 'Weather' ? 'selected' : '' : ''}}>Weather</option>
+                                            <option {{isset($errors) ? old('category') == 'Sports' ? 'selected' : '' : ''}}>Sports</option>
+                                            <option {{isset($errors) ? old('category') == 'Lifestyle' ? 'selected' : '' : ''}}>Lifestyle</option>
+                                            <option {{isset($errors) ? old('category') == 'Opinion' ? 'selected' : '' : ''}}>Opinion</option>
                                         </select>
                                     </div>
                                 </div>
@@ -62,14 +64,14 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="summary">Summary <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea maxlength="150" id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12"></textarea>
+                                        <textarea maxlength="150" id="summary" name="summary" rows="3" required="required" class="form-control col-md-7 col-xs-12">{{ isset($errors) ? old('summary') : '' }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Tags</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="tags_1" name="tags" type="text" class="tags form-control" value="" />
+                                        <input id="tags_1" name="tags" type="text" class="tags form-control" value="{{isset($errors) ? old('tags') : ''}}" />
                                         <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                                     </div>
                                 </div>
@@ -88,7 +90,7 @@
                                         <a class="btn btn-warning rotate-ccw"><span class="fa fa-rotate-left"></span></a>
                                         <a class="btn btn-warning rotate-cw"><span class="fa fa-rotate-right"></span></a>
 
-                                        <input type="hidden" name="image_data" id="hidden_img" class="hidden-image-data" />
+                                        <input type="hidden" name="image-data" class="hidden-image-data" value="{{ isset($errors) ? old('image-data') : ''}}" />
                                         <span class="pull-right">
                                             <a class="btn btn-default select-image-btn">Select new image</a>
                                         <a class="btn btn-success export">Upload</a>
@@ -100,12 +102,12 @@
 
                                 <h4>Description</h4>
                                 @include('admin.includes.text_editor')
-                                <div id="editor" class="editor-wrapper"><?php echo (isset($news) ? $news->description : '') ?></div>
+                                <div id="editor" class="editor-wrapper"><?php echo (isset($errors) ? old('descr') : '') ?></div>
                                 <textarea name="descr" id="hidden_descr" style="display:none;"></textarea>
 
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
-                                    <a onclick="formSubmit()" class="btn btn-success pull-right">Submit</a>
+                                    <button class="btn btn-success pull-right" type="submit">Submit</button>
                                 </div>
 
                             </form>
@@ -296,7 +298,7 @@
             $('.image-editor').cropit({
                 smallImage: 'allow',
                 imageState: {
-                    src: '{{ isset($news) ? url('images/news/'.$news->picture) : '' }}',
+                    src: '{{ isset($news) ? url('images/news/'.$news->picture) : '' }}{{ isset($errors) ? old('image-data') : ''}}',
                 },
             });
 
@@ -318,10 +320,18 @@
         });
     </script>
 
+
     <!--Toastr notification-->
     <script src="{{ url('toastr/toastr.min.js') }}"></script>
 
     <script>
+        @if(Session::has('message'))
+            toastr["success"]("Successfully Submitted");
+        @endif
+    </script>
+    
+
+    <!-- <script>
     function formSubmit()
     {
         $csrf_token = '{{ csrf_token() }}';
@@ -347,7 +357,7 @@
 
         $.ajax({
             method: 'POST',
-            url: "{{ url('news/add') }}",
+            url: "{{ url('news/add/user') }}",
             data: {
                 _token: $csrf_token,
                 country: $country,
@@ -360,11 +370,24 @@
             },
             success: function() {
                 toastr["success"]("Successfully Submitted");
+            },
+            error: function(data){
+                var errors = data.responseJSON;
+                console.log(errors);
+
+                errorsHtml = '<div class="alert alert-danger"><h4>Error!</h4><ul>';
+
+                $.each( errors, function( key, value ) {
+                    errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+                });
+
+                errorsHtml += '</ul></div>';
+
+                $( '#form-errors' ).html( errorsHtml );
+
+                toastr["error"]("Please Fix the issues above!");
             }
-        })
-        .fail(function() {
-            toastr["error"]("An error occured!");
         });
     }
-    </script>
+    </script> -->
 @endsection

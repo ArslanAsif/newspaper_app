@@ -39,6 +39,7 @@ Route::get('comment/{comment_id}/disapprove', 'HomeController@getCommentDisappro
 
 Route::get('/user/submission', 'HomeController@usersubmission')->middleware('auth');
 Route::post('news/add', 'HomeController@postAddNews')->middleware('auth');
+// Route::post('news/add/user', 'HomeController@postAjaxAddNews')->middleware('auth');
 
 Auth::routes();
 

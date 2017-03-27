@@ -17,6 +17,7 @@
                         </div>
                         <div class="x_content">
                             <br />
+                                @include('admin.includes.errors')
                                 <form action="{{url(isset($advertisement) ? 'admin/advertisement/edit/'.$advertisement->id : 'admin/advertisement/add' )}}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                                     {{csrf_field()}}
 
@@ -25,7 +26,7 @@
                                         <div class="col-md-9 col-sm-9 col-xs-12">
                                             <div class="">
                                                 <label>
-                                                <input type="checkbox" name="publish" {{ isset($advertisement) ? ($advertisement->published_on != '') ? 'checked' : '' : ''}}  class="js-switch"/>
+                                                <input type="checkbox" name="publish" {{ isset($advertisement) ? ($advertisement->published_on != '') ? 'checked' : '' : ''}} {{ isset($errors) ? old('publish') ? 'checked' : '' : ''}} class="js-switch"/>
                                                     
                                                     Enable
                                                 </label>
@@ -37,7 +38,7 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Title <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" name="title" required="required" class="form-control col-md-7 col-xs-12" value="{{ isset($advertisement) ? $advertisement->title : ''}}">
+                                            <input type="text" name="title" required="required" class="form-control col-md-7 col-xs-12" value="{{ isset($advertisement) ? $advertisement->title : ''}}{{ isset($errors) ? old('title') : ''}}">
                                             <input type="hidden" name="id" required="required"  class="form-control col-md-7 col-xs-12" value="{{ isset($advertisement) ? $advertisement->id : '' }}">
                                         </div>
                                     </div>
@@ -45,20 +46,20 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Url <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input placeholder="http://www.exampleurl.com" type="text" id="url" name="url" required="required" class="form-control col-md-7 col-xs-12" value="{{ isset($advertisement) ? $advertisement->url : '' }}">
+                                            <input placeholder="www.exampleurl.com" type="text" id="url" name="url" required="required" class="form-control col-md-7 col-xs-12" value="{{ isset($advertisement) ? $advertisement->url : '' }}{{ isset($errors) ? old('url') : ''}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="detail" class="control-label col-md-3 col-sm-3 col-xs-12">Detail </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea id="detail" class="form-control col-md-7 col-xs-12" name="detail" >{{ isset($advertisement) ? $advertisement->detail : '' }}</textarea>
+                                            <textarea id="detail" class="form-control col-md-7 col-xs-12" name="detail" >{{ isset($advertisement) ? $advertisement->detail : '' }}{{ isset($errors) ? old('detail') : ''}}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="duration" class="control-label col-md-3 col-sm-3 col-xs-12">Duration <span class="required">*</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input required="required" placeholder="Days" type="number" id="duration" class="form-control col-md-7 col-xs-12" name="duration" value="{{ isset($advertisement) ? $advertisement->validity : '' }}" ></input>
+                                            <input placeholder="Days" type="number" id="duration" required="required" class="form-control col-md-7 col-xs-12" name="duration" value="{{ isset($advertisement) ? $advertisement->validity : old('duration') }}"></input>
                                         </div>
                                     </div>
 
@@ -85,7 +86,7 @@
                                             <a class="btn btn-warning rotate-ccw"><span class="fa fa-rotate-left"></span></a>
                                             <a class="btn btn-warning rotate-cw"><span class="fa fa-rotate-right"></span></a>
 
-                                            <input type="hidden" name="image-data" class="hidden-image-data" />
+                                            <input type="hidden" name="image-data" class="hidden-image-data" value="{{ isset($errors) ? old('image-data') : ''}}" />
                                             <span class="pull-right">
                                                 <a class="btn btn-default select-image-btn">Select new image</a>
                                             <a class="btn btn-success export">Upload</a>
@@ -176,7 +177,7 @@
             $('.image-editor').cropit({
                 smallImage: 'allow',
                 imageState: {
-                    src: '{{ isset($advertisement) ? url('images/advertisement/'.$advertisement->image) : '' }}',
+                    src: '{{ isset($advertisement) ? url('images/advertisement/'.$advertisement->image) : '' }}{{ isset($errors) ? old('image-data') : '' }}',
                 },
             });
 
@@ -196,5 +197,14 @@
         $('.select-image-btn').click(function() {
             $('.cropit-image-input').click();
         });
+    </script>
+
+    <!--Toastr notification-->
+    <script src="{{ url('toastr/toastr.min.js') }}"></script>
+
+    <script>
+        @if(Session::has('message'))
+            toastr["success"]("Successfully Submitted");
+        @endif
     </script>
 @endsection

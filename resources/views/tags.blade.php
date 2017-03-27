@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-xs-12">
 
                 <div class="rst-section-title rst-section-title-box">
                     <h4>{{ $tag_name}} <small>(Tag)</small></h4>

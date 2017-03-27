@@ -46,36 +46,6 @@
         color: white;
     }
 
-    
-
-    @media(min-width: 800px) {
-        .navbar-nav {
-            float:none;
-            display: block;
-            text-align: center;
-        }
-
-        .navbar-nav > li {
-            display: inline-block;
-            padding: 0 0px;
-            float:none;
-        }
-    }
-
-    @media(min-width: 1140px) {
-        .navbar-nav {
-            float:none;
-            display: block;
-            text-align: center;
-        }
-
-        .navbar-nav > li {
-            display: inline-block;
-            padding: 0 12px;
-            float:none;
-        }
-    }
-
     .mynavbar-icon {
         float:none;
         text-align: center;
@@ -95,16 +65,41 @@
     .dropdown-menu {
         right: 0;
         left: auto;
+    } 
+
+    @media(max-width: 800px) {
+        .mynavbar-icon
+        {
+            float: left;
+            text-align: left;
+        }
+
+        .nav-flag {
+            border: 1px solid silver;
+        }
     }
 
-    .gcc-link {
-        font-size: 20px;
+    @media(min-width: 800px) {
+        .navbar-nav {
+            float:none;
+            display: block;
+            text-align: center;
+        }
+
+        .navbar-nav > li {
+            display: inline-block;
+            padding: 0 0px;
+            float:none;
+        }
     }
 
-    .gcc-link:hover {
-        background-color: white;
-        color: black;
-    }    
+    @media(min-width: 1140px) {
+        .navbar-nav > li {
+            display: inline-block;
+            padding: 0 12px;
+            float:none;
+        }
+    }
 
 </style>
 
@@ -165,8 +160,6 @@
             </div>
             <div class="collapse navbar-collapse nav-flag nav-flag1" id="countryNavbar">
               <ul class="nav navbar-nav">
-              <li><a href="{{ url('/aboutgcc') }}" class="gcc-link"><!-- <img class="img-of-nav" src="{{ url('/images/countries_flags/gcc.jpg') }}">  -->All About GCC</a></li>
-
                 <li class="{{ ($country == 'Saudi Arabia') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
                     
                 <li class="{{ ($country == 'UAE') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
@@ -302,7 +295,7 @@
 
 $(document).ready(function() {  
   datetime();
-  setInterval(datetime, 60000); //Update every 1 minute
+  setInterval(datetime, 10000); //Update every 10 sec
 });
 
 function datetime()
@@ -315,6 +308,11 @@ function datetime()
     var hour = d.getHours();
     var min = d.getMinutes();
     var unit = null;
+
+    if(min >= 0 && min <=9)
+    {
+        min = "0"+min;
+    }
     
     if(hour >= 0 && hour < 12)
     {

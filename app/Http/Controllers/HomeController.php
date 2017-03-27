@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 
+use Illuminate\Contracts\Validation\Validator;
+
 class HomeController extends Controller
 {
 //    /**
@@ -292,6 +294,25 @@ class HomeController extends Controller
 
     public function postAddNews(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'title'=>'required',
+                'category'=>'required',
+                'country'=>'required',
+                'summary'=>'required',
+                'descr'=>'required',
+                
+                'image-data'=>'required_unless:category,Opinion',
+            ], 
+            [
+                'country.required'=>'Country is required',
+                'category.required'=>'Category is required',
+                'descr.required'=>'Description is required', 
+                'image-data.required_unless'=>'Image is required for selected category'
+            ]
+        );
+
         //return $request->all();
         $news = new News();
         $news->user_id = Auth::user()->id;
@@ -386,6 +407,123 @@ class HomeController extends Controller
 
         return redirect()->back()->with(['message' => 'Successfully Submitted', 'error' => $error]);
     }
+
+
+    // public function postAjaxAddNews(Request $request)
+    // {
+    //     $this->validate(
+    //         $request,
+    //         [
+    //             'title'=>'required',
+    //             'category'=>'required',
+    //             'country'=>'required',
+    //             'summary'=>'required',
+    //             'descr'=>'required',
+    //             'image-data'=>'required_unless:category,Opinion',
+    //         ], 
+    //         [
+    //             'title.required'=>'Title is required',
+    //             'summary.required'=>'Summary is required',
+    //             'country.required'=>'Country is required',
+    //             'category.required'=>'Category is required',
+    //             'descr.required'=>'Description is required', 
+    //             'image-data.required_unless'=>'Image is required for selected category'
+    //         ]
+    //     );
+
+    //     //return $request->all();
+    //     $news = new News();
+    //     $news->user_id = Auth::user()->id;
+    //     $news->title = $request['title'];
+    //     // $news->type = $request['type'];
+    //     $news->category = $request['category'];
+    //     $news->country = $request['country'];
+        
+    //     $news->summary = $request['summary'];
+    //     $news->description = $request['descr'];
+    //     $news->priority = $request['priority'];
+
+    //     if(isset($request['homepage']) && isset($request['latest']) && isset($request['spotlight']))
+    //     {
+    //         $checking = News::where('homepage', 1)->where('spotlight', 1)->where('latest', 1)->get();
+    //         foreach($checking as $check)
+    //         {
+    //             $check->spotlight = 0;
+    //             $check->update();
+    //         }
+    //     }
+
+    //     if(isset($request['latest']))
+    //     {
+    //         $news->latest = 1;
+    //     }
+
+    //     if(isset($request['homepage']))
+    //     {
+    //         $news->homepage = 1;
+    //     }
+    //     else
+    //         $news->homepage = 0;
+
+    //     if(isset($request['spotlight']))
+    //     {
+
+    //         $news->spotlight = 1;
+    //     }
+    //     else
+    //         $news->spotlight = 0;
+
+    //     if(isset($request['publish']))
+    //     {
+    //         $news->publish_date = Carbon::now();
+    //     }
+    //     else
+    //     {
+    //         $news->publish_date = null;
+    //     }
+
+    //     //decode the url, because we want to use decoded characters to use explode
+    //     if(isset($request['image-data']))
+    //     {
+    //         $img = $request['image-data'];
+
+    //         //decode the url, because we want to use decoded characters to use explode
+    //         $decoded = urldecode($img);
+
+    //         //get image extension
+    //         $ext = explode(';', $decoded);
+    //         $ext = explode(':', $ext[0]);
+    //         $ext = array_pop($ext);
+    //         $ext = explode('/', $ext);
+    //         $ext = array_pop($ext);
+
+    //         //save image in file
+    //         $img_name = "perfil-".time().".".$ext;
+    //         $path = public_path() . "/images/news/" . $img_name;
+    //         $img = substr($img, strpos($img, ",")+1);
+    //         $data = base64_decode($img);
+    //         $success = file_put_contents($path, $data);
+
+    //         $error = '';
+    //         $success ? $news->picture = $img_name : $error = 'Unable to save cover image';
+    //     }
+
+    //     $news->save();
+
+    //     $tags = explode(',', $request['tags']);
+    //     foreach($tags as $tag)
+    //     {
+    //         $tag_id = Tag::where('title', $tag)->first();
+    //         if(!isset($tag_id->id))
+    //         {
+    //             $tag_id = new Tag();
+    //             $tag_id->title = $tag;
+    //             $tag_id->save();
+    //         }
+    //         $news->tags()->attach($tag_id);
+    //     }
+    //     return response('submitted');
+    // }
 
     public function getDeleteComment($comment_id)
     {
