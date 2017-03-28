@@ -57,7 +57,7 @@
                                         <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
                                     </div>
                                 </article>
-                                <?php $count1++; if($count1 % 3 == 0) echo "</div>"; $count++;?>
+                                <?php $count1++; if($count1 % 3 == 0 || $count1 >= $main_latest_count) echo "</div>"; $count++;?>
                             @endforeach
                         @endif
 
