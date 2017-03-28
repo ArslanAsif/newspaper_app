@@ -245,7 +245,7 @@
         <nav class="navbar navbar-default navbar-fixed-top" style="z-index: 1">
 
             <div class="navbar-header">
-                <a href="{{url('/')}}">
+                <a href="{{url('/')}}" class="hidden-sm hidden-md hidden-lg">
                     <img style="margin-top: -3px; padding-left: 5px" width="70px" src="{{ url('images/gccc.png') }}" alt="" />
                 </a>
 
