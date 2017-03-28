@@ -44,7 +44,7 @@
                             <?php $count = 0; ?>
                             @foreach($main_latest as $article)
                                 @if($count % 3 == 0)
-                                    <div class='row'>
+                                    <div class='row' style="padding-top: 1px">
                                     <?php $count1 = 0; ?>
                                 @endif
                                 <article class="col-sm-4 col-xs-6">
@@ -57,7 +57,11 @@
                                         <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
                                     </div>
                                 </article>
-                                <?php $count1++; if($count1 % 3 == 0 || $count1 >= $main_latest_count) echo "</div>"; $count++;?>
+                                <?php $count1++; $count++;?>
+
+                                @if(($count1 % 3 == 0) || ($count >= $main_latest_count))
+                                    </div>
+                                @endif
                             @endforeach
                         @endif
 
