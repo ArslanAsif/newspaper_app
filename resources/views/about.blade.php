@@ -5,7 +5,7 @@
 		<section id="rst-itemcontent">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-sm-8 col-xs-12">
 						<div class="rst-section-title rst-section-title-box rst-item-content-title">
 							<h2>About Us</h2>
 						</div>
@@ -15,7 +15,7 @@
 							</article>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-4 col-xs-12">
 						<div class="rst-section-title rst-section-title-box rst-item-content-title">
 							<h2>Contact Us</h2>
 							<?= $contact_us ?>

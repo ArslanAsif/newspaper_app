@@ -18,30 +18,32 @@
                         <div class="x_content">
                             <p class="text-muted font-13 m-b-30">
                             </p>
-                            <table id="datatable" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Parent</th>
-                                    <th>Added On</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Parent</th>
+                                        <th>Added On</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
 
-                                <tbody>
+                                    <tbody>
 
-                                @foreach($categories as $category)
-                                <tr>
-                                    <td>{{ $category->name }}</td>
-                                    <td>{{ $category->category_id }}</td>
-                                    <td>{{ $category->created_at }}</td>
-                                    <td>
-                                        <a href="{{ url('/admin/news/category/edit/'.$category->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    @foreach($categories as $category)
+                                    <tr>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->category_id }}</td>
+                                        <td>{{ $category->created_at }}</td>
+                                        <td>
+                                            <a href="{{ url('/admin/news/category/edit/'.$category->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

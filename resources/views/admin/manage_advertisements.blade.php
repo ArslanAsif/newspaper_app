@@ -19,39 +19,41 @@
                             <p class="text-muted font-13 m-b-30">
                                 
                             </p>
-                            <table id="datatable" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Detail</th>
-                                    <th>Added On</th>
-                                    <th>Validity (days)</th>
-                                    <th>Status</th>
-                                    <th>Activated On</th>
-                                    <th></th>
-                                </tr>
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Detail</th>
+                                        <th>Added On</th>
+                                        <th>Validity (days)</th>
+                                        <th>Status</th>
+                                        <th>Activated On</th>
+                                        <th></th>
+                                    </tr>
 
-                                </thead>
+                                    </thead>
 
 
-                                <tbody>
-                                @foreach($advertisement as $advertisement)
-                                <tr>
-                                    <td>{{$advertisement->title}}</td>
-                                    <td>{{$advertisement->detail}}</td>
-                                    <td>{{$advertisement->created_at}}</td>
-                                    <td>{{$advertisement->validity}}</td>
-                                    <td>{{($advertisement->published_on != null) ? 'Active' : 'Not Active'}}</td>
-                                    
-                                    <td>{{$advertisement->published_on}}</td>
-                                    <td>
-                                        <a href="{{'advertisement/edit/'.$advertisement->id}}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
-                                        <a href="{{'advertisement/delete/'.$advertisement->id}}" class="btn btn-danger"><span class="fa fa-trash"></span></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    <tbody>
+                                    @foreach($advertisement as $advertisement)
+                                    <tr>
+                                        <td>{{$advertisement->title}}</td>
+                                        <td>{{$advertisement->detail}}</td>
+                                        <td>{{$advertisement->created_at}}</td>
+                                        <td>{{$advertisement->validity}}</td>
+                                        <td>{{($advertisement->published_on != null) ? 'Active' : 'Not Active'}}</td>
+                                        
+                                        <td>{{$advertisement->published_on}}</td>
+                                        <td>
+                                            <a href="{{'advertisement/edit/'.$advertisement->id}}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
+                                            <a href="{{'advertisement/delete/'.$advertisement->id}}" class="btn btn-danger"><span class="fa fa-trash"></span></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

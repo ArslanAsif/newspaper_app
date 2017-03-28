@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-xs-12">
                 <div class="rst-section-title rst-section-title-box">
                     <h4>{{ ucfirst($category) }}</h4>
                     <div class="rst-shortmenu">
@@ -28,7 +28,7 @@
 
                 @if($category == "weather")
                     <div class="" style="margin-top: -35px">
-                        <div class="col-md-12" id="weather">
+                        <div class="col-xs-12" id="weather">
                           <div class="loading-image">
                             <br><br><h1 style="text-align: center; color: white"  >Loading weather data...</h1><br><br>
                           </div>

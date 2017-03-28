@@ -18,26 +18,29 @@
                         <div class="x_content">
                             <p class="text-muted font-13 m-b-30">
                             </p>
-                            <table id="datatable" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Email</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
 
-
-                                <tbody>
-                                @foreach($subcribe as $subcribe)
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-striped table-bordered">
+                                    <thead>
                                     <tr>
-                                            <td>{{$subcribe->email}}</td>
-                                            <td>
-                                                <a href="{{url('admin/deleteSubscriber/'.$subcribe->id)}}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
-                                            </td>
+                                        <th>Email</th>
+                                        <th></th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+
+
+                                    <tbody>
+                                    @foreach($subcribe as $subcribe)
+                                        <tr>
+                                                <td>{{$subcribe->email}}</td>
+                                                <td>
+                                                    <a href="{{url('admin/deleteSubscriber/'.$subcribe->id)}}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                                                </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

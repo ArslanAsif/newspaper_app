@@ -18,30 +18,32 @@
                         <div class="x_content">
                             <p class="text-muted font-13 m-b-30">
                             </p>
-                            <table id="datatable" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Member Since</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Member Since</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
 
 
-                                <tbody>
-                                @foreach($user as $user)
-                                <tr>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->created_at}}</td>
-                                    <td>
-                                        <a href="{{ url('/admin/user/ban/'.$user->id) }}" class="btn btn-warning"><span class="fa fa-ban"></span> {{ ($user->ban == 1) ? 'Unban' : 'Ban' }}</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    <tbody>
+                                    @foreach($user as $user)
+                                    <tr>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->created_at}}</td>
+                                        <td>
+                                            <a href="{{ url('/admin/user/ban/'.$user->id) }}" class="btn btn-warning"><span class="fa fa-ban"></span> {{ ($user->ban == 1) ? 'Unban' : 'Ban' }}</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

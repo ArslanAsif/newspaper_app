@@ -68,6 +68,14 @@
     } 
 
     @media(max-width: 800px) {
+        .header-image {
+            margin-top: -10px;
+        }
+
+        .navbar.navbar-default.navbar-fixed-top {
+            
+        }
+
         .mynavbar-icon
         {
             float: left;
@@ -80,6 +88,10 @@
     }
 
     @media(min-width: 800px) {
+        .header-image {
+            margin-top: -5px;
+        }
+
         .navbar-nav {
             float:none;
             display: block;
@@ -110,7 +122,7 @@
         <div class="container">
             <div class="navbar-header mynavbar-icon">
                 <a href="{{url('/')}}">
-                    <img style="margin-top: -5px" width="150px" src="{{ url('images/gccc.png') }}" alt="" />
+                    <img class="header-image" width="150px" src="{{ url('images/gccc.png') }}" alt="" />
                 </a>
             </div>
             <div class="sign-in-btn login-btn hidden-xs">
@@ -231,7 +243,12 @@
         </nav>
 
         <nav class="navbar navbar-default navbar-fixed-top" style="z-index: 1">
+
             <div class="navbar-header">
+                <a href="{{url('/')}}">
+                    <img style="margin-top: -3px; padding-left: 5px" width="70px" src="{{ url('images/gccc.png') }}" alt="" />
+                </a>
+
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#categoryNavbar2">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>

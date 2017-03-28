@@ -19,43 +19,46 @@
                             <p class="text-muted font-13 m-b-30">
                                 User submitted news, articles and colums can be reviewed here for publishing. Once Published it will be moved to news tab.
                             </p>
-                            <table id="datatable" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Country</th>
-                                    <th>Category</th>
-                                    <th>Author</th>
-                                    <th>Submitted On</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Country</th>
+                                        <th>Category</th>
+                                        <th>Author</th>
+                                        <th>Submitted On</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
 
 
-                                <tbody>
+                                    <tbody>
 
-                                @foreach($news as $this_news)
-                                <tr>
-                                    <td>{{ $this_news->title }}</td>
-                                    <td>{{ $this_news->country }}</td>
-                                    <td>{{ $this_news->category }}</td>
-                                    <td>{{ $this_news->user->name }}</td>
-                                    <td>{{ $this_news->created_at }}</td>
-                                    <td>
-                                        <a href="#" class="btn btn-success" onclick="event.preventDefault();
-                                                                     document.getElementById('publish-form').submit();"><span class="fa fa-check"></span></a>
+                                    @foreach($news as $this_news)
+                                    <tr>
+                                        <td>{{ $this_news->title }}</td>
+                                        <td>{{ $this_news->country }}</td>
+                                        <td>{{ $this_news->category }}</td>
+                                        <td>{{ $this_news->user->name }}</td>
+                                        <td>{{ $this_news->created_at }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-success" onclick="event.preventDefault();
+                                                                         document.getElementById('publish-form').submit();"><span class="fa fa-check"></span></a>
 
-                                        <form id="publish-form" action="{{ url('/admin/news/publish/'.$this_news->id) }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
+                                            <form id="publish-form" action="{{ url('/admin/news/publish/'.$this_news->id) }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
 
-                                        <a href="{{ url('/admin/news/edit/'.$this_news->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
-                                        <a href="{{ url('/admin/news/delete/'.$this_news->id) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                            <a href="{{ url('/admin/news/edit/'.$this_news->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
+                                            <a href="{{ url('/admin/news/delete/'.$this_news->id) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

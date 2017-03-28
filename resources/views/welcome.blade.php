@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Pageline -->
-    <div class="rst-pageline container" style="margin-top: -32px; position: relative; z-index: 0;">
+    <div class="rst-pageline container" style="position: relative; z-index: 0; margin-top: -20px">
         <div class="row">
             <div class="col-xs-12">
                 <div class="rst-pageline-content">
