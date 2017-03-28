@@ -40,23 +40,27 @@
                     <br>
 
                     <div id="rst-popular">
-                        <div class="row">
-                            @if(isset($main_latest))
-                                @foreach($main_latest as $article)
-                                    <article class="col-sm-4 col-xs-6">
-                                        <div class="rst-postpic">
-                                            <a href="{{ url('article/'.$article->id) }}"><img class="img-border" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
-                                            <a class="rst-postpic-cat" href="{{ url('category/'.strtolower($article->category)) }}"><span>{{ $article->category }}</span></a>
-                                        </div>
-                                        <div class="rst-postinfo">
-                                            <h6><a href="{{ url('article/'.$article->id) }}">{{ $article->title }}</a></h6>
-                                            <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
-                                        </div>
-                                    </article>
-                                @endforeach
-                            @endif
+                        @if(isset($main_latest))
+                            <?php $count = 0; ?>
+                            @foreach($main_latest as $article)
+                                @if($count % 3 == 0)
+                                    <div class='row'>
+                                    <?php $count1 = 0; ?>
+                                @endif
+                                <article class="col-sm-4 col-xs-6">
+                                    <div class="rst-postpic">
+                                        <a href="{{ url('article/'.$article->id) }}"><img class="img-border" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
+                                        <a class="rst-postpic-cat" href="{{ url('category/'.strtolower($article->category)) }}"><span>{{ $article->category }}</span></a>
+                                    </div>
+                                    <div class="rst-postinfo">
+                                        <h6><a href="{{ url('article/'.$article->id) }}">{{ $article->title }}</a></h6>
+                                        <time><i class="fa fa-clock-o"></i>{{ $article->publish_date }}</time>
+                                    </div>
+                                </article>
+                                <?php $count1++; if($count1 % 3 == 0) echo "</div>"; $count++;?>
+                            @endforeach
+                        @endif
 
-                        </div>
                     </div>
                     <div class="clear"></div>
                 </div>
