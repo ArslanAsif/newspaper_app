@@ -59,15 +59,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
     Route::get('newsletter/send', 'SubscriberController@getSendNewsletter');
 
     Route::group(['prefix' => 'news'], function() {
-        Route::get('/', 'NewsController@index');
+        Route::get('/published', 'NewsController@index');
+        Route::get('/unpublished', 'NewsController@getUnpublished');
         Route::get('/usersubmission', 'NewsController@getUserSubmission');
-        Route::post('/usersubmission', 'NewsController@postUserSubmission');
         Route::get('/add', 'NewsController@getAddNews');
         Route::get('/edit/{id}', 'NewsController@getEditNews');
         Route::post('/edit/{id}', 'NewsController@postEditNews');
         Route::get('/delete/{id}', 'NewsController@getDeleteNews');
         Route::post('/publish/{id}', 'NewsController@postPublishNews');
         Route::post('/unpublish/{id}', 'NewsController@postUnpublishNews');
+        Route::post('/approve/{id}', 'NewsController@postApproveNews');
 
         Route::group(['prefix' => 'category'], function() {
             Route::get('/', 'CategoryController@index');

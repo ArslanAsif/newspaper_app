@@ -5,11 +5,12 @@
             <li>.</li>
             <li><a href="{{ url('/admin/dashboard/') }}"><i class="fa fa-home"></i> Dashboard</a></li>
 
-            <li><a><i class="fa fa-edit"></i> News & Articles <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-edit"></i> Articles <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="{{ url('/admin/news/add') }}">Add News</a></li>
-                    <li><a href="{{ url('/admin/news/usersubmission') }}">Users Submissions</a></li>
-                    <li><a href="{{ url('/admin/news/') }}">Manage News</a></li>
+                    <li><a href="{{ url('/admin/news/add') }}">Add Article</a></li>
+                    <li><a href="{{ url('/admin/news/usersubmission') }}">User Submissions</a></li>
+                    <li><a href="{{ url('/admin/news/unpublished') }}">Unpublished Articles</a></li>
+                    <li><a href="{{ url('/admin/news/published') }}">Published Articles</a></li>
 
                 </ul>
             </li>

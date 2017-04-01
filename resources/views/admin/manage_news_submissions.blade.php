@@ -9,7 +9,13 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>User Submissions <small></small></h2>
+                            <h2>
+                                @if(isset($type))
+                                     Unpublished Articles
+                                @else
+                                    User Submissions
+                                @endif
+                            </h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             </ul>
@@ -17,7 +23,12 @@
                         </div>
                         <div class="x_content">
                             <p class="text-muted font-13 m-b-30">
-                                User submitted news, articles and colums can be reviewed here for publishing. Once Published it will be moved to news tab.
+                            @if(isset($type))
+                                Unpublished articles can be reviwed and published from here.
+                            @else
+                                User submitted news, articles and colums can be reviewed here for publishing. Once Published it will be moved to published articles.
+                            @endif
+                                
                             </p>
 
                             <div class="table-responsive">
@@ -45,9 +56,9 @@
                                         <td>{{ $this_news->created_at }}</td>
                                         <td>
                                             <a href="#" class="btn btn-success" onclick="event.preventDefault();
-                                                                         document.getElementById('publish-form').submit();"><span class="fa fa-check"></span></a>
+                                                                         document.getElementById('{{ "publish-form".$this_news->id }}').submit();"><span class="fa fa-check"></span></a>
 
-                                            <form id="publish-form" action="{{ url('/admin/news/publish/'.$this_news->id) }}" method="POST" style="display: none;">
+                                            <form id="{{ 'publish-form'.$this_news->id }}" action="{{ isset($type) ? url('/admin/news/publish/'.$this_news->id) : url('/admin/news/approve/'.$this_news->id) }}" method="POST" style="display: none;">
                                                 {{ csrf_field() }}
                                             </form>
 

@@ -70,8 +70,8 @@
                 </div>
 
                 <br>
-                <div class="col-md-4 col-xs-12 hidden-xs hidden-sm">
-                    <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <div class="row hidden-xs hidden-sm">
                         <div class="col-md-7 col-sm-6 col-xs-6">
                             <a hidden="hidden" id="exchangerate-btn" href="{{ url('/exchangerate') }}" class="btn btn-sm btn-success" style="position: absolute; margin-top: 5px; margin-left: 160px; font-size: 12px; "><i class="fa fa-money"></i></a>
                             <div id="currency_widget_holder"></div>
@@ -87,53 +87,54 @@
                             </a>
                         </div>
                     </div>
-                    
-                </div>
 
-                <div class="col-md-4 col-xs-12">
-                    <div>
-                        <div class="rst-section-title rst-section-title-box">
-                            <h4>Opinion</h4>
-                        </div>
-
-                        @if(isset($opinions))
-                            @foreach($opinions as $opinion)
-                                <div class="row">
-                                    <div class="media col-md-12 col-sm-6">
-                                        <div class="media-left" style="width:100px">
-                                            <img class="media-object " src="{{ isset($opinion->user->avatar) ? url('images').$opinion->user->avatar : url('images/account.png') }}" alt="" />
-                                        </div>
-                                        <div class="media-body">
-                                            <a style="color:#474747" href="{{ url('category/column/author/'.$opinion->user->id) }}"><p class="comment-body">{{ $opinion->user->name }}</p></a>
-                                            <a href="{{ url('/article/'.$opinion->id) }}" class="media-heading comment-author">{{ $opinion->title }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
-
-                        <br>
-                        <div class="rst-section-title-short">
-                            <a href="{{ url('category/opinion') }}"><span>View all</span></a>
-                        </div>
-
-                        <div class="clear"></div>
-                    </div>
-                    <div>
-                        <aside class="widget widget_adv">
-                            <h3>Advertisement</h3>
-                            <div class="rst-hotnews owl-carousel">
-                                @foreach($advertisements as $advertisement)
-                                <a href="{{ url($advertisement->url) }}">
-                                    <img width="100%" src="{{ url('images/advertisement/'.$advertisement->image) }}" alt="" />
-                                    <h4>{{ $advertisement->title }}</h4>
-                                </a>
-                                @endforeach
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="rst-section-title rst-section-title-box">
+                                <h4>Opinion</h4>
                             </div>
-                            <!-- <a href="#"><img src="{{ url('images/ad01.png') }}" alt="" /></a>
-                            <div class="clear"></div> -->
-                        </aside>
-                        <!-- end widget adv -->
+
+                            @if(isset($opinions))
+                                @foreach($opinions as $opinion)
+                                    <div class="row">
+                                        <div class="media col-md-12 col-sm-6">
+                                            <div class="media-left" style="width:100px">
+                                                <img class="media-object " src="{{ isset($opinion->user->avatar) ? url('images').$opinion->user->avatar : url('images/account.png') }}" alt="" />
+                                            </div>
+                                            <div class="media-body">
+                                                <a style="color:#474747" href="{{ url('category/column/author/'.$opinion->user->id) }}"><p class="comment-body">{{ $opinion->user->name }}</p></a>
+                                                <a href="{{ url('/article/'.$opinion->id) }}" class="media-heading comment-author">{{ $opinion->title }}</a>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                @endforeach
+                            @endif
+
+                            <br>
+                            <div class="rst-section-title-short">
+                                <a href="{{ url('category/opinion') }}"><span>View all</span></a>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                        <div class="col-xs-12">
+                            <aside class="widget widget_adv">
+                                <h3>Advertisement</h3>
+                                <div class="rst-hotnews owl-carousel">
+                                    @foreach($advertisements as $advertisement)
+                                    @if(Carbon\Carbon::parse($advertisement->created_at)->diffInDays() <= $advertisement->validity)
+                                        <a href="{{ url($advertisement->url) }}">
+                                            <img width="100%" src="{{ url('images/advertisement/'.$advertisement->image) }}" alt="" />
+                                            <h4>{{ $advertisement->title }}</h4>
+                                        </a>
+                                    @endif
+                                    @endforeach
+                                </div>
+                                <!-- <a href="#"><img src="{{ url('images/ad01.png') }}" alt="" /></a>
+                                <div class="clear"></div> -->
+                            </aside>
+                            <!-- end widget adv -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -519,7 +520,7 @@
 
     function getWeather() {
       $.simpleWeather({
-        location: '{{Cache::get('city')}}',
+        location: '{{Cache::get("city").",".Cache::get("country")}}',
         woeid: '',
         unit: 'c',
         success: function(weather) {

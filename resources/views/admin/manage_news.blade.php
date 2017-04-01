@@ -49,9 +49,9 @@
                                             <td>{{ $this_news->updated_at }}</td>
                                             <td>
                                                 <a href="#" class="btn btn-warning" onclick="event.preventDefault();
-                                                                         document.getElementById('publish-form').submit();"><span class="fa fa-close"></span></a>
+                                                                         document.getElementById('{{ "publish-form".$this_news->id }}').submit();"><span class="fa fa-close"></span></a>
 
-                                                <form id="publish-form" action="{{ url('/admin/news/unpublish/'.$this_news->id) }}" method="POST" style="display: none;">
+                                                <form id="{{ 'publish-form'.$this_news->id }}" action="{{ url('/admin/news/unpublish/'.$this_news->id) }}" method="POST" style="display: none;">
                                                     {{ csrf_field() }}
                                                 </form>
 

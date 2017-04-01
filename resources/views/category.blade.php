@@ -163,7 +163,7 @@
 
     function getWeather() {
       $.simpleWeather({
-        location: '{{Cache::get('city')}}',
+        location: '{{Cache::get("city").",".Cache::get("country")}}',
         woeid: '',
         unit: 'c',
         success: function(weather) {

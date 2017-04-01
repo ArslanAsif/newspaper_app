@@ -16,24 +16,20 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::where('publish_date', '!=', null)->get();
+        $news = News::where('publish_date', '!=', null)->where('active', 1)->get();
         return view('admin.manage_news')->with('news', $news);
+    }
+
+    public function getUnpublished()
+    {
+        $news = News::where('publish_date', null)->where('active', 1)->get();
+        return view('admin.manage_news_submissions')->with(['news' => $news, 'type' => 'unpublished']);
     }
 
     public function getUserSubmission()
     {
-        $news = News::where('publish_date', null)->get();
+        $news = News::where('active', 0)->get();
         return view('admin.manage_news_submissions')->with('news', $news);
-    }
-
-    public function postUserSubmission($id, Request $request)
-    {
-        $news = News::where('id', $id)->first();
-
-        $news->title = $request['title'];
-        $news->update();
-
-        return view('admin.manage_news_submissions')->with('message', 'Edited');
     }
 
     public function getAddNews()
@@ -42,6 +38,33 @@ class NewsController extends Controller
         return view('admin.create_news')->with('categories', $categories);
     }
 
+    public function postApproveNews($id)
+    {
+        $news = News::where('id', $id)->first();
+        $news->publish_date = Carbon::now();
+        $news->active = 1;
+        $news->update();
+
+        return redirect()->back();
+    }
+
+    public function postPublishNews($id)
+    {
+        $news = News::where('id', $id)->first();
+        $news->publish_date = Carbon::now();
+        $news->update();
+
+        return redirect()->back();
+    }
+
+    public function postUnpublishNews($id)
+    {
+        $news = News::where('id', $id)->first();
+        $news->publish_date = null;
+        $news->update();
+
+        return redirect()->back();
+    }
     
     
     public function getEditNews($id)
@@ -63,24 +86,6 @@ class NewsController extends Controller
         }
 
         return view('admin.create_news')->with(['news' => $news, 'categories' => $categories, 'tags' => $array]);
-    }
-
-    public function postPublishNews($id)
-    {
-        $news = News::where('id', $id)->first();
-        $news->publish_date = Carbon::now();
-        $news->update();
-
-        return redirect()->back();
-    }
-
-    public function postUnpublishNews($id)
-    {
-        $news = News::where('id', $id)->first();
-        $news->publish_date = null;
-        $news->update();
-
-        return redirect()->back();
     }
 
     public function postEditNews($id, Request $request)
