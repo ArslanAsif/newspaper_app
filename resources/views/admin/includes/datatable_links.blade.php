@@ -27,7 +27,9 @@
                     }
                 };
             }();
-            $('#datatable').dataTable();
+            $('#datatable').dataTable({
+                "order": [[ 0, "desc" ]]
+            });
 
             TableManageButtons.init();
         });

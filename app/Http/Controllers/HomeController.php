@@ -279,8 +279,7 @@ class HomeController extends Controller
                 'country'=>'required',
                 'summary'=>'required',
                 'descr'=>'required',
-                
-                'image-data'=>'required_unless:category,Opinion',
+                // 'image-data'=>'required_unless:category,Opinion',
             ], 
             [
                 'country.required'=>'Country is required',
@@ -300,51 +299,59 @@ class HomeController extends Controller
         
         $news->summary = $request['summary'];
         $news->description = $request['descr'];
-        $news->priority = $request['priority'];
 
-        if(Auth::user()->type != 'admin')
+        if(Auth::user()->type == 'admin')
         {
-            $news->active = 0;
-        }
+            $news->priority = $request['priority'];
+            $news->duration = $request['duration'];
 
-        if(isset($request['homepage']) && isset($request['latest']) && isset($request['spotlight']))
-        {
-            $checking = News::where('homepage', 1)->where('spotlight', 1)->where('latest', 1)->get();
-            foreach($checking as $check)
+            if(isset($request['homepage']) && isset($request['latest']) && isset($request['spotlight']))
             {
-                $check->spotlight = 0;
-                $check->update();
+                $checking = News::where('homepage', 1)->where('spotlight', 1)->where('latest', 1)->get();
+                foreach($checking as $check)
+                {
+                    $check->spotlight = 0;
+                    $check->update();
+                }
+            }
+
+            if(isset($request['latest']))
+            {
+                $news->latest = 1;
+            }
+
+            if(isset($request['homepage']))
+            {
+                $news->homepage = 1;
+            }
+            else
+                $news->homepage = 0;
+
+            if(isset($request['spotlight']))
+            {
+
+                $news->spotlight = 1;
+            }
+            else
+                $news->spotlight = 0;
+
+            if(isset($request['publish']))
+            {
+                $news->publish_date = Carbon::now();
+            }
+            else
+            {
+                $news->publish_date = null;
             }
         }
-
-        if(isset($request['latest']))
-        {
-            $news->latest = 1;
-        }
-
-        if(isset($request['homepage']))
-        {
-            $news->homepage = 1;
-        }
-        else
-            $news->homepage = 0;
-
-        if(isset($request['spotlight']))
-        {
-
-            $news->spotlight = 1;
-        }
-        else
-            $news->spotlight = 0;
-
-        if(isset($request['publish']))
-        {
-            $news->publish_date = Carbon::now();
-        }
         else
         {
+            $news->active = 0;
+            $news->duration = 0;
             $news->publish_date = null;
         }
+
+        
 
         //decode the url, because we want to use decoded characters to use explode
         if(isset($request['image-data']))

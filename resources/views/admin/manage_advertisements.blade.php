@@ -23,6 +23,7 @@
                                 <table id="datatable" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Detail</th>
                                         <th>Added On</th>
@@ -38,6 +39,7 @@
                                     <tbody>
                                     @foreach($advertisement as $advertisement)
                                     <tr>
+                                        <td>{{$advertisement->id}}</td>
                                         <td>{{$advertisement->title}}</td>
                                         <td>{{$advertisement->detail}}</td>
                                         <td>{{$advertisement->created_at}}</td>

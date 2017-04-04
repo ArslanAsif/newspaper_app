@@ -23,6 +23,7 @@
                                 <table id="datatable" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Email</th>
                                         <th></th>
                                     </tr>
@@ -32,10 +33,11 @@
                                     <tbody>
                                     @foreach($subcribe as $subcribe)
                                         <tr>
-                                                <td>{{$subcribe->email}}</td>
-                                                <td>
-                                                    <a href="{{url('admin/deleteSubscriber/'.$subcribe->id)}}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
-                                                </td>
+                                            <td>{{$subcribe->id}}</td>
+                                            <td>{{$subcribe->email}}</td>
+                                            <td>
+                                                <a href="{{url('admin/deleteSubscriber/'.$subcribe->id)}}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

@@ -9,7 +9,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Manage News <small></small></h2>
+                            <h2>Published Articles <small></small></h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             </ul>
@@ -17,7 +17,7 @@
                         </div>
                         <div class="x_content">
                             <p class="text-muted font-13 m-b-30">
-                                Published news, articles, columns are managed here. If unpublished, it will move back to user submissions.
+                                Published news, articles, columns are managed here. If unpublished, it will move back to unpublished articles.
                             </p>
 
                             <div class="table-responsive">

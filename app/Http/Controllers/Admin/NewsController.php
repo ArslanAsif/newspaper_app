@@ -103,6 +103,7 @@ class NewsController extends Controller
         $news->summary = $request['summary'];
         $news->description = $request['descr'];
         $news->priority = $request['priority'];
+        $news->duration = $request['duration'];
 
         if(isset($request['latest']))
         {
