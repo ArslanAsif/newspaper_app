@@ -23,11 +23,11 @@
                             <form action="{{url('/admin/newsletter')}}" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                                 {{ csrf_field() }}
                                 @include('admin.includes.text_editor')
-                                <div id="editor" class="editor-wrapper"><?= isset($newsletter) ? $newsletter->content : '' ?></div>
+                                <div id="editor" class="editor-wrapper"><?= isset($content) ? $content : '' ?></div>
                                 <textarea name="content" id="hidden_descr" style="display:none;"></textarea>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
-                                    <button  class="btn btn-success pull-right" id="abouatUs">Update</button>
+                                    <button  class="btn btn-success pull-right" id="abouatUs">Send Newsletter <i class="fa fa-send"></i></button>
                                 </div>
                             </form>
                         </div>

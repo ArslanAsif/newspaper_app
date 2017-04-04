@@ -55,15 +55,16 @@
                                         <td>{{ $this_news->user->name }}</td>
                                         <td>{{ $this_news->created_at }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-success" onclick="event.preventDefault();
+                                            <a data-toggle="tooltip" title="Publish" href="#" class="btn btn-success" onclick="event.preventDefault();
                                                                          document.getElementById('{{ "publish-form".$this_news->id }}').submit();"><span class="fa fa-check"></span></a>
 
                                             <form id="{{ 'publish-form'.$this_news->id }}" action="{{ isset($type) ? url('/admin/news/publish/'.$this_news->id) : url('/admin/news/approve/'.$this_news->id) }}" method="POST" style="display: none;">
                                                 {{ csrf_field() }}
                                             </form>
 
-                                            <a href="{{ url('/admin/news/edit/'.$this_news->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
-                                            <a href="{{ url('/admin/news/delete/'.$this_news->id) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                                            <a data-toggle="tooltip" title="Edit" href="{{ url('/admin/news/edit/'.$this_news->id) }}" class="btn btn-default"><span class="fa fa-pencil-square-o"></span></a>
+
+                                            <a data-toggle="tooltip" title="Delete" href="{{ url('/admin/news/delete/'.$this_news->id) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
                                         </td>
                                     </tr>
                                     @endforeach

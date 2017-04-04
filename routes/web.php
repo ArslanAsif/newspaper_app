@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
     });
 
     Route::get('newsletter', 'SubscriberController@getNewsletter');
+    Route::get('newsletter/{id}', 'SubscriberController@getNewsletterFromArticle');
     Route::post('newsletter', 'SubscriberController@postNewsletter');
     Route::get('newsletter/send', 'SubscriberController@getSendNewsletter');
 

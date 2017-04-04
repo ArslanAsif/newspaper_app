@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Newsletter;
+use App\News;
 use App\Mail\NewsletterMailer;
 use App\Subscriber;
 use Illuminate\Http\Request;
@@ -31,8 +32,22 @@ class SubscriberController extends Controller
 
     public function getNewsletter()
     {
-        $newsletter = Newsletter::first();
-        return view('admin.newsletter')->with('newsletter', $newsletter);
+        $content = Newsletter::first()->content;
+        return view('admin.newsletter')->with('content', $content);
+    }
+
+    public function getNewsletterFromArticle($id)
+    {
+        $news = News::find($id);
+        $content = "<h1>".$news->title."<h1>";
+
+        if(isset($news->picture))
+        {
+            $content .= "<img src=".url('images/news/'.$news->picture)."><br>";
+        }
+        
+        $content .= $news->description;
+        return view('admin.newsletter')->with('content', $content);
     }
 
     public function postNewsletter(Request $request)
@@ -42,24 +57,38 @@ class SubscriberController extends Controller
             $newsletter = Newsletter::first();
             $newsletter->content = $request['content'];
             $newsletter->update();
+
+            $subscribers = Subscriber::where('confirmed', 1)->get();
+
+            foreach ($subscribers as $subscriber) {
+                Mail::to($subscriber->email)->send(new NewsletterMailer());
+            }
+            return redirect()->back();
         }
         else
         {
             $newsletter = new Newsletter();
             $newsletter->content = $request['content'];
             $newsletter->save();
+
+            $subscribers = Subscriber::where('confirmed', 1)->get();
+
+            foreach ($subscribers as $subscriber) {
+                Mail::to($subscriber->email)->send(new NewsletterMailer());
+            }
+            return redirect()->back();
         }
         return redirect()->back();
     }
 
-    public function getSendNewsletter()
-    {
-        $subscribers = Subscriber::where('confirmed', 1)->get();
+    // public function getSendNewsletter()
+    // {
+    //     $subscribers = Subscriber::where('confirmed', 1)->get();
 
-        foreach ($subscribers as $subscriber) {
-            Mail::to($subscriber->email)->send(new NewsletterMailer());
-        }
-        return redirect()->back();
+    //     foreach ($subscribers as $subscriber) {
+    //         Mail::to($subscriber->email)->send(new NewsletterMailer());
+    //     }
+    //     return redirect()->back();
         
-    }
+    // }
 }

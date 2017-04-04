@@ -115,10 +115,10 @@ class HomeController extends Controller
 
         $headlines = News::where('publish_date', '!=', null)->where('latest', 1)->orderBy('created_at', 'DESC')->take(10)->get();
 
-        $main_spotlight = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
-        $main_latest = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(6)->get();
+        $main_spotlight = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
+        $main_latest = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(6)->get();
 
-        $main_latest_count = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->take(6)->count();
+        $main_latest_count = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->take(6)->count();
 
         $opinions = News::where('publish_date', '!=', null)->where('category', 'Opinion')->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(4)->get();
 
