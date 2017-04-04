@@ -138,7 +138,6 @@ class HomeController extends Controller
         $category_lifestyle = News::where('category', 'Lifestyle')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(4)->get();
 
         $advertisements = Advertisement::where('published_on', '!=', null)->get();
-        $ad_duration = $advertisements->first()->duration;
 
         return view('welcome')->with(['headlines'=>$headlines ,'main_spotlight' => $main_spotlight, 'main_latest' => $main_latest, 'main_latest_count'=>$main_latest_count, 'opinions'=>$opinions, 'advertisements'=>$advertisements, 'category_world_spotlight'=>$category_world_spotlight, 'category_gcc_spotlight'=>$category_gcc_spotlight, 'category_gcc'=>$category_gcc, 'category_business_spotlight'=>$category_business_spotlight, 'category_weather_spotlight'=>$category_weather_spotlight, 'category_sports_spotlight'=>$category_sports_spotlight, 'category_lifestyle_spotlight'=>$category_lifestyle_spotlight, 'category_world'=>$category_world, 'category_business'=>$category_business, 'category_weather'=>$category_weather, 'category_sports'=>$category_sports, 'category_lifestyle'=>$category_lifestyle]);
     }
