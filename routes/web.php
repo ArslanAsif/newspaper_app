@@ -14,6 +14,8 @@ Route::get('/exchangerate', function(){
     return view('exchangerate');
 });
 
+Route::get('/clear', 'HomeController@getClearCountry');
+
 Route::get('/api/currencyconverter', 'HomeController@getCurrenctExchangeAjax');
 Route::get('/links', 'HomeController@getImpLinks');
 
@@ -55,6 +57,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['adm
     });
 
     Route::get('newsletter', 'SubscriberController@getNewsletter');
+    Route::get('newsletter/today', 'SubscriberController@getNewsletterToday');
     Route::get('newsletter/{id}', 'SubscriberController@getNewsletterFromArticle');
     Route::post('newsletter', 'SubscriberController@postNewsletter');
     Route::get('newsletter/send', 'SubscriberController@getSendNewsletter');

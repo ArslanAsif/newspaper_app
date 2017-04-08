@@ -121,7 +121,7 @@
     <nav class="navbar navbar-default col-xs-6 col-sm-12" style="z-index: 3">
         <div class="container">
             <div class="navbar-header mynavbar-icon">
-                <a href="{{url('/')}}">
+                <a href="{{url('/clear')}}">
                     <img class="header-image" width="150px" src="{{ url('images/gccc.png') }}" alt="" />
                 </a>
             </div>
@@ -167,22 +167,22 @@
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#countryNavbar">
-                <span>{{$country}}</span>                       
+                <span>{{Cache::has('country') ? Cache::get('country') : 'Country'}}</span>                       
               </button>
             </div>
             <div class="collapse navbar-collapse nav-flag nav-flag1" id="countryNavbar">
               <ul class="nav navbar-nav">
-                <li class="{{ ($country == 'Saudi Arabia') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
+                <li class="{{ (Cache::get('country') == 'Saudi Arabia') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/sa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/sa.png') }}"> Saudi Arabia</a></li>
                     
-                <li class="{{ ($country == 'UAE') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
+                <li class="{{ (Cache::get('country') == 'UAE') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/ae') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/ae.png') }}"> UAE</a></li>
                 
-                <li class="{{ ($country == 'Qatar') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/qa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/qa.png') }}"> Qatar</a></li>
+                <li class="{{ (Cache::get('country') == 'Qatar') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/qa') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/qa.png') }}"> Qatar</a></li>
                 
-                <li class="{{ ($country == 'Kuwait') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/kw') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/kw.png') }}"> Kuwait</a></li>
+                <li class="{{ (Cache::get('country') == 'Kuwait') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/kw') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/kw.png') }}"> Kuwait</a></li>
 
-                <li class="{{ ($country == 'Bahrain') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/bh') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/bh.png') }}"> Bahrain</a></li>
+                <li class="{{ (Cache::get('country') == 'Bahrain') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/bh') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/bh.png') }}"> Bahrain</a></li>
                 
-                <li class="{{ ($country == 'Oman') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/om') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/om.png') }}"> Oman</a></li>
+                <li class="{{ (Cache::get('country') == 'Oman') ? 'nav-flag-active' : '' }}"><a href="{{ url('/ver/om') }}"><img class="img-of-nav" src="{{ url('/images/countries_flags/om.png') }}"> Oman</a></li>
               </ul>
             </div>
           </div>

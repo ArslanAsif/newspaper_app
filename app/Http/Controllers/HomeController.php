@@ -39,6 +39,14 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function getClearCountry()
+    {
+        Cache::forget('country');
+        Cache::forget('city');
+
+        return redirect('/');
+    }
+
     public function getSetCountry($country)
     {
         switch(strtoupper($country))
@@ -80,13 +88,13 @@ class HomeController extends Controller
                 break;
             }
 
-            default: {
-                $country = "Saudi Arabia";
-            }
+            // default: {
+            //     $country = "Saudi Arabia";
+            // }
         }
 
-        Cache::put('country', $country, 60*24*7);
-        Cache::put('city', $city, 60*24*7);
+        Cache::put('country', $country, 60);
+        Cache::put('city', $city, 60);
         return back();
     }
 
@@ -97,34 +105,36 @@ class HomeController extends Controller
         // $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
         // $city = $details->city;
         // Cache::put('city', $city, 60*24*7);
-        $coun = '';
 
         if(Cache::has('country'))
         {
             $coun = Cache::get('country');
             $city = Cache::get('city');
         }
-        else
-        {
-            $country = "Saudi Arabia";
-            $city = "Riyadh";
-            
-            Cache::put('country', $country, 60*24*7);
-            Cache::put('city', $city, 60*24*7);              
-        }
 
         $headlines = News::where('publish_date', '!=', null)->where('latest', 1)->orderBy('created_at', 'DESC')->take(10)->get();
 
-        $main_spotlight = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
-        $main_latest = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(6)->get();
 
-        $main_latest_count = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->take(6)->count();
+        if(Cache::has('country'))
+        {
+            $main_spotlight = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
+            $main_latest = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(6)->get();
+            $main_latest_count = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->take(6)->count();
+        }
+        else
+        {
+            $main_spotlight = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('created_at', 'DESC')->first();
+            $main_latest = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(6)->get();
+            $main_latest_count = News::where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->take(6)->count();
+        }
+
+        
 
         $opinions = News::where('publish_date', '!=', null)->where('category', 'Opinion')->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(4)->get();
 
-        $category_gcc_spotlight = News::where('country', $coun)->where('category', 'GCC')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
+        $category_gcc_spotlight = News::where('category', 'GCC')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
 
-        $category_gcc = News::where('country', $coun)->where('category', 'GCC')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(4)->get();
+        $category_gcc = News::where('category', 'GCC')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(4)->get();
 
         $category_world_spotlight = News::where('category', 'World')->where('publish_date', '!=', null)->where('spotlight', 1)->first();
         $category_world = News::where('category', 'World')->where('publish_date', '!=', null)->where('spotlight', '!=', 1)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->take(4)->get();

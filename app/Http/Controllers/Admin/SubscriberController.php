@@ -9,6 +9,7 @@ use App\Subscriber;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class SubscriberController extends Controller
 {
@@ -33,6 +34,22 @@ class SubscriberController extends Controller
     public function getNewsletter()
     {
         $content = Newsletter::first()->content;
+        return view('admin.newsletter')->with('content', $content);
+    }
+
+    public function getNewsletterToday()
+    {
+        $news = News::all();
+        $content = '<h1>Latest for today</h1>';
+
+        foreach ($news as $this_news) {
+            
+            if(Carbon::parse($this_news->publish_date)->diffInDays() == 0)
+            {
+                $content .= "<a href='".url('/article/'.$this_news->id)."'><h2>".$this_news->title."</h2></a>";
+            }
+        }
+
         return view('admin.newsletter')->with('content', $content);
     }
 
