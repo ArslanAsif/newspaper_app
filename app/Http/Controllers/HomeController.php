@@ -159,7 +159,7 @@ class HomeController extends Controller
         if($category == 'gcc')
         {
             
-            $articles = News::where('country', $coun)->where('category', $category)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
+            $articles = News::where('category', $category)->orderBy('priority', 'ASC')->orderBy('created_at', 'DESC')->where('publish_date', '!=', null)->paginate(12);
             return view('category')->with(['category' => 'GCC', 'articles' => $articles]);
         }
 
