@@ -30,7 +30,7 @@
                                         <th>Category</th>
                                         <th>Author</th>
                                         <th>Submitted On</th>
-                                        <th>Updated On</th>
+                                        <th>Published On</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -46,7 +46,7 @@
                                             <td>{{ $this_news->category}}</td>
                                             <td>{{ $this_news->user->name }}</td>
                                             <td>{{ $this_news->created_at }}</td>
-                                            <td>{{ $this_news->updated_at }}</td>
+                                            <td>{{ $this_news->publish_date }}</td>
                                             <td>
                                                 <a data-toggle="tooltip" title="Unpublish" href="#" class="btn btn-warning" onclick="event.preventDefault();
                                                                          document.getElementById('{{ "publish-form".$this_news->id }}').submit();"><span class="fa fa-close"></span></a>

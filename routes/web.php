@@ -20,6 +20,7 @@ Route::get('/api/currencyconverter', 'HomeController@getCurrenctExchangeAjax');
 Route::get('/links', 'HomeController@getImpLinks');
 
 Route::get('/', 'HomeController@index');
+Route::get('/latest', 'HomeController@getLatest');
 Route::get('/ver/{country}', 'HomeController@getSetCountry');
 Route::get('/tag/{id}', 'HomeController@getTag');
 Route::get('/category/{category}', 'HomeController@category');

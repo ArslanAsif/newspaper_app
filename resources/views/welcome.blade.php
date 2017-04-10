@@ -38,7 +38,7 @@
                     @endif
 
                     <br>
-
+                    
                     <div id="rst-popular">
                         @if(isset($main_latest))
                             <?php $count = 0; ?>
@@ -67,6 +67,10 @@
 
                     </div>
                     <div class="clear"></div>
+                    <div class="">
+                        <br>
+                        <a href="/latest" style="padding: 10px 20px; border: 1px solid #E8ECF0; color: black; float: right;">VIEW ALL</a>
+                    </div>
                 </div>
 
                 <br>
