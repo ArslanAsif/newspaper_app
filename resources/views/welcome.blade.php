@@ -47,7 +47,7 @@
                                     <div class='row' style="padding-top: 1px">
                                     <?php $count1 = 0; ?>
                                 @endif
-                                <article class="col-sm-4 col-xs-6">
+                                <article class="col-xs-12 col-sm-4 col-md-4">
                                     <div class="rst-postpic">
                                         <a href="{{ url('article/'.$article->id) }}"><img class="img-border" src="{{ url(isset($article->picture) ? 'images/news/'.$article->picture : 'images/no-image-available.png') }}" alt="" /></a>
                                         <a class="rst-postpic-cat" href="{{ url('category/'.strtolower($article->category)) }}"><span>{{ $article->category }}</span></a>
@@ -69,7 +69,7 @@
                     <div class="clear"></div>
                     <div class="">
                         <br>
-                        <a href="/latest" style="padding: 10px 20px; border: 1px solid #E8ECF0; color: black; float: right;">VIEW ALL</a>
+                        <a href="/latest" class="col-xs-12" style="padding: 10px 20px; border: 1px solid #E8ECF0; color: black; text-align: center;">VIEW ALL LATEST</a>
                     </div>
                 </div>
 
