@@ -524,7 +524,12 @@
 
     function getWeather() {
       $.simpleWeather({
-        location: '{{Cache::get("city").",".Cache::get("country")}}',
+        @if(Cache::has("city"))
+            location: '{{Cache::get("city").",".Cache::get("country")}}',
+        @else
+            location: '{{ json_decode(file_get_contents("http://ipinfo.io/{$_SERVER['REMOTE_ADDR']}/json"))->city }}',
+        @endif
+        
         woeid: '',
         unit: 'c',
         success: function(weather) {
