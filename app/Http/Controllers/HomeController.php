@@ -277,11 +277,9 @@ class HomeController extends Controller
     // }
 
     public function getTag($id)
-    {
-        $coun = Cache::get('country');
-        
+    {   
         $tags = Tag::orderBy('created_at', 'DESC')->get();
-        $articles = Tag::where('id', $id)->first()->news()->where('country', $coun)->orderBy('created_at', 'DESC')->paginate(12);
+        $articles = Tag::where('id', $id)->first()->news()->orderBy('created_at', 'DESC')->paginate(12);
         return view('tags')->with(['tag_name'=>Tag::where('id', $id)->first()->title ,'tags'=>$tags, 'articles'=>$articles]);
     }
 
@@ -611,5 +609,10 @@ class HomeController extends Controller
     {
         $about_gcc = About::where('type', 'aboutgcc')->first()->description;
         return view('aboutgcc')->with(['about_gcc'=>$about_gcc]);
+    }
+
+    public function getUnsubscribe()
+    {
+        
     }
 }

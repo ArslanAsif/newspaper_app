@@ -40,15 +40,26 @@ class SubscriberController extends Controller
     public function getNewsletterToday()
     {
         $news = News::all();
-        $content = '<h1>Latest for today</h1>';
+        $content = '<div style="text-align: center">
+                        <img height=100px src="'.url('images/gccc.png').'">
+                        <h1 style="margin-top: 15px; margin-bottom: 30px;">
+                            <span style="padding: 10px 15px; border: 1px solid grey;">Latest in GCC Connect</span>
+                        </h1>
+                        <hr>';
 
         foreach ($news as $this_news) {
             
             if(Carbon::parse($this_news->publish_date)->diffInDays() == 0)
             {
-                $content .= "<a href='".url('/article/'.$this_news->id)."'><h2>".$this_news->title."</h2></a>";
+                $content .= "<a href='".url('/article/'.$this_news->id)."'><h2>".$this_news->title."</h2><img src=".url('images/news/'.$this_news->picture)."></a><br><hr>";
             }
         }
+        $content .= "<h2>For any questions or query - VISIT</h2>";
+        $content .= "<a href='http://gccconnect.com/about' >http://gccconnect.com/about</a><br><br>";
+        $content .= "<a href='http://fb.com/gccinfo/' ><img height=50px src='".url('images/fb-like.jpg')."'></a>";
+
+        // $content .= "<p><br>To Stop receiving GCC Connect Updates - <a href='http://gccconnect.com/unsubscribe/''>Unsubscribe</a></p>";
+        $content .= "</div>";
 
         return view('admin.newsletter')->with('content', $content);
     }

@@ -65,6 +65,7 @@
     <![endif]-->
 </head>
 <body>
+@include('includes.analyticstracking')
 
 <!--- Wrapper -->
 <section id="wrapper" class="clearfix">

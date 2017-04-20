@@ -14,6 +14,8 @@ Route::get('/exchangerate', function(){
     return view('exchangerate');
 });
 
+Route::get('/unsubscribe/{token}', 'HomeController@getUnsubscribe');
+
 Route::get('/clear', 'HomeController@getClearCountry');
 
 Route::get('/api/currencyconverter', 'HomeController@getCurrenctExchangeAjax');

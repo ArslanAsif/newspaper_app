@@ -41,6 +41,27 @@
 @section('css')
     <!-- bootstrap-wysiwyg -->
     <link href="{{ url('vendors/google-code-prettify/bin/prettify.min.css') }}" rel="stylesheet">
+
+    <style>
+        /*.newsletter-today {
+            text-align: center;
+        }*/
+
+        /*.newsletter-today p {
+            margin-top: 15px;
+            margin-bottom: 30px;
+            font-size: 36px;
+        }*/
+
+        /*.newsletter-today p span{
+            padding: 10px 15px;
+            border: 1px solid grey;
+        }*/
+
+        /*.newsletter-today img {
+            height: 80px;
+        }*/
+    </style>
 @endsection
 
 @section('js')
