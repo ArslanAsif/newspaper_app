@@ -95,7 +95,7 @@ class HomeController extends Controller
 
         Cache::put('country', $country, 60);
         Cache::put('city', $city, 60);
-        return back();
+        return redirect('/');
     }
 
     public function index()
