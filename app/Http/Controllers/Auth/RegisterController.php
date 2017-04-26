@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Subscriber;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -62,6 +63,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $subs = Subscriber::where('email', $data['email'])->first();
+        if(!isset($subs->email))
+        {
+            Subscriber::create([
+            'email' => $data['email'],
+            'confirmed' => 1,
+        ]);
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

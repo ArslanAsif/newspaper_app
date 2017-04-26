@@ -69,13 +69,13 @@
                                     </div>
                                 </div>
 
-                                <!-- /*<div class="form-group">
+                                <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="duration">Duration <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="number" placeholder="Days" name="duration" id="title" value="{{ isset($news) ? $news->duration: '' }}{{ isset($errors) ? old('duration') : '' }}" required="required" class="form-control col-md-7 col-xs-12">
                                     </div>
-                                </div>*/ -->
+                                </div>
 
                                 <div class="form-group" id="priority-div">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Priority <small>(Lower is better)</small></label>

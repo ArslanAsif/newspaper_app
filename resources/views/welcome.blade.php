@@ -138,6 +138,14 @@
                                 <div class="clear"></div> -->
                             </aside>
                             <!-- end widget adv -->
+                            <aside class="widget widget_newsletter">
+                                <h3>Newsletter</h3>
+                                <form action="{{ url('/subscriber/add') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <input name="email" required="required" class="rst-pageinput" type="email" value="Enter Email" onblur="if (this.value == '') {this.value = 'Enter Email';}" onclick=" if (this.value == 'Enter Email') {this.value = '';}" />   
+                                    <input class="rst-pagebutton" type="submit" value="Subscribe"/>
+                                </form>
+                            </aside>
                         </div>
                     </div>
                 </div>

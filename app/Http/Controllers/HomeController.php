@@ -117,9 +117,9 @@ class HomeController extends Controller
 
         if(Cache::has('country'))
         {
-            $main_spotlight = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('publish_date', 'DESC')->first();
-            $main_latest = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderByRaw('DATE(publish_date) DESC')->orderBy('priority', 'ASC')->orderByRaw('TIME(publish_date) DESC')->take(6)->get();
-            $main_latest_count = News::where('country', $coun)->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->take(6)->count();
+            $main_spotlight = News::where('country', $coun)->where('category', 'GCC')->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight', 1)->orderBy('publish_date', 'DESC')->first();
+            $main_latest = News::where('country', $coun)->where('category', 'GCC')->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->orderByRaw('DATE(publish_date) DESC')->orderBy('priority', 'ASC')->orderByRaw('TIME(publish_date) DESC')->take(6)->get();
+            $main_latest_count = News::where('country', $coun)->where('category', 'GCC')->where('publish_date', '!=', null)->where('latest', 1)->where('homepage', 1)->where('spotlight','!=', 1)->take(6)->count();
         }
         else
         {
@@ -323,8 +323,9 @@ class HomeController extends Controller
         if(Auth::user()->type == 'admin')
         {
             $news->priority = $request['priority'];
-            $news->duration = $request['duration'];
 
+            $news->duration = $request['duration'];
+            
             if(isset($request['homepage']) && isset($request['latest']) && isset($request['spotlight']))
             {
                 $checking = News::where('homepage', 1)->where('spotlight', 1)->where('latest', 1)->get();
